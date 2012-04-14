@@ -1,3 +1,7 @@
+###################################
+# This file is managed by Puppet. #
+###################################
+
 # /etc/sudoers
 #
 # This file MUST be edited with the 'visudo' command as root.
