@@ -1,5 +1,5 @@
 
-#import "classes/*.pp"
+import "services/*.pp"
 import "nodes/*.pp"
 
 # The filebucket option allows for file backups to the server
@@ -11,4 +11,12 @@ Exec { path => "/usr/bin:/usr/sbin/:/bin:/sbin" }
 
 node basenode {
   include sudo
+
+  class { "ntp":
+      servers 		=> [ 'ntp0.net.strath.ac.uk',
+  								 	 	 'ntp1.net.strath.ac.uk',
+  								 	   'ntp2.net.strath.ac.uk',
+  								     'ntp3.net.strath.ac.uk', ],
+			autoupdate	=> false,
+  }
 }
