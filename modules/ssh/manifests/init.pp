@@ -40,7 +40,7 @@ class ssh::sshd {
 	}
 	
 	$sshd_config_AllowGroups = $sshd_config_AllowGroups ? {
-	    '' => "members gssg gsag root",
+	    '' => "gssg gsag root",
 	    default => $sshd_config_AllowGroups
 	}
 	

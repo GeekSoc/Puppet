@@ -1,5 +1,5 @@
 
-node 'kobol.geeksoc.org' inherits basenode {
+node 'kobol.geeksoc.org' {
 	include shell
 	include global
 }
