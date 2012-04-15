@@ -1,6 +1,6 @@
 
 node 'picon.geeksoc.org' {
-	$sshd_config_PermitRootLogin = 'yes'
+	$sshd_config_PermitRootLogin = 'no'
 	
     /* nfs::share { "home":
         path:    => "/home",
