@@ -1,5 +1,11 @@
 class global {
 
+	$users_auth = 'ldap'
+	$users_ldap_servers = ['ldap.geeksoc.org']
+	$users_ldap_basedn = 'dc=geeksoc,dc=org'
+	$users_ldap_ssl = 'no'
+
+	include users
 	include sudo
     include ssh::sshd
     include ssh::known_hosts
@@ -12,6 +18,10 @@ class global {
         autoupdate    => false,
     }
 
+
+	###################
+	# Global Packages #
+	###################
 	case $::operatingsystem {
         debian, ubuntu: {
             $vim_name = "vim"
