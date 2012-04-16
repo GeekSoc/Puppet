@@ -30,7 +30,7 @@ class ssh::sshd {
 	}
 
 	$sshd_config_PermitRootLogin = $sshd_config_PermitRootLogin ? {
-	    '' => "no",
+	    '' => "yes",
 	    default => $sshd_config_PermitRootLogin
 	}
 
