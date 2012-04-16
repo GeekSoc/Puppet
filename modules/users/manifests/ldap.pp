@@ -92,7 +92,7 @@ class users::ldap {
              package { "ldap-utils": ensure => present }
 
              case $common::osver {
-                 5: {
+                 5,6: {
                      # Debian 5, by default, uses a separated file for pam ldap settings 
                      file { "pam_ldap.conf":
                          path    => "/etc/pam_ldap.conf",
