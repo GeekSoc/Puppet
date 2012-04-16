@@ -9,6 +9,7 @@ class global {
 	include sudo
     include ssh::sshd
     include ssh::known_hosts
+	include munin::node
 
     class { "ntp":
         servers       => [ 'ntp0.net.strath.ac.uk',
