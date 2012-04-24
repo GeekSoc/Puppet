@@ -12,6 +12,7 @@ class global {
     include ssh::known_hosts
 	include munin::node
 	include rsyslog
+	include fail2ban
 
     class { "ntp":
         servers       => [ 'ntp0.net.strath.ac.uk',
