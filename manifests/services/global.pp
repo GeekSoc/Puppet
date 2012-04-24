@@ -3,7 +3,7 @@ class global {
 	$users_auth = 'ldap'
 	$users_ldap_servers = ['ldap.geeksoc.org']
 	$users_ldap_basedn = 'dc=geeksoc,dc=org'
-	$users_ldap_ssl = 'no'
+	$users_ldap_ssl = 'yes'
 	$syslog_server = 'picon.geeksoc.org'
 
 	include users

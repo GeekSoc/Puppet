@@ -77,7 +77,7 @@ class users::ldap {
                 owner   => "root",
                 group   => "root",
                 ensure  => present,
-                source => "${users::params::users_source}/ldap/cacert.pem",
+                source => "puppet:///modules/users/ldap.geeksoc.org.cert",
             }
         }
     }
