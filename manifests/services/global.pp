@@ -22,6 +22,18 @@ class global {
         autoupdate    => false,
     }
 
+	cron { "run-puppet":
+		command => "/usr/bin/puppet agent --test > /dev/null",
+		minute  => inline_template("<%= hostname.hash.abs % 30 %>"),
+	}
+	cron { "run-puppet2":
+		command => "/usr/bin/puppet agent --test > /dev/null",
+		minute  => inline_template("<%= hostname.hash.abs % 30 + 30 %>"),
+	}
+	service { "puppet":
+		ensure => stopped,
+		enable => false,
+	}
 
 	###################
 	# Global Packages #
