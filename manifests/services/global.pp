@@ -4,12 +4,14 @@ class global {
 	$users_ldap_servers = ['ldap.geeksoc.org']
 	$users_ldap_basedn = 'dc=geeksoc,dc=org'
 	$users_ldap_ssl = 'no'
+	$syslog_server = 'picon.geeksoc.org'
 
 	include users
 	include sudo
     include ssh::sshd
     include ssh::known_hosts
 	include munin::node
+	include rsyslog
 
     class { "ntp":
         servers       => [ 'ntp0.net.strath.ac.uk',
