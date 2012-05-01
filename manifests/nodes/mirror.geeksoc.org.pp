@@ -18,5 +18,10 @@ This server is Puppet managed - local changes may be overwritten!
 " 
    }
 
+	service { "mpt-statusd":
+		ensure => stopped,
+		enable => false,
+	}
+
 	include global
 }
