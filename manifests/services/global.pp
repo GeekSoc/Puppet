@@ -41,9 +41,11 @@ class global {
 	case $::operatingsystem {
         debian, ubuntu: {
             $vim_name = "vim"
+			$netcat_name = "netcat"
         }
         centos, redhat: {
             $vim_name = "vim-enhanced"
+			$netcat_name = "nc"
         }
     }
 
@@ -52,6 +54,7 @@ class global {
                 "git",
                 "bash-completion",
                 "htop",
+				"${netcat_name}",
                 "${vim_name}", ]:
         ensure => installed,
     }
