@@ -20,17 +20,17 @@ class bind {
 		owner   => "root",
         group   => "root",
         mode    => 0644,
-        source => "puppet:///modules/named/named.el.conf",
+        source => "puppet:///modules/bind/named.el.conf",
 		notify => Service["named"]
 	}
 	file { "/etc/named/zones/geeksoc.org.zone":
 		ensure => present,
-        source => "puppet:///modules/named/zones/geeksoc.org.zone",
+        source => "puppet:///modules/bind/zones/geeksoc.org.zone",
 		notify => Service["named"]
 	}
 	file { "/etc/named/zones/141.159.130.in-addr.arpa.hosts":
 		ensure => present,
-        source => "puppet:///modules/named/zones/141.159.130.in-addr.arpa.hosts",
+        source => "puppet:///modules/bind/zones/141.159.130.in-addr.arpa.hosts",
 		notify => Service["named"]
 	}
 }
