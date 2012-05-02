@@ -3,6 +3,7 @@ node 'picon.geeksoc.org' {
 	$sshd_config_PermitRootLogin = 'no'
 	
 	include epylog
+	include bind
 	
     nfs::share { "home":
         path    => "/home",

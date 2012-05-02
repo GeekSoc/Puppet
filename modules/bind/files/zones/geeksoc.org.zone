@@ -1,0 +1,106 @@
+$ttl 3600
+;
+;  Database file geeksoc.org.zone for geeksoc.org zone.
+;
+@               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
+                        2012042301   ; serial number
+                        900          ; slave refresh
+                        600          ; slave retry time in case of a problem
+                        86400        ; slave expiration time
+                        3600       ) ; default TTL
+;
+;  Zone NS records
+;
+
+@               NS          dns0.strath.ac.uk.
+@               NS          dns1.strath.ac.uk.
+
+;
+;  Zone records
+;
+
+@               A           130.159.141.65
+                            
+@               MX          5       aspmx5.googlemail.com.
+@               MX          1       aspmx.l.google.com.
+@               MX          3       alt1.aspmx.l.google.com.
+@               MX          3       alt2.aspmx.l.google.com.
+@               MX          5       aspmx2.googlemail.com.
+@               MX          5       aspmx3.googlemail.com.
+@               MX          5       aspmx4.googlemail.com.
+                            
+@               A           130.159.141.65
+
+; ##Services##
+mail            CNAME       ghs.google.com.
+www             CNAME       io
+irc             CNAME       tianna
+storage         CNAME       picon
+shell           CNAME       kobol
+ns              CNAME       picon
+ldap            CNAME       picon
+loghost         CNAME       picon
+nagioshost      CNAME       argama
+puppet          CNAME       picon
+
+
+; ##Hosts##
+io              A       130.159.141.65
+tianna          A       130.159.141.66
+sintii          A       130.159.141.68
+kobol           A       130.159.141.69
+vpn             A       130.159.141.79
+idran           A       130.159.141.81
+web2            A       130.159.141.82
+pandora         A       130.159.141.86
+andor           A       130.159.141.90
+;ilo.andor      A       130.159.141.91
+gemini          A       130.159.141.91
+gemini-1        A       130.159.141.92
+gemini-2        A       130.159.141.93
+git             A       130.159.141.94
+dev1            A       130.159.141.95
+degobah         A       130.159.141.95
+alderon         A       130.159.141.97
+mirrorhost      A       130.159.141.98
+vulcan          A       130.159.141.99
+vmtest          A       130.159.141.100
+argama          A       130.159.141.111
+picon           A       130.159.141.112
+gs-meet-server  A       130.159.141.114
+caprica         A       130.159.141.118
+
+; ## Dev VMs ##
+devf            A       130.159.141.101
+crytter         CNAME   devf
+fraser.dev      A       130.159.141.102
+tweevo          CNAME   io  
+
+; ##Infrastructure##
+;ssc            A       130.159.141.95
+
+;bridge1        A       130.159.141.125
+;bridge2        A       130.159.141.124
+
+dhd             A       130.159.141.119
+catalyst        A       130.159.141.125
+gateway         A       130.159.141.126
+
+;for ITS nagios:
+ping0           CNAME   io
+
+random          A       1.3.3.7
+
+; ##Reverse Proxy Addresses - For Varnish Delivered Content##
+web             CNAME       io
+wiki            CNAME       io
+automatical     CNAME       io
+icecast         CNAME       io
+mirror          CNAME       io
+etckeeper       CNAME       io
+spiceworks      CNAME       io
+bugs            CNAME       io
+dev             CNAME       io
+nagios          CNAME       io
+munin           CNAME       io
+gitlab          CNAME       io

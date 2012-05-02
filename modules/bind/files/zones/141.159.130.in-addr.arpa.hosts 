@@ -1,0 +1,37 @@
+141.159.130.in-addr.arpa. IN SOA dns0.strath.ac.uk. hostmaster.geeksoc.org (
+    2012021601
+    1h
+    1h
+    1d
+    1h
+)
+
+141.159.130.in-addr.arpa.   IN  NS  dns0.strath.ac.uk.
+141.159.130.in-addr.arpa.   IN  NS  dns1.strath.ac.uk.
+
+65  IN  PTR io.geeksoc.org.
+66  IN  PTR tianna.geeksoc.org.
+68  IN  PTR sintii.geeksoc.org.
+69  IN  PTR kobol.geeksoc.org.
+73  IN  PTR io.geeksoc.org.
+
+75  IN  PTR ns.geeksoc.org.
+
+79  IN  PTR vpn.geeksoc.org.
+81  IN  PTR idran.geeksoc.org.
+82  IN  PTR web2.geeksoc.org.
+86  IN  PTR pandora.geeksoc.org.
+90  IN  PTR andor.geeksoc.org.
+97  IN  PTR alderon.geeksoc.org.
+98  IN  PTR mirrorhost.geeksoc.org.
+99  IN  PTR vulcan.geeksoc.org.
+101 IN  PTR devf.geeksoc.org.
+102 IN  PTR fraser.dev.geeksoc.org.
+111 IN  PTR argama.geeksoc.org.
+112 IN  PTR picon.geeksoc.org.
+114 IN  PTR gs-meet-server.geeksoc.org.
+118 IN  PTR caprica.geeksoc.org.
+
+119 IN  PTR dhd.geeksoc.org.
+125 IN  PTR catalyst.geeksoc.org.
+126 IN  PTR gateway.geeksoc.org.
