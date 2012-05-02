@@ -1,0 +1,6 @@
+#!/bin/sh
+# Run epylog daily.
+#
+# $Id$
+#
+/usr/sbin/epylog --cron
