@@ -3,11 +3,11 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2012042301   ; serial number
-                        900          ; slave refresh
-                        600          ; slave retry time in case of a problem
-                        86400        ; slave expiration time
-                        3600       ) ; default TTL
+                        2012042301   ; serial number //REMEMBER TO UPDATE!!
+                        900          ; (15m) slave refresh
+                        600          ; (10m) slave retry in case of a problem
+                        1209600      ; (2w)  slave expiration time
+                        3600       ) ; (1hr) default TTL
 ;
 ;  Zone NS records
 ;
@@ -37,7 +37,8 @@ www             CNAME       io
 irc             CNAME       tianna
 storage         CNAME       picon
 shell           CNAME       kobol
-ns              CNAME       picon
+ssh             CNAME       kobol
+ns              A           130.159.141.75
 ldap            CNAME       picon
 loghost         CNAME       picon
 nagioshost      CNAME       argama
@@ -47,7 +48,7 @@ puppet          CNAME       picon
 ; ##Hosts##
 io              A       130.159.141.65
 tianna          A       130.159.141.66
-sintii          A       130.159.141.68
+;sintii          A       130.159.141.68
 kobol           A       130.159.141.69
 vpn             A       130.159.141.79
 idran           A       130.159.141.81
@@ -59,12 +60,8 @@ gemini          A       130.159.141.91
 gemini-1        A       130.159.141.92
 gemini-2        A       130.159.141.93
 git             A       130.159.141.94
-dev1            A       130.159.141.95
-degobah         A       130.159.141.95
-alderon         A       130.159.141.97
 mirrorhost      A       130.159.141.98
 vulcan          A       130.159.141.99
-vmtest          A       130.159.141.100
 argama          A       130.159.141.111
 picon           A       130.159.141.112
 gs-meet-server  A       130.159.141.114
@@ -77,12 +74,6 @@ fraser.dev      A       130.159.141.102
 tweevo          CNAME   io  
 
 ; ##Infrastructure##
-;ssc            A       130.159.141.95
-
-;bridge1        A       130.159.141.125
-;bridge2        A       130.159.141.124
-
-dhd             A       130.159.141.119
 catalyst        A       130.159.141.125
 gateway         A       130.159.141.126
 
