@@ -13,6 +13,13 @@ class global {
 	include munin::node
 	include rsyslog
 	include fail2ban
+    include "resolver"
+
+    resolv_conf { "geeksoc.org":
+        domainname  => "geeksoc.org",
+        searchpath  => ['geeksoc.org'],
+        nameservers => ['130.159.248.50', '130.159.228.50'],
+    }
 
     class { "ntp":
         servers       => [ 'ntp0.net.strath.ac.uk',
