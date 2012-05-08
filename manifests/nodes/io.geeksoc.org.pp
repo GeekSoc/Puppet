@@ -1,6 +1,8 @@
 
 node 'io.geeksoc.org' {
 
+	include varnish
+
 	file { '/etc/motd':
         content => "
  _____             _____           _     _____            
@@ -17,7 +19,6 @@ This server is Puppet managed - local changes may be overwritten!
 
 " 
     }
-
 	
 	include global
 }
