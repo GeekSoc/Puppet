@@ -13,7 +13,7 @@ class global {
 	include munin::node
 	include rsyslog
 	include fail2ban
-    include "resolver"
+    include resolv
 
     resolv_conf { "geeksoc.org":
         domainname  => "geeksoc.org",
