@@ -1,6 +1,6 @@
 
 node 'picon.geeksoc.org' {
-	$sshd_config_PermitRootLogin = 'no'
+    #$sshd_config_PermitRootLogin = 'no'
 	
 	include epylog
 	include bind
