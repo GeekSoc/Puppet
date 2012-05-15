@@ -16,14 +16,6 @@ backend default {
     .between_bytes_timeout = 600s;
 }
 
-backend winserver {
-    .host = "130.159.141.97";
-    .port = "80";
-    .connect_timeout = 600s;
-    .first_byte_timeout = 600s;
-    .between_bytes_timeout = 600s;
-}
-
 backend gitlab {
     .host = "130.159.141.94";
     .port = "80";
@@ -32,33 +24,9 @@ backend gitlab {
     .between_bytes_timeout = 600s;
 }
 
-backend icecast {
-    .host = "130.159.141.97";
-    .port = "8000";
-    .connect_timeout = 600s;
-    .first_byte_timeout = 600s;
-    .between_bytes_timeout = 600s;
-}
-
 backend argama {
     .host = "130.159.141.111";
     .port = "80";
-    .connect_timeout = 600s;
-    .first_byte_timeout = 600s;
-    .between_bytes_timeout = 600s;
-}
-
-backend dhd {
-    .host = "130.159.141.119";
-    .port = "6081";
-    .connect_timeout = 600s;
-    .first_byte_timeout = 600s;
-    .between_bytes_timeout = 600s;
-}
-
-backend spiceworks {
-    .host = "130.159.141.97";
-    .port = "9675";
     .connect_timeout = 600s;
     .first_byte_timeout = 600s;
     .between_bytes_timeout = 600s;
@@ -87,14 +55,6 @@ sub vcl_recv {
     set req.backend = gitlab;
   }
 
-  if (req.http.host == "automatical.geeksoc.org") {
-    set req.backend = winserver;
-  }
-
-  if (req.http.host == "icecast.geeksoc.org") {
-    set req.backend = icecast;
-  }
-
   if (req.http.host == "nagios.geeksoc.org") {
     set req.backend = argama;
   }
@@ -105,22 +65,6 @@ sub vcl_recv {
 
   if (req.http.host == "munin.geeksoc.org") {
     set req.backend = argama;
-  }
-
-  if (req.http.host == "strathclydefusion.com") {
-    set req.backend = dhd;
-  }
-
-  if (req.http.host == "www.strathclydefusion.com") {
-    set req.backend = dhd;
-  }
-
-  if (req.http.host == "stream.strathclydefusion.com") {
-    set req.backend = dhd;
-  }
-
-  if (req.http.host == "spiceworks.geeksoc.org") {
-    set req.backend = spiceworks;
   }
 
   if (req.http.host == "mirror.geeksoc.org") {
