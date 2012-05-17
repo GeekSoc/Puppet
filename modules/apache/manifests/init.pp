@@ -48,7 +48,7 @@ define apache::website (
         owner   => "root",
         group   => "root",
         mode    => 0644,
-        content => template("httpd/website.conf.erb"),
+        content => template("apache/website.conf.erb"),
         notify  => Service["httpd"],
         require => Package["httpd"],
     }
