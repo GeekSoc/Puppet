@@ -1,14 +1,6 @@
 
 node 'idran.geeksoc.org' {
 
-    mount { "/home":
-        device  => "storage.geeksoc.org:/home",
-        fstype  => "nfs",
-        ensure  => "mounted",
-        options => "rw,hard,intr",
-        atboot  => true,
-    }
-
 	file { '/etc/motd':
         content => " 
  _____     _                       _____           _     _____            
@@ -26,5 +18,5 @@ This server is Puppet managed - local changes may be overwritten!
 " 
     }
 
-	include global
+	include web
 }

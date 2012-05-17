@@ -1,0 +1,17 @@
+<VirtualHost *:80>
+  ServerName <%= name %>
+<% if not server_aliases.empty? -%>
+  ServerAlias <%= server_aliases.join(" ") %>
+<% end -%>
+  ServerAdmin <%= server_admin %>
+  DocumentRoot /var/www/vhosts/<%= name %>/public_html
+  
+	
+  <Directory /var/www/vhosts/<%= name %>/public_html>
+   	Order Allow,Deny
+   	Allow from All
+   	Options +Indexes
+   	AllowOverride All
+  </Directory>
+
+</VirtualHost>
