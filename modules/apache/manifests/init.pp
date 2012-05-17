@@ -38,20 +38,19 @@ class apache {
         require => Package["httpd"],
     }
 
+}
 
-	define apache::website (
-	    $server_aliases = [],
-	    $server_admin = "support@geeksoc.org", ) {
-	    
-	    file { "/etc/httpd/conf.d/$name.conf":
-	        owner   => "root",
-	        group   => "root",
-	        mode    => 0644,
-	        content => template("httpd/website.conf.erb"),
-	        notify  => Service["httpd"],
-	        require => Package["httpd"],
-	    }
-	
-	}
+define apache::website (
+    $server_aliases = [],
+    $server_admin = "support@geeksoc.org" 
+) {    
+    file { "/etc/httpd/conf.d/$name.conf":
+        owner   => "root",
+        group   => "root",
+        mode    => 0644,
+        content => template("httpd/website.conf.erb"),
+        notify  => Service["httpd"],
+        require => Package["httpd"],
+    }
 
 }
