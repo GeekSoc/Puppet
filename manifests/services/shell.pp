@@ -21,7 +21,7 @@ class shell {
 				"gettext",
 				"haskell-platform",
 				"irssi",
-				"java-1.6.0-openjdk",
+				"java-1.6.0-openjdk-devel",
 				"jwhois",
 				"libtool",
 				"lynx",
