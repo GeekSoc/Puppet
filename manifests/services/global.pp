@@ -61,6 +61,8 @@ class global {
                 "git",
                 "bash-completion",
                 "htop",
+				"nano",
+				"iftop",
 				"${netcat_name}",
                 "${vim_name}", ]:
         ensure => installed,
