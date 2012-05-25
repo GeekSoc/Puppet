@@ -18,5 +18,6 @@ This server is Puppet managed - local changes may be overwritten!
 " 
     }
 
+	include bind
 	include web
 }

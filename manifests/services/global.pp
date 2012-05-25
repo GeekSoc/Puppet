@@ -18,7 +18,7 @@ class global {
     resolv_conf { "geeksoc.org":
         domainname  => "geeksoc.org",
         searchpath  => ['geeksoc.org'],
-        nameservers => ['130.159.141.75', '130.159.248.50', '130.159.228.50'],
+        nameservers => ['130.159.141.75', '130.159.141.81'],
     }
 
     class { "ntp":
