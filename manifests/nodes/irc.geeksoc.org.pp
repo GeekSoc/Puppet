@@ -1,6 +1,8 @@
 
 node 'irc.geeksoc.org' {
 
+	include ircd
+
 	file { '/etc/motd':
         content => "
  ___________ _____       _____           _     _____            
