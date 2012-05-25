@@ -1,0 +1,26 @@
+dn: uid=<user>,<usuffix>,<suffix>
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: gsAccount
+cn: <first> <last>
+sn: <last>
+givenName: <first>
+title: Member
+uid: <user>
+uidNumber: <uid>
+gidNumber: <gid>
+homeDirectory: <home>
+loginShell: <shell>
+gecos: <first> <last>,,,
+shadowLastChange: 10877
+shadowMax: 99999
+shadowWarning: 7
+mail: <ask>
+studentNumber: <ask>
+hasPaid: TRUE
+hasSignedTOS: TRUE
+shadowExpire: 15623

@@ -1,0 +1,802 @@
+# should live in: /usr/local/lib/ldapscripts/gsruntime
+#  gsruntime, based on:
+#  runtime : this file is used by the ldapscripts, it sould not be used independently
+
+#  Copyright (C) 2005 Gana?l LAPLANCHE - Linagora
+#  Copyright (C) 2006-2011 Gana?l LAPLANCHE
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
+#  USA.
+
+### Useful functions ###
+
+# Tests a string
+# Input : string to test ($1), pattern ($2)
+# Output : true or false
+is_like () {
+  echo "$1" | grep -qi "^$2$"
+}
+
+# Tests a string
+# Input : string to test ($1)
+# Output : true or false
+is_yes () {
+  is_like "$1" "yes"
+}
+
+# Tests a string
+# Input : string to test ($1)
+# Output : true or false
+is_no () {
+  is_like "$1" "no"
+}
+
+# Tests a string
+# Input : string to test ($1)
+# Output : true or false
+is_uri () {
+  echo "$1" | grep -q '://'
+}
+
+# Tests a string
+# Input : string to test ($1)
+# Output : true or false
+is_valid_dn () {
+  echo "$1" | grep -qE "^([^,=]+=[^,=]+,)+$SUFFIX$"
+}
+
+# Tests a string
+# Input : string to test ($1)
+# Output : true or false
+is_b64 () {
+  echo "$1" | grep -q '^[^: ]*:: '
+}
+
+# Tests a string
+# Input : string to test ($1)
+# Output : true or false
+is_integer () {
+  echo "$1" | grep -qE '^[0-9]+$'
+}
+
+# Tests a string (a command name) and tells if it is built-in (true) or external (false)
+# Input : string to test ($1)
+# Output : true or false
+is_builtin () {
+  type "$1" 2>/dev/null | grep -qi 'built'
+}
+
+# Logs a string to $LOGFILE
+# Input : string to log ($1)
+# Output : nothing
+log_only () {
+  if [ -n "$1" ]
+  then
+    if [ -n "$LOGFILE" ]
+    then
+      if [ ! -w "$LOGFILE" ]
+      then
+        touch "$LOGFILE" 2>/dev/null
+        if [ $? -ne 0 ]
+        then
+          echo "Unable to create $LOGFILE, exiting..." && exit 1
+        fi
+      fi
+      echo "$1" >> "$LOGFILE"
+    fi
+  fi
+}
+
+# Echoes (to STDOUT) and logs a string to $LOGFILE
+# Input : string to echo and log ($1)
+# Output : nothing
+echo_log () {
+  [ -n "$1" ] && echo "$1"
+  [ -n "$1" ] && log_only "  -> $1"
+}
+
+# Echoes (to STDERR) and logs a string to $LOGFILE
+# Input : string to echo and log ($1)
+# Output : nothing
+warn_log () {
+  [ -n "$1" ] && echo "$1" 1>&2
+  [ -n "$1" ] && log_only "  -> $1"
+}
+
+# Echoes/logs $1, exits and returns 0
+# Input : string to echo and log ($1)
+# Output : 0
+end_ok () {
+  [ -n "$1" ] && echo_log "$1"
+  exit 0
+}
+
+# Echoes/logs $1, exits and returns 1
+# Input : string to echo and log ($1)
+# Output : 1
+end_die () {
+  [ -n "$1" ] && warn_log "$1"
+  exit 1
+}
+
+# Allocates and creates a temporary file $_TMPFILE under $TMPDIR
+# Output : nothing
+mktempf () {
+  # Avoid creating two temporary files (must have been released before)
+  [ -n "$_TMPFILE" ] && end_die "Error allocating temporary file $_TMPFILE"
+  # Name temp file
+  _TMPFILE="$TMPDIR/$(basename $0).$(date '+%Y%m%d-%H%M%S').$$.$(head -c4 /dev/random | od -t u4 | head -n 1 | awk '{print $2}')"
+  # Catch CTRL-C to remove $_TMPFILE
+  trap 'rm -f "$_TMPFILE" 2>/dev/null ; end_die "Interrupted - Removing temporary file $_TMPFILE"' 2
+  # Create temp file
+  _TMPMASK=$(umask)
+  umask 0077
+  touch "$_TMPFILE" 2>/dev/null || end_die "Error creating temporary file $_TMPFILE"
+  umask "$_TMPMASK"
+}
+
+# Releases a previously allocated temporary file
+# Output : nothing
+reltempf () {
+  # Clean up the temporary file and restore traps
+  rm -f "$_TMPFILE" 2>/dev/null
+  # Reset traps
+  trap - 2
+  # Clean up name
+  unset _TMPFILE
+}
+
+### LDAP functions ###
+
+# Performs a search in the LDAP directory
+# Input : base ($1), filter ($2), attribute to display ($3)
+# Output : entry/entries found (stdout)
+_ldapsearch () {
+  if [ -n "$SASLAUTH" ]
+  then
+    $LDAPSEARCHBIN -Y "$SASLAUTH" -b "${1:-$SUFFIX}" -H "$SERVER" -s sub -LLL "${2:-(objectclass=*)}" "${3:-*}" 2>>"$LOGFILE"
+  elif [ -n "$BINDPWDFILE" ]
+  then
+    $LDAPSEARCHBIN -y "$BINDPWDFILE" -D "$BINDDN" -b "${1:-$SUFFIX}" -xH "$SERVER" -s sub -LLL "${2:-(objectclass=*)}" "${3:-*}" 2>>"$LOGFILE" 
+  else
+    $LDAPSEARCHBIN -w "$BINDPWD" -D "$BINDDN" -b "${1:-$SUFFIX}" -xH "$SERVER" -s sub -LLL "${2:-(objectclass=*)}" "${3:-*}" 2>>"$LOGFILE" 
+  fi
+}
+
+# Adds an entry to the LDAP directory
+# Input : LDIF - entry to add (stdin), optional '-c' (continue mode) option ($1)
+# Output : nothing
+_ldapadd () {
+  case "$1" in
+    "-c")
+      _OPTIONS="-c"
+    ;;
+    "")
+      unset _OPTIONS
+    ;;
+    *)
+      unset _OPTIONS
+      warn_log "Warning : invalid parameter supplied to _ldapadd(), ignoring..."
+    ;;
+  esac
+
+  if [ -n "$SASLAUTH" ]
+  then
+    $LDAPADDBIN $_OPTIONS -Y "$SASLAUTH" -H "$SERVER" 2>>"$LOGFILE" 1>/dev/null
+  elif [ -n "$BINDPWDFILE" ]
+  then
+    $LDAPADDBIN $_OPTIONS -y "$BINDPWDFILE" -D "$BINDDN" -xH "$SERVER" 2>>"$LOGFILE" 1>/dev/null
+  else
+    $LDAPADDBIN $_OPTIONS -w "$BINDPWD" -D "$BINDDN" -xH "$SERVER" 2>>"$LOGFILE" 1>/dev/null
+  fi
+}
+
+# Modifies an entry in the LDAP directory
+# Input : LDIF - modification information (stdin), optional '-c' (continue mode) option ($1)
+# Output : nothing
+_ldapmodify () {
+  case "$1" in
+    "-c")
+      _OPTIONS="-c"
+    ;;
+    "")
+      unset _OPTIONS
+    ;;
+    *)
+      unset _OPTIONS
+      warn_log "Warning : invalid parameter supplied to _ldapmodify(), ignoring..."
+    ;;
+  esac
+
+  if [ -n "$SASLAUTH" ]
+  then
+    $LDAPMODIFYBIN $_OPTIONS -Y "$SASLAUTH" -H "$SERVER" 2>>"$LOGFILE" 1>/dev/null
+  elif [ -n "$BINDPWDFILE" ]
+  then
+    $LDAPMODIFYBIN $_OPTIONS -y "$BINDPWDFILE" -D "$BINDDN" -xH "$SERVER" 2>>"$LOGFILE" 1>/dev/null
+  else
+    $LDAPMODIFYBIN $_OPTIONS -w "$BINDPWD" -D "$BINDDN" -xH "$SERVER" 2>>"$LOGFILE" 1>/dev/null
+  fi
+}
+
+# Renames an entry in the LDAP directory
+# Input : old dn ($1), new rdn ($2)
+# Output : nothing
+_ldaprename () {
+  if [ -z "$1" ] || [ -z "$2" ]
+  then
+    end_die "_ldaprename : missing argument(s)"
+  else
+    if [ -n "$SASLAUTH" ]
+    then
+      $LDAPMODRDNBIN -Y "$SASLAUTH" -H "$SERVER" -r "$1" "$2" 2>>"$LOGFILE" 1>/dev/null
+    elif [ -n "$BINDPWDFILE" ]
+    then
+      $LDAPMODRDNBIN -y "$BINDPWDFILE" -D "$BINDDN" -xH "$SERVER" -r "$1" "$2" 2>>"$LOGFILE" 1>/dev/null
+    else
+      $LDAPMODRDNBIN -w "$BINDPWD" -D "$BINDDN" -xH "$SERVER" -r "$1" "$2" 2>>"$LOGFILE" 1>/dev/null
+    fi
+  fi
+}
+
+# Deletes an entry in the LDAP directory
+# Input : dn to delete ($1)
+# Output : nothing
+_ldapdelete () {
+  [ -z "$1" ] && end_die "_ldapdelete : missing argument"
+  if [ -n "$SASLAUTH" ]
+  then
+    $LDAPDELETEBIN -Y "$SASLAUTH" -H "$SERVER" -r "$1" 2>>"$LOGFILE" 1>/dev/null
+  elif [ -n "$BINDPWDFILE" ]
+  then
+    $LDAPDELETEBIN -y "$BINDPWDFILE" -D "$BINDDN" -xH "$SERVER" -r "$1" 2>>"$LOGFILE" 1>/dev/null
+  else
+    $LDAPDELETEBIN -w "$BINDPWD" -D "$BINDDN" -xH "$SERVER" -r "$1" 2>>"$LOGFILE" 1>/dev/null
+  fi
+}
+
+# Extracts LDIF information from $0 (the current script itself)
+# selecting lines beginning with $1 occurrences of '#'
+# Input : depth ($1)
+# Output : extracted LDIF data (stdout)
+_extractldif () {
+  if [ -n "$1" ] && is_integer "$1"
+  then
+    _EXTRACTDEPTH="$1"
+  else
+    warn_log "Warning : invalid depth supplied to _extractldif(), using default (2)..."
+    _EXTRACTDEPTH='2'
+  fi
+  grep "^#\{$_EXTRACTDEPTH\}[^#]*$" "$0" | sed 's|^#*||' 2>>"$LOGFILE"
+}
+
+# Filters LDIF information
+# Input : Data to filter (stdin)
+# Output : Filtered data (stdout)
+_filterldif () {
+  # Allocate and create temp file
+  mktempf
+
+  # Generate filter file
+  cat 2>/dev/null << EOF > "$_TMPFILE" || end_die "Error writing to temporary file $_TMPFILE"
+# Generated by ldapscripts - do not edit !
+# Group attributes
+s|<group>|$_GROUP|g
+s|<gclass>|$GCLASS|g
+s|<gmemberattr>|$_GMEMBERATTR|g
+s|<gdummymember>|$GDUMMYMEMBER|g
+# User attributes
+s|<user>|$_USER|g
+s|<uid>|$_UID|g
+s|<udn>|$_UDN|g
+s|<gid>|$_GID|g
+s|<home>|$_HOMEDIR|g
+s|<shell>|$USHELL|g
+s|<password>|$_PASSWORD|g
+s|<entry>|$_ENTRY|g
+# GS Custom attributes
+s|<first>|$_FIRST|g
+s|<last>|$_LAST|g
+# Suffixes
+s|<suffix>|$SUFFIX|g
+s|<_suffix>|$_SUFFIX|g
+s|<usuffix>|$USUFFIX|g
+s|<_usuffix>|$_USUFFIX|g
+s|<msuffix>|$MSUFFIX|g
+s|<_msuffix>|$_MSUFFIX|g
+s|<gsuffix>|$GSUFFIX|g
+s|<_gsuffix>|$_GSUFFIX|g
+EOF
+
+  # Use it
+  sed -f "$_TMPFILE" 2>>"$LOGFILE"
+
+  # Release temp file
+  reltempf
+}
+
+# Ask interactively for <ask> attributes in LDIF templates
+# Input : Data to filter (stdin)
+# Output : Filtered data (stdout)
+_askattrs () {
+  # Backup and set IFS
+  _OLDIFS="$IFS"
+  IFS=""
+
+  # Allocate and create temp file
+  mktempf
+
+  # Backup STDIN
+  _STDIN=$(cat)
+
+  # Loop through STDIN and ask for <ask> values
+  # to generate the sed filter ($_TMPFILE)
+  _I=1
+  _LINES=$(echo $_STDIN | wc -l)
+  _CURRENT="unknown"
+  while [ $_I -le $_LINES ]
+  do
+    # Extract current line
+    _LINE=$(echo $_STDIN | sed -n "${_I}p")
+
+    # Keep current DN
+    if echo "$_LINE" | grep -qi '^dn: '
+    then
+      _CURRENT="$_LINE"
+    fi
+
+    # Is there a <ask> keyword in the line ?
+    if echo "$_LINE" | grep -qiE '^[^: ]+: .*<ask>'
+    then
+      # Ask for attribute
+      _ATTRNAME=$(echo "$_LINE" | cut -d ':' -f 1)
+      echo -n "[$_CURRENT] Enter value for \"$_ATTRNAME\" : " 1>&2
+      read _ATTRVAL < /dev/tty
+      # Generate sed filter
+      echo "${_I}s|<ask>|$_ATTRVAL|" >> "$_TMPFILE" || end_die "Error writing to temporary file $_TMPFILE"
+    fi
+
+    _I=$(($_I + 1))
+  done
+
+  # Use filter file
+  echo $_STDIN | sed -f "$_TMPFILE"
+
+  # Release temp file
+  reltempf
+
+  # Restore IFS
+  IFS="$_OLDIFS"
+}
+
+# Converts local charset to UTF-8
+# Input : Data to convert (stdin)
+# Output : Converted data (stdout)
+_utf8encode () {
+  if [ -x "$ICONVBIN" ] && [ -n "$ICONVCHAR" ]
+  then
+    $ICONVBIN -f "$ICONVCHAR" -t UTF-8 2>>"$LOGFILE"
+  else
+    cat
+  fi
+}
+
+## Converts UTF-8 to local charset
+## Input : Data to convert (stdin)
+## Output : Converted data (stdout)
+_utf8decode () {
+  if [ -x "$ICONVBIN" ] && [ -n "$ICONVCHAR" ]
+  then
+    $ICONVBIN -f UTF-8 -t "$ICONVCHAR" 2>>"$LOGFILE"
+  else
+    cat
+  fi
+}
+
+## Converts text (should be UTF-8) to base64
+## Input : Data to convert (stdin)
+## Output : Converted data (stdout)
+#_b64encode () {
+#  if [ -x "$UUENCODEBIN" ]
+#  then
+#    $UUENCODEBIN -m - 2>>"$LOGFILE" | grep -v -e "^begin-base64" -e "^=*$" 2>>"$LOGFILE"
+#  else
+#    cat
+#  fi
+#}
+
+# Converts base64 to UTF-8
+# Input : Data to convert (stdin)
+# Output : Converted data (stdout)
+_b64decode () {
+  if [ -x "$UUDECODEBIN" ]
+  then
+    $UUDECODEBIN -mr 2>>"$LOGFILE"
+  else
+    cat
+  fi
+}
+
+### Nsswitch functions
+
+# Converts to gid any group passed in as name/gid
+# Input : the name or gid to convert ($1)
+# Output : the result of the conversion or "" if not found (stdout)
+_grouptogid () {
+  [ -z "$1" ] && end_die "_grouptogid : missing argument"
+  # Try local resolution
+  _TMPGID=$(eval $GETENTGRCMD "$1" 2>/dev/null | head -n 1 | cut -d ":" -f 3)
+  if [ -z "$_TMPGID" ]
+  then
+    # Try asking LDAP
+    # As we are working with posixGroup attributes (cn, gidNumber) and using RFC 2307bis,
+    # looking for posixGroup objectClasses is sufficient (looking for more specific $GCLASS may miss posixGroup-only entries).
+    _TMPGID=$(_ldapsearch "$GSUFFIX,$SUFFIX" "(&(objectClass=posixGroup)(|(cn=$1)(gidNumber=$1)))" gidNumber | grep "gidNumber: " | head -n 1 | sed "s|gidNumber: ||")
+  fi
+  echo "$_TMPGID"
+  unset _TMPGID
+}
+
+# Converts to name any group passed in as name/gid
+# Input : the name or gid to convert ($1)
+# Output : the result of the conversion or "" if not found (stdout)
+_gidtogroup () {
+  [ -z "$1" ] && end_die "_gidtogroup : missing argument"
+  # Try local resolution
+  _TMPGID=$(eval $GETENTGRCMD "$1" 2>/dev/null | head -n 1 | cut -d ":" -f 1)
+  if [ -z "$_TMPGID" ]
+  then
+    # Try asking LDAP
+    # As we are working with posixGroup attributes (cn, gidNumber) and using RFC 2307bis,
+    # looking for posixGroup objectClasses is sufficient (looking for more specific $GCLASS may miss posixGroup-only entries).
+    _TMPGID=$(_ldapsearch "$GSUFFIX,$SUFFIX" "(&(objectClass=posixGroup)(|(cn=$1)(gidNumber=$1)))" cn | grep "cn: " | head -n 1 | sed "s|cn: ||")
+  fi
+  echo "$_TMPGID"
+  unset _TMPGID
+}
+
+# Converts to uid any user passed in as name/uid
+# Input : the name or uid to convert ($1)
+# Output : the result of the conversion or "" if not found (stdout)
+_usertouid () {
+  [ -z "$1" ] && end_die "_usertouid : missing argument"
+  # Try local resolution
+  _TMPUID=$(eval $GETENTPWCMD "$1" 2>/dev/null | head -n 1 | cut -d ":" -f 3)
+  if [ -z "$_TMPUID" ]
+  then
+    # Try asking LDAP
+    _TMPUID=$(_ldapsearch "$SUFFIX" "(&(objectClass=posixAccount)(|(uid=$1)(uidNumber=$1)))" uidNumber | grep "uidNumber: " | head -n 1 | sed "s|uidNumber: ||")
+  fi
+  echo "$_TMPUID"
+  unset _TMPUID
+}
+
+# Converts to name any user passed in as name/uid
+# Input : the name or uid to convert ($1)
+# Output : the result of the conversion or "" if not found (stdout)
+_uidtouser () {
+  [ -z "$1" ] && end_die "_uidtouser : missing argument"
+  # Try local resolution
+  _TMPUID=$(eval $GETENTPWCMD "$1" 2>/dev/null | head -n 1 | cut -d ":" -f 1)
+  if [ -z "$_TMPUID" ]
+  then
+    # Try asking LDAP
+    _TMPUID=$(_ldapsearch "$SUFFIX" "(&(objectClass=posixAccount)(|(uid=$1)(uidNumber=$1)))" uid | grep "uid: " | head -n 1 | sed "s|uid: ||")
+  fi
+  echo "$_TMPUID"
+  unset _TMPUID
+}
+
+# Converts to LDAP DN any user passed in as name/uid
+# Input : the name or uid to convert ($1)
+# Output : the result of the conversion or "" if not found (stdout)
+_uidtodn () {
+  [ -z "$1" ] && end_die "_uidtodn : missing argument"
+  _TMPUDN=$(_ldapsearch "$SUFFIX" "(&(objectClass=posixAccount)(|(uid=$1)(uidNumber=$1)))" dn | grep "dn: " | head -n 1 | sed "s|dn: ||")
+  echo "$_TMPUDN"
+  unset _TMPUDN
+}
+
+### LDAP advanced functions
+
+# Finds the next useable group ID
+# Input : nothing
+# Output : the first free ID found starting from $GIDSTART (stdout)
+_findnextgid () {
+  # As we are looking for the last gidNumber of all group entry types and using RFC 2307bis,
+  # looking for posixGroup objectClasses is sufficient (looking for more specific $GCLASS may miss posixGroup-only entries).
+  _NEXTGID=$(_ldapsearch "$GSUFFIX,$SUFFIX" '(objectClass=posixGroup)' gidNumber | grep "gidNumber: " | sed "s|gidNumber: ||" | uniq | sort -n | tail -n 1)
+  if [ -z "$_NEXTGID" ] || [ "$_NEXTGID" -lt "$GIDSTART" ]
+  then
+    _NEXTGID="$GIDSTART"
+  else
+    _NEXTGID=$(($_NEXTGID + 1))
+  fi
+
+  # Is this ID free ?
+  _TMPGID=$(_gidtogroup "$_NEXTGID")
+  while [ -n "$_TMPGID" ]
+  do
+    _NEXTGID=$(($_NEXTGID + 1))
+    _TMPGID=$(_gidtogroup "$_NEXTGID")
+  done
+
+  unset _TMPGID
+  echo "$_NEXTGID"
+  unset _NEXTGID
+}
+
+# Finds the next useable machine ID
+# Input : nothing
+# Output : the first free ID found starting from $MIDSTART (stdout)
+_findnextmid () {
+  # Note : adding a more specific filter such as '(uid=*$)' may miss non-machine (but POSIX)
+  # entries here and while we are not interested in them, we still want to avoid ID conflicts
+  _NEXTMID=$(_ldapsearch "$MSUFFIX,$SUFFIX" '(objectClass=posixAccount)' uidNumber | grep "uidNumber: " | sed "s|uidNumber: ||" | uniq | sort -n | tail -n 1)
+  if [ -z "$_NEXTMID" ] || [ "$_NEXTMID" -lt "$MIDSTART" ]
+  then
+    _NEXTMID="$MIDSTART"
+  else
+    _NEXTMID=$(($_NEXTMID + 1))
+  fi
+
+  # Is this ID free ?
+  _TMPMID=$(_uidtouser "$_NEXTMID")
+  while [ -n "$_TMPMID" ]
+  do
+    _NEXTMID=$(($_NEXTMID + 1))
+    _TMPMID=$(_uidtouser "$_NEXTMID")
+  done
+
+  unset _TMPMID
+  echo "$_NEXTMID"
+  unset _NEXTMID
+}
+
+# Finds the next useable user ID
+# Input : nothing
+# Output : the first free ID found starting from $UIDSTART (stdout)
+_findnextuid () {
+  _NEXTUID=$(_ldapsearch "$USUFFIX,$SUFFIX" '(objectClass=posixAccount)' uidNumber | grep "uidNumber: " | sed "s|uidNumber: ||" | uniq | sort -n | tail -n 1)
+  if [ -z "$_NEXTUID" ] || [ "$_NEXTUID" -lt "$UIDSTART" ]
+  then
+    _NEXTUID="$UIDSTART"
+  else
+    _NEXTUID=$(($_NEXTUID + 1))
+  fi
+
+  # Is this ID free ?
+  _TMPUID=$(_uidtouser "$_NEXTUID")
+  while [ -n "$_TMPUID" ]
+  do
+    _NEXTUID=$(($_NEXTUID + 1))
+    _TMPUID=$(_uidtouser "$_NEXTUID")
+  done
+
+  unset _TMPUID
+  echo "$_NEXTUID"
+  unset _NEXTUID
+}
+
+# Finds a particular entry in the LDAP directory
+# Input : base ($1), filter ($2)
+# Output : the dn of the first matching entry found ($_ENTRY)
+_findentry () {
+  _ENTRY=$(_ldapsearch "$1" "$2" dn | grep "dn: " | head -n 1 | sed "s|dn: ||")
+}
+
+# Get a particular attribute from LDAP
+# Input : entry DN ($1), attribute ($2)
+# Output : the requested attribute of the entry ($_ATTRIBUTE)
+# and if it is b64 encoded ($_B64)
+_getattribute () {
+  _B64="NO"
+  # Get raw attribute
+  _ATTRIBUTE=$(_ldapsearch "$1" "" "$2" | grep "$2:\{1,2\} " | head -n 1)
+  # Is it Base64 encoded ?
+  is_b64 "$_ATTRIBUTE" && _B64="YES"
+  # Get attribute value
+  _ATTRIBUTE=$(echo "$_ATTRIBUTE" | sed "s|$2:\{1,2\} ||")
+}
+
+### Other functions ###
+
+# Ask for password interactively
+# Input : nothing
+# Output : password entered ($_PASSWORD)
+#          not set if input differed
+_askpassword () {
+  echo -n "New Password: "
+  stty -echo ; read _PASSWORD ; stty echo ; echo ''
+  echo -n "Retype New Password: "
+  stty -echo ; read _PASSWORD2 ; stty echo ; echo ''
+  if [ "$_PASSWORD" != "$_PASSWORD2" ]
+  then
+    unset _PASSWORD
+    warn_log "Mismatch !"
+  fi
+  unset _PASSWORD2
+}
+
+# Generates a password using the $PASSWORDGEN variable
+# Input : the username related to the generation ($1)
+# Output : generated password ($_PASSWORD),
+#          unset if PASSWORDGEN empty or set to "<ask>"
+_genpassword () {
+  unset _PASSWORD
+  if is_like "$PASSWORDGEN" "<ask>"
+  then
+    :
+  else
+    PASSWORDGEN=$(echo "$PASSWORDGEN" | sed "s|%u|$1|g")
+    [ -n "$PASSWORDGEN" ] && _PASSWORD=$(eval $PASSWORDGEN)
+  fi
+}
+
+# Changes a password for a particular DN
+# Input : new clear-text password ($1), user DN ($2)
+# Output : nothing
+_changepassword () {
+  if [ -z "$1" ] || [ -z "$2" ]
+  then
+    end_die "_changepassword : missing argument(s)"
+  else
+    if is_yes "$RECORDPASSWORDS"
+    then
+      echo "$2 : $1" >> "$PASSWORDFILE"
+    fi
+
+    if [ -n "$SASLAUTH" ]
+    then
+      # XXX Is there a reason to allow changing a userPassword attribute here ?
+      end_die "Please, change password in $SASLAUTH database"
+    elif [ -n "$BINDPWDFILE" ]
+    then
+      ## Change password in a secure way
+      # Allocate and create temp file
+      mktempf
+      # Generate password file
+      echo -n "$1" > "$_TMPFILE" || end_die "Error writing to temporary file $_TMPFILE"
+      # Change password
+      $LDAPPASSWDBIN -y "$BINDPWDFILE" -D "$BINDDN" -xH "$SERVER" -T "$_TMPFILE" "$2" 2>>"$LOGFILE" 1>/dev/null
+      _RESULT=$?
+      # Release temp file
+      reltempf
+      # Return previous result
+      return $_RESULT
+    else
+      ## Change password in the unsecure, old-fashioned way
+      $LDAPPASSWDBIN -w "$BINDPWD" -D "$BINDDN" -xH "$SERVER" -s "$1" "$2" 2>>"$LOGFILE" 1>/dev/null
+    fi
+  fi
+}
+
+### Source configuration file
+
+_CONFIGFILE="/usr/local/etc/ldapscripts/ldapscripts.conf"
+. "$_CONFIGFILE" || end_die "Unable to source configuration file ($_CONFIGFILE), exiting..."
+
+### Checks and defaults ###
+
+# Check if ldap client tools are correctly configured
+if [ ! -x "$LDAPADDBIN" ] || [ ! -x "$LDAPDELETEBIN" ] || [ ! -x "$LDAPSEARCHBIN" ] || [ ! -x "$LDAPMODIFYBIN" ] || [ ! -x "$LDAPPASSWDBIN" ] || [ ! -x "$LDAPMODRDNBIN" ]
+then
+  end_die "You must have OpenLDAP client commands installed before running these scripts"
+fi
+
+# Check if iconv is configured
+if [ -n "$ICONVBIN" ]
+then
+  [ ! -x "$ICONVBIN" ] && end_die  "You must have iconv installed before running these scripts"
+  [ -z "$ICONVCHAR" ] && end_die "You must set ICONVCHAR before running these scripts"
+fi
+
+# Base64 configuration
+[ -n "$UUDECODEBIN" ] && [ ! -x "$UUDECODEBIN" ] && \
+  end_die  "You must have uuencode installed before running these scripts"
+
+# Pseudo-random number generator
+[ ! -e /dev/random ] && end_die "You need a /dev/random special file to run these scripts"
+
+# Set USER variable to the user's login name (do not trust current $USER value)
+USER=$(logname 2>/dev/null)
+[ -z "$USER" ] && end_die 'Could not guess current user'
+
+# Check for bindpwd file if necessary
+if [ -z "$SASLAUTH" ]
+then
+  if [ ! -f "$BINDPWDFILE" ] || [ ! -r "$BINDPWDFILE" ]
+  then
+    if [ -n "$BINDPWD" ]
+    then
+      warn_log "Warning : using command-line passwords, ldapscripts may not be safe"
+    else
+      end_die "Unable to read password file $BINDPWDFILE, exiting..."
+    fi
+  fi
+fi
+
+# Does the shell has built-in echo command ?
+# If not, print a warning message
+if is_builtin "echo" && is_builtin "["
+then
+  :
+else
+  warn_log "Warning : 'echo' or '[' (test) is not built-in, ldapscripts may not be safe"
+fi
+
+# Check if a full URI has been given
+if is_uri "$SERVER"
+then
+  :
+else
+  SERVER="ldap://$SERVER"
+fi
+
+# Group membership management
+case $GCLASS in
+  posixGroup)
+    _GMEMBERATTR="memberUid"
+    ;;
+  groupOfNames)
+    [ -z "$GDUMMYMEMBER" ] && end_die "Please specify a value for GDUMMYMEMBER"
+    _GMEMBERATTR="member"
+    ;;
+  groupOfUniqueNames)
+    [ -z "$GDUMMYMEMBER" ] && end_die "Please specify a value for GDUMMYMEMBER"
+    _GMEMBERATTR="uniqueMember"
+    ;;
+  *)
+    end_die "Invalid value specified for GCLASS, exiting..."
+    ;;
+esac
+
+# Check homes, shell and logfile
+UHOMES=${UHOMES:-"/dev/null"}
+USHELL=${USHELL:-"/bin/false"}
+LOGFILE=${LOGFILE:-"/var/log/ldapscripts.log"}
+TMPDIR=${TMPDIR:-"/tmp"}
+
+# Check password file if password recording set
+if is_yes "$RECORDPASSWORDS"
+then
+  PASSWORDFILE=${PASSWORDFILE:-"/var/log/ldapscripts_passwd.log"}
+  if [ ! -w "$PASSWORDFILE" ]
+  then
+    touch "$PASSWORDFILE" 2>/dev/null || end_die "Unable to create password log file $PASSWORDFILE, exiting..."
+  fi
+fi
+
+# Guess what kind of getent command to use
+if [ -z "$GETENTPWCMD" ] || [ -z "$GETENTGRCMD" ]
+then
+  case $(uname) in
+    Linux*)
+      GETENTPWCMD="getent passwd"
+      GETENTGRCMD="getent group"
+      ;;
+    FreeBSD*)
+      GETENTPWCMD="pw usershow"
+      GETENTGRCMD="pw groupshow"
+      ;;
+    *)
+      GETENTPWCMD="getent passwd"
+      GETENTGRCMD="getent group"
+      ;;
+  esac
+fi
+
+# Record command call into logfile
+log_only "$(date '+%b %d %H:%M:%S') $(uname -n | sed 's|\..*$||') ldapscripts: $(basename $0)($USER): $0 $*"

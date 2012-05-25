@@ -1,0 +1,3 @@
+#! /bin/bash
+
+ldapsearch -xLLL -b ou=people,dc=geeksoc,dc=org | /usr/local/sbin/gsparseldif

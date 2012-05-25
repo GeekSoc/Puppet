@@ -1,0 +1,142 @@
+#!/bin/sh
+
+# should live in /usr/local/sbin/gsadduser 
+
+#  gsadduser, based on:
+#  ldapadduser : adds a POSIX user account to LDAP
+
+#  Copyright (C) 2005 Gana?l LAPLANCHE - Linagora
+#  Copyright (C) 2006-2011 Gana?l LAPLANCHE
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
+#  USA.
+
+if [ -z "$1" ] || [ -z "$2" ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]
+then
+  echo "Usage : $0 <firstname> <lastname> [username] "
+  exit 1
+fi
+
+# Source runtime file
+_RUNTIMEFILE="/usr/local/lib/ldapscripts/gsruntime"
+. "$_RUNTIMEFILE"
+
+_FIRST="$1"
+_LAST="$2"
+
+if [ -n "$3" ]
+then
+  _USER="$3"
+else
+  _USER=$(echo ${_FIRST:0:1}$_LAST | awk '{print tolower($0)}')
+ _COUNT=$(ldapsearch -xLLL -bou=people,dc=geeksoc,dc=org uid=$_USER dn | wc -l)
+
+  if [ $_COUNT != 0 ]
+  then
+    echo "Non-unique username: please specify alternative."
+    exit 1
+  fi
+fi
+
+echo $_USER
+# User GID = second argument
+_GID=$(_grouptogid "members")
+[ -z "$_GID" ] && end_die "Cannot resolve group members to gid : not found"
+
+# User UID
+_UID=$(_findnextuid)
+[ -z "_UID" ] && end_die "Cannot guess next free user id"
+
+# Compute homedir
+_HOMEDIR=$(echo "$UHOMES" | sed "s|%u|$_USER|g")
+
+# Use template if necessary
+UTEMPLATE="/usr/local/etc/ldapscripts/gsuser.template"
+if [ -n "$UTEMPLATE" ] && [ -r "$UTEMPLATE" ]
+then
+  _getldif="cat $UTEMPLATE"
+else
+  _getldif="_extractldif 2"
+fi
+
+# Add user to LDAP
+#$_getldif | _filterldif | _askattrs | _utf8encode | _ldapadd
+$_getldif | _filterldif | _askattrs | _utf8encode > /tmp/gsadduser
+cat /tmp/gsadduser | _ldapadd
+MAIL=$(grep mail /tmp/gsadduser | awk '{print $2}')
+rm -f /tmp/gsadduser
+
+[ $? -eq 0 ] || end_die "Error adding user $_USER to LDAP"
+echo_log "Successfully added user $_USER to LDAP"
+
+# Generate or ask for user password
+if is_like "$PASSWORDGEN" "<ask>"
+then
+  warn_log "Setting password for user $_USER"
+  _askpassword
+else
+  _genpassword "$_USER"
+fi
+
+# Add user password
+if [ -n "$_PASSWORD" ]
+then
+  _changepassword "$_PASSWORD" "uid=$_USER,$USUFFIX,$SUFFIX"
+  [ $? -eq 0 ] && echo_log "Successfully set password for user $_USER: $_PASSWORD"
+else
+  [ -n "$PASSWORDGEN" ] && warn_log "Warning : got invalid password for user $_USER (password not set)"
+fi
+
+# Create Home dir
+if is_yes "$CREATEHOMES"
+then
+  if [ -e "$_HOMEDIR" ]
+  then
+    warn_log "Skipped home directory creation for user $_USER (already exists)"
+  else
+    # Create home by skel or mkdir
+    if [ -d "$HOMESKEL" ]
+    then
+      cp -pR "$HOMESKEL/" "$_HOMEDIR" 2>>"$LOGFILE" 1>/dev/null
+    else
+      mkdir -p "$_HOMEDIR" 2>>"$LOGFILE" 1>/dev/null
+    fi
+
+    chmod "$HOMEPERMS" "$_HOMEDIR" 2>>"$LOGFILE" 1>/dev/null
+    chown -R "$_UID":"$_GID" "$_HOMEDIR" 2>>"$LOGFILE" 1>/dev/null
+    echo_log "Successfully created home directory for user $_USER"
+  fi
+fi
+
+#MAIL user details
+echo -e "An account has been created for $_FIRST $_LAST \n\nUsername: $_USER  \nEmail: $MAIL" | mail -r support@geeksoc.org -s "[GSN] New Account Created" president@geeksoc.org
+echo -e "Welcome to GeekSoc!\n\nYou may find your new account details below, but please change your password with the 'passwd' command immediately upon first login.\n\nUsername: $_USER \nPassword: $_PASSWORD\n\nYou may login to the shell server via SSH at shell.geeksoc.org on port 22. IRC may be found at irc.geeksoc.org on port 6667 - #geeksoc is the official channel.\n\nOn Windows the program 'putty' may be used to login to the SSH server, while Mac/Linux users will already have SSH installed and may connect using the 'ssh' command from a terminal.\n\nThe recommended way of accessing IRC is setting up a persistent connection on Shell using screen and irssi, see http://quadpoint.org/articles/irssi for details on how to set this up.\n\nHave fun, but please be responsible and abide with the terms of service.\n\nGeekSoc\nhttp://www.geeksoc.org/"  | mail -r support@geeksoc.org -s "[GeekSoc] Your account has been created" $MAIL
+
+/usr/local/sbin/ldapaddusertogroup $_USER members
+
+end_ok
+
+# Ldif template ##################################
+##dn: uid=<user>,<usuffix>,<suffix>
+##objectClass: account
+##objectClass: posixAccount
+##cn: <user>
+##uid: <user>
+##uidNumber: <uid>
+##gidNumber: <gid>
+##homeDirectory: <home>
+##loginShell: <shell>
+##gecos: <user>
+##description: User account

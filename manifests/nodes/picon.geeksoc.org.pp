@@ -4,6 +4,8 @@ node 'picon.geeksoc.org' {
 	
 	include epylog
 	include bind
+	include gs-scripts::adduser
+	include gs-scripts::listusers
 	
     nfs::share { "home":
         path    => "/home",
