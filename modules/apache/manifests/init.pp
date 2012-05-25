@@ -16,7 +16,7 @@ class apache {
         owner   => "root",
         group   => "root",
         mode    => 0644,
-        source  => "puppet://modules/apache/httpd.conf.el6",
+        source  => "puppet:///modules/apache/httpd.conf.el6",
         notify  => Service["httpd"],
         require => Package["httpd"],
     }
@@ -33,7 +33,7 @@ class apache {
         owner   => "root",
         group   => "root",
         mode    => 0644,
-        source  => "puppet://modules/apache/php.conf.el6",
+        source  => "puppet:///modules/apache/php.conf.el6",
         notify  => Service["httpd"],
         require => Package["httpd"],
     }
