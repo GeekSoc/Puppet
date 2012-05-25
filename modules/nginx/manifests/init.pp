@@ -12,7 +12,6 @@ class nginx {
         require   => Package["nginx"],
     }
 
-
     file { "/etc/nginx/nginx.conf":
 		owner   => "root",
         group   => "root",
@@ -33,8 +32,7 @@ class nginx {
 	}
 	file { "/etc/nginx/sites-enabled/geeksoc.org":
 	    ensure  => link,
-	    target  => "/etc/nginx/sites-available/geeksoc.
-	    conf",
+	    target  => "/etc/nginx/sites-available/geeksoc.conf",
 	    require => File["/etc/nginx/sites-available/geeksoc.org"],
 	    notify => Package["nginx"],
 	}
