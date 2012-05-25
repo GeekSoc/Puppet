@@ -1,6 +1,8 @@
 
 node 'vpn.geeksoc.org' {
 
+	include openvpn
+
 	file { '/etc/motd':
         content => "
  _   _______ _   _       _____           _     _____            
