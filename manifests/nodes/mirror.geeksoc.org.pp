@@ -18,6 +18,14 @@ This server is Puppet managed - local changes may be overwritten!
 " 
    }
 
+	# fosdem videos
+	cron { rsyncFOSDEM:
+	  command => "/usr/bin/rsync -rv rsync://video.fosdem.org/video . --delete",
+	  user => root,
+	  hour => 4,
+	  minute => 30
+	}
+
 	service { "mpt-statusd":
 		ensure => stopped,
 		enable => false,
