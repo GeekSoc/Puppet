@@ -7,7 +7,7 @@ node 'picon.geeksoc.org' {
 	
     nfs::share { "home":
         path    => "/home",
-        allowed => "130.159.141.64/26",
+        allowed => "kobol argama idran",
         options => "rw,sync,no_subtree_check",
     }
 
