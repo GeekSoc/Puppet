@@ -3,7 +3,7 @@ class gs-scripts::adduser {
 	file { "/usr/local/sbin/gsadduser":
         owner   => "root",
         group   => "root",
-        mode    => 0755,
+        mode    => 0750,
         source  => "puppet:///modules/gs-scripts/ldap/gsadduser",
     }
 
