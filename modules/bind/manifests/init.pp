@@ -15,6 +15,12 @@ class bind {
         require   => Package["bind"],
     }
 	
+	file { "/etc/named/zones/":
+	    ensure => "directory",
+		owner   => "root",
+        group   => "root",
+        mode    => 0644,
+	}
 	file { "/etc/named.conf":
 		ensure => present,
 		owner   => "root",
