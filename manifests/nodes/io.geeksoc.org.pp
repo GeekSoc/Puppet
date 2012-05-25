@@ -2,6 +2,7 @@
 node 'io.geeksoc.org' {
 
 	include varnish
+	include nginx
 
 	file { '/etc/motd':
         content => "
