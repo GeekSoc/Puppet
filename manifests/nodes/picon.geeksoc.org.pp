@@ -13,6 +13,14 @@ node 'picon.geeksoc.org' {
         options => "rw,sync,no_subtree_check",
     }
 
+	# Nightly backup of /home
+	cron { rSyncArgama:
+	  command => "/usr/bin/rsync -arv /home 130.159.141.111:/ --delete",
+	  user => root,
+	  hour => 3,
+	  minute => 30
+	}
+
 	file { '/etc/motd':
         content => "
 ______ _                        _____           _     _____            
