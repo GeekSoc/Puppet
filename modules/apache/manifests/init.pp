@@ -64,7 +64,7 @@ define apache::website (
 		$notify  = 'Service["httpd"]'
 	}
 	
-    file { "vhost.conf":
+    file { "${name}.conf":
 		path => $operatingsystem ? {
 	       "Debian" => "/etc/apache2/sites-available/$name.conf",
 	       default  => "/etc/httpd/conf.d/$name.conf",
