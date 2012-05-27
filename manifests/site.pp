@@ -1,5 +1,5 @@
 
-import "services/*.pp"
+import "roles/*.pp"
 import "nodes/*.pp"
 
 # The filebucket option allows for file backups to the server

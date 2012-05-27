@@ -7,7 +7,7 @@ node 'mirror.geeksoc.org' {
 
 	# fosdem videos
 	cron { rsyncFOSDEM:
-	  command => "/usr/bin/rsync -rv rsync://video.fosdem.org/video /var/www/vhosts/mirror.geeksoc.org/fosdem/fosdem/ --delete",
+	  command => "/usr/bin/rsync -rv rsync://video.fosdem.org/video /var/www/vhosts/mirror.geeksoc.org/public_html/fosdem/ --delete",
 	  user => root,
 	  hour => 4,
 	  minute => 30
