@@ -20,7 +20,7 @@ This server is Puppet managed - local changes may be overwritten!
 
 	# fosdem videos
 	cron { rsyncFOSDEM:
-	  command => "/usr/bin/rsync -rv rsync://video.fosdem.org/video . --delete",
+	  command => "/usr/bin/rsync -rv rsync://video.fosdem.org/video /var/www/vhosts/mirror.geeksoc.org/fosdem/htdocs/ --delete",
 	  user => root,
 	  hour => 4,
 	  minute => 30
