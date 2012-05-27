@@ -28,6 +28,10 @@ class apache {
         group   => "root",
         mode    => 0644,
         source  => "puppet:///modules/apache/httpd.conf.el6",
+		source  => $operatingsystem ? {
+	       "Debian" => "puppet:///modules/apache/httpd.conf.deb",
+	       default  => "puppet:///modules/apache/httpd.conf.el6",
+	    },
         notify  => Service["httpd"],
         require => Package["httpd"],
     }
