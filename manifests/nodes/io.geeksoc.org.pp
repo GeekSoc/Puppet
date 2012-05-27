@@ -1,9 +1,11 @@
 
 node 'io.geeksoc.org' {
 
+	# Modules
 	include varnish
 	include nginx
 
+	# Message of the day
 	file { '/etc/motd':
         content => "
  _____             _____           _     _____            
@@ -21,5 +23,6 @@ This server is Puppet managed - local changes may be overwritten!
 " 
     }
 	
+	# Roles
 	include global
 }

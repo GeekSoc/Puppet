@@ -1,6 +1,10 @@
 
 node 'idran.geeksoc.org' {
 
+	# Modules
+	include bind
+	
+	# Message of the day
 	file { '/etc/motd':
         content => " 
  _____     _                       _____           _     _____            
@@ -17,7 +21,8 @@ This server is Puppet managed - local changes may be overwritten!
 
 " 
     }
-
-	include bind
+	
+	
+	# Roles
 	include web
 }

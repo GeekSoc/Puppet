@@ -1,8 +1,10 @@
 
 node 'irc.geeksoc.org' {
 
+	# Modules
 	include ircd
 
+	# Message of the day
 	file { '/etc/motd':
         content => "
  ___________ _____       _____           _     _____            
@@ -20,5 +22,6 @@ This server is Puppet managed - local changes may be overwritten!
 " 
     }
 
+	# Roles
 	include global
 }

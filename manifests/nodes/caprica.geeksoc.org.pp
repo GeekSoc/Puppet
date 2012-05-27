@@ -1,6 +1,7 @@
 
 node 'caprica.geeksoc.org' {
 
+	# Message of the day
 	file { '/etc/motd':
         content => "
  _____                  _                _____           _     _____            
@@ -20,5 +21,7 @@ This server is Puppet managed - local changes may be overwritten!
 " 
     }
 
+
+	# Roles
 	include global
 }

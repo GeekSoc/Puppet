@@ -2,6 +2,7 @@
 node 'picon.geeksoc.org' {
     #$sshd_config_PermitRootLogin = 'no'
 	
+	# Modules
 	include epylog
 	include bind
 	include gs-scripts::adduser
@@ -21,6 +22,7 @@ node 'picon.geeksoc.org' {
 	  minute => 30
 	}
 
+	# Message of the day
 	file { '/etc/motd':
         content => "
 ______ _                        _____           _     _____            
@@ -41,5 +43,6 @@ Bringing your files to you - Because we can!
 " 
     }
 
+	# Roles
 	include global
 }

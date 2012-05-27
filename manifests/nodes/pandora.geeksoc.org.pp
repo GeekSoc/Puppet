@@ -1,6 +1,7 @@
 
 node 'pandora.geeksoc.org' {
 		
+	# Message of the day
 	file { '/etc/motd':
         content => "
 ______               _                   _____           _    _____            
@@ -18,5 +19,6 @@ This server is Puppet managed - local changes may be overwritten!
 " 
     }
 	
+	# Roles
 	include global
 }

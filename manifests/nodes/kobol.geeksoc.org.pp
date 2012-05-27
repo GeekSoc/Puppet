@@ -17,6 +17,7 @@ node 'kobol.geeksoc.org' {
         atboot  => true,
     }
 
+	# Message of the day
 	file { '/etc/motd':
         content => " 
  _   __      _           _       _____           _     _____            
@@ -44,5 +45,6 @@ Remember:
 " 
     }
 
+	# Roles
 	include shell
 }
