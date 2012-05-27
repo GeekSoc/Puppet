@@ -57,24 +57,17 @@ define apache::website (
     $server_aliases = [],
     $server_admin = "support@geeksoc.org" 
 ) {    
-	include apache
-	
-	if $operatingsystem == 'debian' {
-		$notify  = 'Exec["enable-${vhost_domain}-vhost"]'
-	} else {
-		$notify  = 'Service["httpd"]'
-	}
 	
     file { "${name}.conf":
 		path => $operatingsystem ? {
-	       "Debian" => "/etc/apache2/sites-available/$name.conf",
+	       "Debian" => "/etc/apache2/sites-enabled/$name.conf",
 	       default  => "/etc/httpd/conf.d/$name.conf",
 	    },
         owner   => "root",
         group   => "root",
         mode    => 0644,
         content => template("apache/website.conf.erb"),
-		notify => $notify,
+		notify => Service["httpd"],
         require => Package["httpd"],
     }
 	file { "/var/www/vhosts/$name":
@@ -89,12 +82,5 @@ define apache::website (
         mode   => 0755,
         ensure => directory,
     }
-
-	exec { "enable-${name}-vhost":
-		command     => "/usr/sbin/a2ensite ${name}.conf",
-		require     => [ File["/etc/apache2/sites-available/${name}.conf"] ],
-		refreshonly => true,
-		notify      => Service["httpd"],
-	}
 
 }
