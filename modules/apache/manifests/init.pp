@@ -57,6 +57,7 @@ define apache::website (
     $server_aliases = [],
     $server_admin = "support@geeksoc.org" 
 ) {    
+	include apache
 	
 	if $operatingsystem == 'debian' {
 		$notify  = 'Exec["enable-${vhost_domain}-vhost"]'
