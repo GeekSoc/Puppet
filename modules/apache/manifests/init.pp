@@ -89,9 +89,9 @@ define apache::website (
         ensure => directory,
     }
 
-	exec { "enable-${vhost_domain}-vhost":
-		command     => "/usr/sbin/a2ensite ${vhost_domain}.conf",
-		require     => [ File["/etc/apache2/sites-available/${vhost_domain}.conf"] ],
+	exec { "enable-${name}-vhost":
+		command     => "/usr/sbin/a2ensite ${name}.conf",
+		require     => [ File["/etc/apache2/sites-available/${name}.conf"] ],
 		refreshonly => true,
 		notify      => Service["httpd"],
 	}
