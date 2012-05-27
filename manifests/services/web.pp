@@ -9,6 +9,8 @@ class web {
     }
 
 	include apache
+	include mysql
+	include php
 	
 	apache::website { "geeksoc.org":
         server_aliases => [ "www.geeksoc.org" ],
