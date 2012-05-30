@@ -24,8 +24,8 @@ class apache {
 	       "Debian" => "/etc/apache2/apache2.conf",
 	       default  => "/etc/httpd/conf/httpd.conf",
 	    },
-        owner   => "root",
-        group   => "root",
+        owner   => "apache",
+        group   => "apache",
         mode    => 0644,
 		source  => $operatingsystem ? {
 	       "Debian" => "puppet:///modules/apache/httpd.conf.deb",
