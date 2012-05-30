@@ -36,9 +36,9 @@ class nagios::nrpe {
 
 	file { "/etc/nagios/nrpe.cfg":
 		mode    => "644",
-		owner   => $nagiosuser,
-		group   => $nagiosgroup,
-		content => template("nagios/nrpe.cfg"),
+		owner   => root,
+		group   => root,
+		content => template("nagios/nrpe.cfg.erb"),
 		require => Package[$nrpepackage],
 	}
 }
