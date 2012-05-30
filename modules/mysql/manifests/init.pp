@@ -45,3 +45,9 @@ class mysql {
 	}
 
 }
+
+class mysql::phpMyAdmin {
+	package { "phpMyAdmin":
+		ensure => installed,
+	}
+}
