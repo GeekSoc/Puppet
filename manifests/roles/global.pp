@@ -14,6 +14,7 @@ class global {
 	include rsyslog
 	include fail2ban
     include resolv
+	include nagios::nrpe
 
     resolv_conf { "geeksoc.org":
         domainname  => "geeksoc.org",
