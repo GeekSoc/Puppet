@@ -24,8 +24,8 @@ class apache {
 	       "Debian" => "/etc/apache2/apache2.conf",
 	       default  => "/etc/httpd/conf/httpd.conf",
 	    },
-        owner   => "apache",
-        group   => "apache",
+        owner   => "root",
+        group   => "root",
         mode    => 0644,
 		source  => $operatingsystem ? {
 	       "Debian" => "puppet:///modules/apache/httpd.conf.deb",
@@ -74,14 +74,14 @@ define apache::website (
         require => Package["httpd"],
     }
 	file { "/var/www/vhosts/$name":
-        owner  => "root",
-        group  => "root",
+        owner  => "apache",
+        group  => "apache",
         mode   => 0755,
         ensure => directory,
     }
 	file { "/var/www/vhosts/$name/public_html":
-        owner  => "root",
-        group  => "root",
+        owner  => "apache",
+        group  => "apache",
         mode   => 0755,
         ensure => directory,
     }
