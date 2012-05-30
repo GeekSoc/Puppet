@@ -15,7 +15,7 @@ class nagios::nrpe {
 			$nrpeservice   = [ "nagios-nrpe-server" ]
 		}
 		centos, redhat: {
-			$nrpepackage   = [ "nagios-nrpe" ]
+			$nrpepackage   = [ "nrpe" ]
 			$nrpeplugins   = [ "nagios-plugins" ]
 			$nrpeservice   = [ "nrpe" ]
 		}
@@ -26,7 +26,7 @@ class nagios::nrpe {
 		ensure => present,
 	}
    
- 	service { $pkg_name: 
+ 	service { $nrpeservice: 
 		ensure => running, 
 		enable => true 
 	}
