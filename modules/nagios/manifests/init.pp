@@ -14,12 +14,14 @@ class nagios::nrpe {
 			$nrpeplugins   = [ "nagios-plugins" ]
 			$nrpeservice   = [ "nagios-nrpe-server" ]
 			$nrpeuser      = [ "nagios" ]
+			$nrpepidfile   = [ "/var/run/nrpe.pid"]
 		}
 		centos, redhat: {
 			$nrpepackage   = [ "nrpe" ]
 			$nrpeplugins   = [ "nagios-plugins" ]
 			$nrpeservice   = [ "nrpe" ]
 			$nrpeuser      = [ "nrpe" ]
+			$nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
 		}
 	}
 	
