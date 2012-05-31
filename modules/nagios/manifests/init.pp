@@ -13,11 +13,13 @@ class nagios::nrpe {
 			$nrpepackage   = [ "nagios-nrpe-server" ]
 			$nrpeplugins   = [ "nagios-plugins" ]
 			$nrpeservice   = [ "nagios-nrpe-server" ]
+			$nrpeuser      = [ "nagios" ]
 		}
 		centos, redhat: {
 			$nrpepackage   = [ "nrpe" ]
 			$nrpeplugins   = [ "nagios-plugins" ]
 			$nrpeservice   = [ "nrpe" ]
+			$nrpeuser      = [ "nrpe" ]
 		}
 	}
 	

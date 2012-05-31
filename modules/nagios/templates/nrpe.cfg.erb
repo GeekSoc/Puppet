@@ -45,7 +45,7 @@ server_port=5666
 # 
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-nrpe_user=nrpe
+nrpe_user=<%= nrpeuser %>
 
 
 
@@ -55,7 +55,7 @@ nrpe_user=nrpe
 # 
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-nrpe_group=nrpe
+nrpe_group=<%= nrpeuser %>
 
 
 
@@ -163,7 +163,7 @@ connection_timeout=300
 # This directive allows you to include definitions from config files (with a
 # .cfg extension) in one or more directories (with recursion).
 
-include_dir=/etc/nrpe.d/
+# include_dir=/etc/nrpe.d/
 
 
 
