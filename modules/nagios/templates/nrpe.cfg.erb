@@ -189,7 +189,7 @@ connection_timeout=300
 
 # The following examples use hardcoded command arguments...
 
-command[check_users]=<%= pluginsdir %>/check_users -w 5 -c 10
+command[check_users]=<%= pluginsdir %>/check_users -w 15 -c 25
 command[check_load]=<%= pluginsdir %>/check_load -w 15,10,5 -c 30,25,20
 command[check_disk_root]=<%= pluginsdir %>/check_disk -w 20% -c 10% -p /dev/root
 command[check_disk_home]=<%= pluginsdir %>/check_disk -w 20% -c 10% -p /dev/mapper/vg_alpha-lv_home

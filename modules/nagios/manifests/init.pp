@@ -44,5 +44,6 @@ class nagios::nrpe {
 		group   => root,
 		content => template("nagios/nrpe.cfg.erb"),
 		require => Package[$nrpepackage],
+		notify => Service[$nrpeservice],
 	}
 }
