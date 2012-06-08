@@ -32,7 +32,8 @@ class nagios::nrpe {
    
  	service { $nrpeservice: 
 		ensure => running, 
-		enable => true 
+		enable => true,
+		hasrestart => true,
 	}
 	 
 	
