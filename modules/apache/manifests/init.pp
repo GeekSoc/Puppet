@@ -1,5 +1,14 @@
 class apache {
 	
+	case $::operatingsystem {
+		debian: {
+			$apacheuser = [ "www-data" ]
+		}
+		centos, redhat: {
+			$apacheuser = [ "apache" ]
+		}
+	}
+	
 	package { "httpd":
 		name => $operatingsystem ? {
 	       "Debian" => "apache2",
@@ -74,14 +83,14 @@ define apache::website (
         require => Package["httpd"],
     }
 	file { "/var/www/vhosts/$name":
-        owner  => "apache",
-        group  => "apache",
+        owner  => $apacheuser,
+        group  => $apacheuser,
         mode   => 0755,
         ensure => directory,
     }
 	file { "/var/www/vhosts/$name/public_html":
-        owner  => "apache",
-        group  => "apache",
+        owner  => $apacheuser,
+        group  => $apacheuser,
         mode   => 0755,
         ensure => directory,
     }
