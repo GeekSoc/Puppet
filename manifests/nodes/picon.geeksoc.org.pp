@@ -7,6 +7,7 @@ node 'picon.geeksoc.org' {
 	include bind
 	include gs-scripts::adduser
 	include gs-scripts::listusers
+	include gs-scripts::userdir-disable
 	
     nfs::share { "home":
         path    => "/home",
@@ -19,6 +20,14 @@ node 'picon.geeksoc.org' {
 	  command => "/usr/bin/rsync -arv /home 130.159.141.111:/ --delete",
 	  user => root,
 	  hour => 3,
+	  minute => 30
+	}
+	
+	# Nightly check to disable home dirs of expired accounts
+	cron { rSyncArgama:
+	  command => "/usr/local/sbin/userdir-disable",
+	  user => root,
+	  hour => 4,
 	  minute => 30
 	}
 

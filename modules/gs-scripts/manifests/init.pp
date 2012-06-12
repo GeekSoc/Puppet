@@ -38,3 +38,14 @@ class gs-scripts::listusers {
     }
 
 }
+
+class gs-scripts::userdir-disable {
+	
+	file { "/usr/local/sbin/userdir-disable":
+        owner   => "root",
+        group   => "root",
+        mode    => 0750,
+        source  => "puppet:///modules/gs-scripts/userdir-disable.py",
+    }
+	
+}
