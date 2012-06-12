@@ -24,7 +24,7 @@ node 'picon.geeksoc.org' {
 	}
 	
 	# Nightly check to disable home dirs of expired accounts
-	cron { rSyncArgama:
+	cron { userdir-disable:
 	  command => "/usr/local/sbin/userdir-disable",
 	  user => root,
 	  hour => 4,
