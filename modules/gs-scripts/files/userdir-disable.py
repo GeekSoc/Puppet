@@ -30,7 +30,7 @@ try:
             expiry = result_data[0][1]['shadowExpire'][0]
             
             if int(expiry) <= time:
-				print "Disabling " + username
+                print "Disabling " + username
                 os.chmod(homedir, 0000)
 
 except ldap.LDAPError, e:
