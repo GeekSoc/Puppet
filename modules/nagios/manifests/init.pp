@@ -34,6 +34,7 @@ class nagios::nrpe {
 		ensure => running, 
 		enable => true,
 		hasrestart => true,
+		pattern => "nrpe",
 	}
 	 
 	
