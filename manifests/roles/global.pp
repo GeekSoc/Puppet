@@ -15,6 +15,7 @@ class global {
 	include fail2ban
     include resolv
 	include nagios::nrpe
+	include gs-scripts::retrieve_public_keys
 
     resolv_conf { "geeksoc.org":
         domainname  => "geeksoc.org",
@@ -64,6 +65,8 @@ class global {
                 "htop",
 				"nano",
 				"iftop",
+				"python",
+				"python-ldap",
 				"${netcat_name}",
                 "${vim_name}", ]:
         ensure => installed,

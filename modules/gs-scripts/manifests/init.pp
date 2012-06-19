@@ -49,3 +49,19 @@ class gs-scripts::userdir-disable {
     }
 	
 }
+
+class gs-scripts::retrieve_public_keys {
+	
+	file { "/usr/local/sbin/retrieve_public_keys":
+        owner   => "root",
+        group   => "root",
+        mode    => 0750,
+        source  => "puppet:///modules/gs-scripts/retrieve_public_keys.py",
+    }
+
+	file { "/etc/cron.d/retrieve_public_keys.cron":
+		source => "puppet:///modules/gs-scripts/retrieve_public_keys.cron",
+		mode => 0755,
+	}
+	
+}

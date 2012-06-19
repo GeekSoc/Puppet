@@ -31,8 +31,6 @@ class shell {
 				"perl",
 				"php",
 				"pkgconfig",
-				"python",
-				"python-ldap",
 				"redhat-rpm-config",
 				"rpm-build",
 				"ruby",

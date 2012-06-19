@@ -1,0 +1,1 @@
+*/30 * * * * root /usr/local/sbin/retrieve_public_keys
