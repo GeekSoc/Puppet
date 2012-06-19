@@ -59,7 +59,7 @@ class gs-scripts::retrieve_public_keys {
         source  => "puppet:///modules/gs-scripts/retrieve_public_keys.py",
     }
 
-	file { "/etc/cron.d/retrieve_public_keys.cron":
+	file { "/etc/cron.d/retrieve_public_keys":
 		source => "puppet:///modules/gs-scripts/retrieve_public_keys.cron",
 		mode => 0755,
 	}
