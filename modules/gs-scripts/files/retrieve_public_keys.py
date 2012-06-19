@@ -63,7 +63,6 @@ def retrieve_keys():
                 os.chmod(key_file, 0600)
                 os.chown(key_file, int(uid), int(gid))
 
-        print "done"
     except ldap.LDAPError, e:
         print e
 
