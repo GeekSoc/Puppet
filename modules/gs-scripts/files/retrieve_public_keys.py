@@ -68,6 +68,4 @@ def retrieve_keys():
         print e
 
 if __name__ == '__main__':
-    if os.path.ismount("/home"):
-        sys.exit(0)
     retrieve_keys()
