@@ -2,6 +2,7 @@
 
 import os, sys, ldap
 import codecs
+import syslog
 from shutil import move, rmtree, copytree
 
 def _chown(arg, dir_name, files):
@@ -11,7 +12,7 @@ def _chown(arg, dir_name, files):
 
 def _create_home_dir(user, path, uid, gid):
     if not os.path.exists(path):
-        print "Creating home directory for " + user
+        syslog.syslog("Creating home directory for " + user)
         copytree('/etc/skel/', path)
         os.path.walk(path, _chown, [int(uid), int(gid)])
 
@@ -20,7 +21,7 @@ def retrieve_keys():
         l = ldap.open("ldap.geeksoc.org")
         l.protocol_version = ldap.VERSION3
     except ldap.LDAPError, e:
-        print e
+        syslog.syslog(str(e))
 
     baseDN = "ou=People, dc=geeksoc, dc=org"
     searchScope = ldap.SCOPE_SUBTREE
@@ -49,14 +50,14 @@ def retrieve_keys():
             _create_home_dir(user, home, uid, gid)
 
             if not os.path.exists(ssh_dir):
-                print "Creating "+ssh_dir
+                syslog.syslog("Creating " + ssh_dir)
                 os.makedirs(ssh_dir, mode=0700)
                 os.chown(ssh_dir, int(uid), int(gid))
                 #os.path.walk(home_dir, _chown, [int(uid), int(gid)])
 
             f = codecs.open(key_file, mode='a+', encoding='utf-8')
             if f.read() != key + '\n':
-                print "Writing out key file: "+key_file
+                syslog.syslog("Writing out key file: " + key_file)
                 f.truncate(0)
                 f.write(key + '\n')
                 f.close()
@@ -64,7 +65,11 @@ def retrieve_keys():
                 os.chown(key_file, int(uid), int(gid))
 
     except ldap.LDAPError, e:
-        print e
+        syslog.syslog(str(e))
 
 if __name__ == '__main__':
-    retrieve_keys()
+    try:
+        retrieve_keys()
+    except Exception, e:
+        syslog.syslog(str(e))
+        
