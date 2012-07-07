@@ -5048,6 +5048,7 @@ sshd.*: reverse mapping checking getaddrinfo.*POSSIBLE BREAK-IN ATTEMPT.*
 sshd.*: Server listening on.*
 sshd.*: subsystem request for sftp
 sshd.*: pam_namespace.*: Unmount of \/tmp failed, Device or resource busy.*
+sshd.*: User.* from .* not allowed because none of user's groups are listed in AllowGroups
 su: pam_unix\(su-l:session\): session .* for user dbbackup.*
 su: pam_unix\(su-l:session\): session .* for user postgres.*
 
@@ -5056,6 +5057,13 @@ CRON.*: pam_unix\(cron:session\): session .* for user.*
 puppet-master.*: Unrecognised escape sequence.*
 puppet-master.*: Compiled catalog for.*
 puppet-agent.*: *
+
+python.*: \[Errno 13\] Permission denied.*:.*
+
+named.*: error \(network unreachable\) resolving.*:.*
+named.*: error \(unexpected RCODE REFUSED\) resolving.*:.*
+named.*: success resolving.* after disabling EDNS.*
+named.*: success resolving.* after reducing the advertised EDNS UDP packet size to 512 octets
 
 [REMOVE]
 ##
