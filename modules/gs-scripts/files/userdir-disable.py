@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os, sys, ldap, time
+import syslog
 
 time = int(time.time()/(60*60*24))
 
@@ -8,7 +9,7 @@ try:
 	l = ldap.open("ldap.geeksoc.org")
 	l.protocol_version = ldap.VERSION3
 except ldap.LDAPError, e:
-	print e
+	syslog.syslog(e)
 
 baseDN = "ou=People, dc=geeksoc, dc=org"
 searchScope = ldap.SCOPE_SUBTREE
@@ -23,9 +24,9 @@ try:
         expiry = entry['shadowExpire'][0]
 
         if int(expiry) <= time:
-            print "Disabling " + username
+            syslog.syslog("Disabling " + username)
             os.chmod(homedir, 0700)
 
 except ldap.LDAPError, e:
-    print e
+	syslog.syslog(e)
 
