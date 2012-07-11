@@ -31,6 +31,9 @@ node 'picon.geeksoc.org' {
 	  minute => 30
 	}
 
+    # Sync ssh keys and create new home dirs every 5 mins (30 is usual)
+    $syncGasOften = true
+
 	# Message of the day
 	file { '/etc/motd':
         content => "
