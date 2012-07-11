@@ -16,6 +16,33 @@ def _create_home_dir(user, path, uid, gid):
         copytree('/etc/skel/', path)
         os.path.walk(path, _chown, [int(uid), int(gid)])
 
+def create_home_dirs():
+    try:
+        l = ldap.open("ldap.geeksoc.org")
+        l.protocol_version = ldap.VERSION3
+    except ldap.LDAPError, e:
+        syslog.syslog(str(e))
+
+    baseDN = "ou=People, dc=geeksoc, dc=org"
+    searchScope = ldap.SCOPE_SUBTREE
+    retrieveAttributes = None
+    searchFilter = "(objectClass=posixAccount)"    
+
+    try:
+        results = l.search_s(baseDN, searchScope, searchFilter, retrieveAttributes)
+        if (len(results) == 0):
+            sys.exit(1)
+        for dn, entry in results:
+            user = entry['uid'][0]
+            uid = entry['uidNumber'][0]
+            gid = entry['gidNumber'][0]
+            home = entry['homeDirectory'][0]
+
+            _create_home_dir(user, home, uid, gid)
+
+    except ldap.LDAPError, e:
+        syslog.syslog(str(e))
+
 def retrieve_keys():
     try:
         l = ldap.open("ldap.geeksoc.org")
@@ -47,7 +74,7 @@ def retrieve_keys():
                 key.append(k)
             key = "\n".join(key)
 
-            _create_home_dir(user, home, uid, gid)
+            #_create_home_dir(user, home, uid, gid)
 
             if not os.path.exists(ssh_dir):
                 syslog.syslog("Creating " + ssh_dir)
@@ -69,6 +96,7 @@ def retrieve_keys():
 
 if __name__ == '__main__':
     try:
+        create_home_dirs()
         retrieve_keys()
     except Exception, e:
         syslog.syslog(str(e))
