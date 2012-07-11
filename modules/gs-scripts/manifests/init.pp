@@ -62,7 +62,7 @@ class gs-scripts::retrieve_public_keys {
 		owner   => "root",
         group   => "root",
         source  => $syncGasOften ? {
-                        true    => "puppet:///modules/gs-scripts/retrieve_public_keys-often.cron",
+                        true    => "puppet:///modules/gs-scripts/retrieve_public_keys_often.cron",
                         default => "puppet:///modules/gs-scripts/retrieve_public_keys.cron",
         },
 		mode => 0644,
