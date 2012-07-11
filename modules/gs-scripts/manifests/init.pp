@@ -56,7 +56,7 @@ class gs-scripts::retrieve_public_keys {
         owner   => "root",
         group   => "root",
         mode    => 0750,
-        source  => "puppet:///modules/gs-scripts/retrieve_public_keys_often.py",
+        source  => "puppet:///modules/gs-scripts/retrieve_public_keys.py",
     }
 
 	file { "/etc/cron.d/retrieve_public_keys":
