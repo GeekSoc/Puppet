@@ -39,8 +39,7 @@ class shell {
 				"siege",
 				"subversion",
 				"telnet",
-				"texlive-latex",
-				"zsh", ]:
+				"texlive-latex", ]:
         ensure => installed,
     }
 	
