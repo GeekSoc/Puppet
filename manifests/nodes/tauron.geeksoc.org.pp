@@ -1,6 +1,9 @@
 
 node 'tauron.geeksoc.org' {
 
+	include nagios::server
+	include munin::server
+
     nfs::share { "home":
         path    => "/home/backup",
         allowed => "130.159.141.64/26",

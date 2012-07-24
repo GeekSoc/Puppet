@@ -49,3 +49,52 @@ class nagios::nrpe {
 		notify => Service[$nrpeservice],
 	}
 }
+
+class nagios::server {
+	
+    user { 'www-data': groups => 'nagios' }
+	
+	package {
+		["nagios3",
+		 "nagios-nrpe-plugin",
+		]: ensure => present,
+	}
+	
+	service { nagios3: 
+		ensure => running, 
+		enable => true,
+		hasrestart => true,
+	}
+	
+	file { '/etc/nagios3/':
+        source => 'puppet:///nagios/conf.d/',
+        owner => nagios,
+        group => nagios,
+        recurse => true,
+		notify => Service["nagios3"]
+    }
+
+    file { '/etc/httpd/conf.d/nagios.conf':
+		source => 'puppet:///modules/nagios/nagios.conf',
+		ensure => present,
+		notify => Service["nagios3"]
+    }
+
+    file { '/etc/httpd/conf.d/cgi.conf':
+		source => 'puppet:///modules/nagios/cgi.conf',
+		ensure => present,
+		notify => Service["nagios3"]
+    }
+
+    file { '/etc/httpd/conf.d/commands.conf':
+		source => 'puppet:///modules/nagios/commands.conf',
+		ensure => present,
+		notify => Service["nagios3"]
+    }
+
+	file { "/etc/apache2/sites-enabled/nagios.geeksoc.org ":
+		source => 'puppet:///modules/nagios/nagios-apache.conf',
+		ensure => present,
+		notify => Service["apache2"]
+	}
+}
