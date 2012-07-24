@@ -14,7 +14,7 @@ class munin::node {
 class munin::server {
 	
 	package { "munin": ensure => installed }
-	service { "munin":	ensure => running, enable => true }
+	service { "munin":	ensure => running}
 	
 	file { "/etc/munin/munin.conf":
 		source => 'puppet:///modules/munin/munin.conf',
