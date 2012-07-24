@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2012072301   ; serial number //REMEMBER TO UPDATE!!
+                        2012072401   ; serial number //REMEMBER TO UPDATE!!
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -65,6 +65,7 @@ vulcan          A       130.159.141.99
 argama          A       130.159.141.111
 picon           A       130.159.141.112
 gs-meet-server  A       130.159.141.114
+tauron          A       130.159.141.118
 caprica         A       130.159.141.118
 
 ; ## Dev VMs ##
