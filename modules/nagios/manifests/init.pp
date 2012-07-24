@@ -67,10 +67,14 @@ class nagios::server {
 	}
 	
 	file { '/etc/nagios3/':
+		ensure => directory,
         source => 'puppet:///nagios/conf.d/',
         owner => nagios,
         group => nagios,
         recurse => true,
+		replace => true,
+		purge => true, # purge all unmanaged junk
+		force => true, # also purge subdirs and links etc.
 		notify => Service["nagios3"]
     }
 
