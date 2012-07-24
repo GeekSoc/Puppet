@@ -95,6 +95,5 @@ class nagios::server {
 	file { "/etc/apache2/sites-enabled/nagios.geeksoc.org ":
 		source => 'puppet:///modules/nagios/nagios-apache.conf',
 		ensure => present,
-		notify => Service["apache2"]
 	}
 }

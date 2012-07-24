@@ -24,7 +24,6 @@ class munin::server {
 	file { "/etc/apache2/sites-enabled/munin.geeksoc.org ":
 		source => 'puppet:///modules/munin/munin-apache.conf',
 		ensure => present,
-		notify => Service["apache2"]
 	}
 
 }
