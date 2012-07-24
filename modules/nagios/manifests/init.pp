@@ -74,19 +74,19 @@ class nagios::server {
 		notify => Service["nagios3"]
     }
 
-    file { '/etc/nagios3/conf.d/nagios.cfg':
+    file { '/etc/nagios3/nagios.cfg':
 		source => 'puppet:///modules/nagios/nagios.cfg',
 		ensure => present,
 		notify => Service["nagios3"]
     }
 
-    file { '/etc/nagios3/conf.d/cgi.cfg':
+    file { '/etc/nagios3/cgi.cfg':
 		source => 'puppet:///modules/nagios/cgi.cfg',
 		ensure => present,
 		notify => Service["nagios3"]
     }
 
-    file { '/etc/nagios3/conf.d/commands.cfg':
+    file { '/etc/nagios3/commands.cfg':
 		source => 'puppet:///modules/nagios/commands.cfg',
 		ensure => present,
 		notify => Service["nagios3"]
