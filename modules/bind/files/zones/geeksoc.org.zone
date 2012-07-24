@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2012072402   ; serial number //REMEMBER TO UPDATE!!
+                        2012072403   ; serial number //REMEMBER TO UPDATE!!
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -41,7 +41,7 @@ ssh             CNAME       kobol
 ns              A           130.159.141.75
 ldap            CNAME       picon
 loghost         CNAME       picon
-nagioshost      CNAME       argama
+nagioshost      CNAME       tauron
 puppet          CNAME       picon
 
 

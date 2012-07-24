@@ -24,8 +24,8 @@ backend gitlab {
     .between_bytes_timeout = 600s;
 }
 
-backend argama {
-    .host = "130.159.141.111";
+backend tauron {
+    .host = "130.159.141.117";
     .port = "80";
     .connect_timeout = 600s;
     .first_byte_timeout = 600s;
@@ -56,15 +56,15 @@ sub vcl_recv {
   }
 
   if (req.http.host == "nagios.geeksoc.org") {
-    set req.backend = argama;
+    set req.backend = tauron;
   }
 
   if (req.http.host == "etckeeper.geeksoc.org") {
-    set req.backend = argama;
+    set req.backend = tauron;
   }
 
   if (req.http.host == "munin.geeksoc.org") {
-    set req.backend = argama;
+    set req.backend = tauron;
   }
 
   if (req.http.host == "mirror.geeksoc.org") {
