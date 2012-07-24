@@ -73,8 +73,6 @@ class nagios::server {
         group => nagios,
         recurse => true,
 		replace => true,
-		purge => true, # purge all unmanaged junk
-		force => true, # also purge subdirs and links etc.
 		notify => Service["nagios3"]
     }
 
