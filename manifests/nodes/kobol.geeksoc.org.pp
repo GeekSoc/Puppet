@@ -10,7 +10,7 @@ node 'kobol.geeksoc.org' {
     }
 
     mount { "/yesterday":
-        device  => "argama.geeksoc.org:/home",
+        device  => "tauron.geeksoc.org:/home/backup",
         fstype  => "nfs",
         ensure  => "mounted",
         options => "ro,hard,intr,mountvers=3",

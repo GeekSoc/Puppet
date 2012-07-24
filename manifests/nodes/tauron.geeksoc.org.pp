@@ -1,6 +1,12 @@
 
 node 'tauron.geeksoc.org' {
 
+    nfs::share { "home":
+        path    => "/home/backup",
+        allowed => "130.159.141.64/26",
+        options => "rw,sync,no_subtree_check",
+    }
+
 	# Message of the day
 	file { '/etc/motd':
         content => "
@@ -13,7 +19,7 @@ node 'tauron.geeksoc.org' {
                                                           
 
 Primary Contact: GSAG - gsag@geeksoc.org 
-Purpose: Xen dom0 for Development Boxes
+Purpose: Backup and Monitoring server
 
 This server is Puppet managed - local changes may be overwritten!
 

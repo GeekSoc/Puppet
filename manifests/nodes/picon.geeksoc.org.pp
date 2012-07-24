@@ -17,7 +17,7 @@ node 'picon.geeksoc.org' {
 
 	# Nightly backup of /home
 	cron { rSyncArgama:
-	  command => "/usr/bin/rsync -arv /home 130.159.141.111:/ --delete",
+	  command => "/usr/bin/rsync -arv /home/ 130.159.141.117:/home/backup --delete",
 	  user => root,
 	  hour => 3,
 	  minute => 30
