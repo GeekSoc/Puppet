@@ -5065,6 +5065,9 @@ named.*: error \(unexpected RCODE REFUSED\) resolving.*:.*
 named.*: success resolving.* after disabling EDNS.*
 named.*: success resolving.* after reducing the advertised EDNS UDP packet size to 512 octets
 
+rsyslogd.*: imuxsock lost .* messages from pid .* due to rate-limiting
+rsyslogd.*: imuxsock begins to drop messages from pid .* due to rate-limiting
+
 [REMOVE]
 ##
 # Here is where you put the rules (VERBATIM) from the weed_dist.cf file
