@@ -28,6 +28,9 @@ class web {
 	apache::website { "accounts.geeksoc.org":
         server_aliases => [ "www.accounts.geeksoc.org" ],
     }
+	apache::website { "stats.irc.geeksoc.org":
+        server_aliases => [ "www.irc.stats.geeksoc.org" ],
+    }
 
     include global
 }
