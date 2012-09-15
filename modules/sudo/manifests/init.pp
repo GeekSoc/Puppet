@@ -8,6 +8,6 @@ class sudo {
         owner  => "root",
         group  => "root",
         mode   => 0440,
-        content => template("sudoers/sudoers.erb"),
+        content => template("sudo/sudoers.erb"),
     }
 }
