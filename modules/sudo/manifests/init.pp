@@ -3,6 +3,11 @@ class sudo {
         ensure => installed,
     }
 
+	$sudoers = $sudoers ? {
+	    '' => [],
+	    default => $sudoers
+	}
+
     file { "/etc/sudoers":
         ensure => present,
         owner  => "root",
