@@ -8,6 +8,6 @@ class sudo {
         owner  => "root",
         group  => "root",
         mode   => 0440,
-        source => "puppet:///modules/sudo/sudoers",
+        content => template("sudoers/sudoers.erb"),
     }
 }
