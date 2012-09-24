@@ -1,5 +1,5 @@
 141.159.130.in-addr.arpa. IN SOA dns0.strath.ac.uk. hostmaster.geeksoc.org (
-    2012072401
+    2012092401
     1h
     1h
     1d
@@ -27,6 +27,12 @@
 99  IN  PTR vulcan.geeksoc.org.
 101 IN  PTR devf.geeksoc.org.
 102 IN  PTR fraser.dev.geeksoc.org.
+104 IN  PTR hack-1.dev.geeksoc.org.
+105 IN  PTR hack-2.dev.geeksoc.org.
+106 IN  PTR hack-3.dev.geeksoc.org.
+107 IN  PTR hack-4.dev.geeksoc.org.
+108 IN  PTR hack-5.dev.geeksoc.org.
+109 IN  PTR hack-6.dev.geeksoc.org.
 111 IN  PTR argama.geeksoc.org.
 112 IN  PTR picon.geeksoc.org.
 114 IN  PTR gs-meet-server.geeksoc.org.

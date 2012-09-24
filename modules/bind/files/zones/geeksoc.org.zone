@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2012072403   ; serial number //REMEMBER TO UPDATE!!
+                        2012092401   ; serial number //REMEMBER TO UPDATE!!
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -73,6 +73,14 @@ devf            A       130.159.141.101
 crytter         CNAME   devf
 fraser.dev      A       130.159.141.102
 tweevo          CNAME   io  
+
+; ## Hackathon VMs ##
+hack-1.dev      A       130.159.141.104
+hack-2.dev      A       130.159.141.105
+hack-3.dev      A       130.159.141.106
+hack-4.dev      A       130.159.141.107
+hack-5.dev      A       130.159.141.108
+hack-6.dev      A       130.159.141.109
 
 ; ##Infrastructure##
 catalyst        A       130.159.141.125
