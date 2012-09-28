@@ -25,6 +25,8 @@ This server is Puppet managed - local changes may be overwritten!
 				"binutils",
 				"bison",
 				"bzr",
+				"git",
+				"mercurial",
 				"cvs",
 				"darcs",
 				"elinks",
