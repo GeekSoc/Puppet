@@ -11,14 +11,12 @@ node 'io.geeksoc.org' {
         enable    => false,
         ensure    => stopped,
         hasstatus => true,
-        require   => Package["varnish"],
     }
 	service { "nginx":
         enable => false,
         ensure => stopped,
 		hasstatus => true,
         restart   => "/usr/sbin/service nginx reload",
-        require   => Package["nginx"],
     }
 
 	# Message of the day
