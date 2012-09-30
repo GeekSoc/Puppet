@@ -2,8 +2,24 @@
 node 'io.geeksoc.org' {
 
 	# Modules
-	include varnish
-	include nginx
+	# include varnish
+	# include nginx
+	include haproxy
+	
+	# Disable varnish and nginx
+	service { "varnish":
+        enable    => false,
+        ensure    => stopped,
+        hasstatus => true,
+        require   => Package["varnish"],
+    }
+	service { "nginx":
+        enable => false,
+        ensure => stopped,
+		hasstatus => true,
+        restart   => "/usr/sbin/service nginx reload",
+        require   => Package["nginx"],
+    }
 
 	# Message of the day
 	file { '/etc/motd':
