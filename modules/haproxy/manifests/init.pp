@@ -1,4 +1,4 @@
-class varnish {
+class haproxy {
 	
 	package { "haproxy":
 		ensure => installed,
