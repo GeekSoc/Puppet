@@ -5,13 +5,32 @@
 <% end -%>
   ServerAdmin <%= server_admin %>
   DocumentRoot /var/www/vhosts/<%= name %>/public_html
-  
-	
+
   <Directory /var/www/vhosts/<%= name %>/public_html>
-   	Order Allow,Deny
-   	Allow from All
-   	Options +Indexes
-   	AllowOverride All
+    Order Allow,Deny
+    Allow from All
+    Options +Indexes
+    AllowOverride All
+  </Directory>
+
+</VirtualHost>
+
+<VirtualHost *:443>
+  SSLEngine on
+  SSLCertificateFile /etc/pki/tls/certs/ca.crt
+  SSLCertificateKeyFile /etc/pki/tls/private/ca.key
+  ServerName <%= name %>
+<% if not server_aliases.empty? -%>
+  ServerAlias <%= server_aliases.join(" ") %>
+<% end -%>
+  ServerAdmin <%= server_admin %>
+  DocumentRoot /var/www/vhosts/<%= name %>/public_html
+
+  <Directory /var/www/vhosts/<%= name %>/public_html>
+    Order Allow,Deny
+    Allow from All
+    Options +Indexes
+    AllowOverride All
   </Directory>
 
 </VirtualHost>
