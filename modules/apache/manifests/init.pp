@@ -67,7 +67,8 @@ class apache {
 
 define apache::website (
     $server_aliases = [],
-    $server_admin = "support@geeksoc.org" 
+    $server_admin = "support@geeksoc.org",
+ 	$https = false
 ) {    
 	
     file { "${name}.conf":
