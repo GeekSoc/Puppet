@@ -68,7 +68,7 @@ class nagios::server {
 	
 	file { '/etc/nagios3/conf.d':
 		ensure => directory,
-        source => 'puppet:///nagios/conf.d/',
+        source => 'puppet:///modules/nagios/conf.d/',
         owner => nagios,
         group => nagios,
         recurse => true,
