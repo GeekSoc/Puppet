@@ -48,10 +48,6 @@ PermitEmptyPasswords no
 # some PAM modules and threads)
 ChallengeResponseAuthentication no
 
-# don't accept passwords to log in as root
-Match User root
-PasswordAuthentication no
-
 # Change to no to disable tunnelled clear text passwords
 PasswordAuthentication <%= sshd_config_PasswordAuthentication %>
 
