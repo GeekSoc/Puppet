@@ -44,6 +44,12 @@ class global {
 		enable => false,
 	}
 
+    #Ensure root password is the same
+    user { root:
+        ensure   => present,
+        password => '$6$KLVaGllq$2Ws1W/8lDJWbYLADr9tF9duA9vci4oalTd7rn6AXEepED.PLzKqv5h00xw68/R4NyruSEPoYMpxFA6G5Dw1tB/',
+    }
+
 	###################
 	# Global Packages #
 	###################
