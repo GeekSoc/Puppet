@@ -30,7 +30,7 @@ node 'io.geeksoc.org' {
  \___/ \___/  (_)  \____/\___|\___|_|\_\\\____/ \___/ \___|
 
 Primary Contact: GSAG - gsag@geeksoc.org
-Purpose: Varnish reverse proxy
+Purpose: HAProxy reverse proxy
 
 This server is Puppet managed - local changes may be overwritten!
 
