@@ -56,7 +56,7 @@
 
   /* Users for basic authentication. is_admin = true gives access to /admin.
      If you do not uncomment this, /admin will not be available! */
-  "users": {
+  /*"users": {
     "admin": {
       "password": "etherpadGS",
       "is_admin": true
@@ -65,6 +65,15 @@
       "password": "changeme1",
       "is_admin": false
     }
+  },*/
+  
+  "users": {
+      "github": {
+          "appId": "406eb4309085d0f3e711",
+          "appSecret": "157088c182afb738530ec5ed5a084a0dd018d97d",
+          "callback": "http:\/\/etherpad.geeksoc.org/auth/github_callback",
+          "org": "GeekSoc"
+      }
   },
 
   /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
