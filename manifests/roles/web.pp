@@ -12,6 +12,7 @@ class web {
 	include php
 	include mysql
 	include mysql::phpMyAdmin
+	include etherpad-lite
 	
 	apache::website { "geeksoc.org":
         server_aliases => [ "www.geeksoc.org" ],
