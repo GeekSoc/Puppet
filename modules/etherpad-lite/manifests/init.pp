@@ -11,7 +11,7 @@ class etherpad-lite {
 		ensure  => present,
 		home    => "/srv/etherpad-lite",
 		shell   => "/bin/bash",
-		group   => "etherpad-lite",
+		gid   => "etherpad-lite",
 	}
 
 	group { etherpad-lite:
