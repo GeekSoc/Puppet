@@ -61,7 +61,7 @@ listen  http 0.0.0.0:80
     option http-pretend-keepalive
 
     stats enable
-    stats auth admin:scope.function_extlookup(["haproxy_stats_pw"])
+    stats auth admin:<% scope.function_extlookup(["haproxy_stats_pw"]) %>
 
     acl req_nagios hdr_dom(host) -i nagios
     acl req_munin hdr_dom(host) -i munin
