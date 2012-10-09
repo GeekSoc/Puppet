@@ -216,7 +216,7 @@ oper tolien {
 		userhost sswindel@*;
 		userhost sswindells@*;
 	};
-	password "pieForWin";
+	password "<%= scope.function_extlookup(["irc_pw_tolien"]) %>";
 	flags
 	{
 		netadmin;
@@ -237,7 +237,7 @@ oper smilers {
 		userhost asmillie@*;
 		userhost ajsmillie@*;
 	};
-	password "cu8-Vern";
+	password "<%= scope.function_extlookup(["irc_pw_smilers"]) %>";
 	flags
 	{
 		netadmin;
