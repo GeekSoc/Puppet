@@ -16,7 +16,7 @@ class haproxy {
 		owner   => "root",
         group   => "root",
         mode    => 0644,
-        source => "puppet:///modules/haproxy/haproxy.cfg",
+		content => template("haproxy/haproxy.cfg.erb"),
 		notify => Service["haproxy"]
 	}
 	
