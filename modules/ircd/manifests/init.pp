@@ -4,7 +4,7 @@ class ircd {
         owner   => "ircd",
         group   => "ircd",
         mode    => 0600,
-        source  => "puppet:///modules/ircd/ircd.conf",
+		content => template("ircd/ircd.conf.erb"),
     }
 
 	file { "/home/ircd/ircd/ircd.motd":
