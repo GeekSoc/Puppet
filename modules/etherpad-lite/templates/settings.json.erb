@@ -21,7 +21,7 @@
    "dbSettings" : {
                     "user"    : "etherpad-lite", 
                     "host"    : "localhost", 
-                    "password": "3th3rp4d", 
+                    "password": "<%= scope.function_extlookup(["etherpad_db_pw"]) %>", 
                     "database": "etherpad-lite"
                   },
   
@@ -69,8 +69,8 @@
   
   "users": {
       "github": {
-          "appId": "406eb4309085d0f3e711",
-          "appSecret": "157088c182afb738530ec5ed5a084a0dd018d97d",
+          "appId": "<%= scope.function_extlookup(["etherpad_gh_appID"]) %>",
+          "appSecret": "<%= scope.function_extlookup(["etherpad_gh_appSecret"]) %>",
           "callback": "http:\/\/etherpad.geeksoc.org/auth/github_callback",
           "org": "GeekSoc"
       }

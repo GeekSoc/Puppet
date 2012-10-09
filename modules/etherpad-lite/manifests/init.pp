@@ -38,7 +38,7 @@ class etherpad-lite {
 		owner   => "etherpad-lite",
         group   => "etherpad-lite",
         mode    => 0644,
-        source => "puppet:///modules/etherpad-lite/settings.json",
+		content => template("etherpad-lite/settings.json.erb"),
 		notify => Service["etherpad-lite"]
 	}
 	
