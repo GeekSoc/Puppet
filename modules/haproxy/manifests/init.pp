@@ -20,4 +20,16 @@ class haproxy {
 		notify => Service["haproxy"]
 	}
 	
+	file { '/etc/haproxy/custom_errors':
+		ensure => directory,
+        source => 'puppet:///modules/haproxy/custom_errors/',
+        owner => root,
+        group => root,
+        recurse => true,
+		replace => true,
+		purge => true, # purge all unmanaged junk
+		force => true, # also purge subdirs and links etc.
+		notify => Service["haproxy"]
+    }
+	
 }
