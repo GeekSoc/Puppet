@@ -22,7 +22,7 @@ class haproxy {
 	
 	file { '/etc/haproxy/custom_errors':
 		ensure => directory,
-        source => 'puppet:///modules/haproxy/custom_errors/',
+        source => 'puppet:///modules/haproxy/errors/',
         owner => root,
         group => root,
         recurse => true,
