@@ -23,5 +23,5 @@ This server is Puppet managed - local changes may be overwritten!
 	
 	
 	# Roles
-	# include web
+	include web
 }
