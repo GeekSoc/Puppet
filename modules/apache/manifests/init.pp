@@ -24,7 +24,6 @@ class apache {
 	    },
         enable    => true,
         ensure    => running,
-        hasstatus => true,
         require   => Package["httpd"],
     }
 
