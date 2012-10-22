@@ -30,7 +30,7 @@ This server is Puppet managed - local changes may be overwritten!
     }
 
 	include apache
-	# include php
+	include php
 	# include mysql
 	# include mysql::phpMyAdmin
 	# include etherpad-lite
