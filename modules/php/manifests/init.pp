@@ -5,7 +5,7 @@ class php {
 	        ensure => installed,
 	    }
 	} else {
-		package { [ "php5", "php5-ldap",  "php-xml-rss", "php-mysql" ]:
+		package { [ "php5", "php5-ldap",  "php-xml-rss", "php5-mysql" ]:
 	        ensure => installed,
 	    }
 	}
