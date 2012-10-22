@@ -7,7 +7,7 @@ class mysql {
 	package { "mysql":
 		name => $operatingsystem ? {
 	       "Debian" => "mysql-client",
-	       default  => "httpd",
+	       default  => "mysql",
 	    },
         ensure => installed,
     }
