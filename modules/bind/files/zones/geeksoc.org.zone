@@ -50,6 +50,7 @@ io              A       130.159.141.65
 tianna          A       130.159.141.66
 ;sintii          A       130.159.141.68
 kobol           A       130.159.141.69
+web             A       130.159.141.71
 vpn             A       130.159.141.79
 idran           A       130.159.141.81
 web2            A       130.159.141.82
@@ -65,7 +66,7 @@ vulcan          A       130.159.141.99
 argama          A       130.159.141.111
 picon           A       130.159.141.112
 skylab-2        A       130.159.141.114
-skylab-1	A	130.159.141.116
+skylab-1    A   130.159.141.116
 tauron          A       130.159.141.117
 caprica         A       130.159.141.118
 
@@ -93,7 +94,6 @@ ping0           CNAME   io
 random          A       1.3.3.7
 
 ; ##Reverse Proxy Addresses - For Varnish Delivered Content##
-web             CNAME       io
 wiki            CNAME       io
 mirror          CNAME       io
 etckeeper       CNAME       io
