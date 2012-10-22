@@ -5,10 +5,18 @@ class mysql {
     }
 
 	package { "mysql":
+		name => $operatingsystem ? {
+	       "Debian" => "mysql-client",
+	       default  => "httpd",
+	    },
         ensure => installed,
     }
 
     service { "mysqld":
+		name => $operatingsystem ? {
+	       "Debian" => "mysql",
+	       default  => "mysqld",
+	    },
         enable    => true,
         ensure    => running,
         hasstatus => true,
@@ -19,7 +27,10 @@ class mysql {
         owner   => "root",
         group   => "root",
         mode    => 0644,
-        source  => "puppet:///modules/mysql/my.cnf.el6",
+		source  => $operatingsystem ? {
+	       "Debian" => "puppet:///modules/mysql/my.cnf.deb",
+	       default  => "puppet:///modules/mysql/my.cnf.el6",
+	    },
         notify  => Service["mysqld"],
         require => Package["mysql-server"],
     }
