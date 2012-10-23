@@ -25,7 +25,7 @@ This server is Puppet managed - local changes may be overwritten!
         device  => "storage.geeksoc.org:/home",
         fstype  => "nfs",
         ensure  => "mounted",
-        options => "rw,hard,intr,mountvers=3",
+        options => "rw,hard,intr,nfsvers=3",
         atboot  => true,
     }
 
