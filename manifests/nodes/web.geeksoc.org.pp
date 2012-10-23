@@ -25,14 +25,14 @@ This server is Puppet managed - local changes may be overwritten!
         device  => "storage.geeksoc.org:/home",
         fstype  => "nfs",
         ensure  => "mounted",
-        options => "rw,hard,intr",
+        options => "rw,hard,intr,mountvers=3",
         atboot  => true,
     }
 
 	include apache
 	include php
 	include mysql
-	# include mysql::phpMyAdmin
+	include mysql::phpMyAdmin
 	# include etherpad-lite
 	
 	apache::website { "geeksoc.org":
