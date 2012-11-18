@@ -104,5 +104,6 @@ munin           CNAME       io
 gitlab          CNAME       io
 stats.irc       CNAME       io
 accounts        CNAME       io
+api.accounts        CNAME       io
 etherpad        CNAME       io
 
