@@ -355,8 +355,8 @@ link            services.geeksoc.org
 	bind-ip 	*;
 	port 		7029;
 	hub             *;
-	password-connect "2LQ1GcKDAZkvMup";
-	password-receive "2LQ1GcKDAZkvMup";
+	password-connect "<%= scope.function_extlookup(["irc_pw_services"]) %>";
+	password-receive "<%= scope.function_extlookup(["irc_pw_services"]) %>";
 	class           servers;
 		options {
 			/* Note: You should not use autoconnect when linking services */
@@ -390,8 +390,8 @@ ulines {
  * };
  */
 drpass {
-	restart "14zg2WVaQ0ybApD";
-	die "TRzK49uOMDDfJ5G";
+	restart "<%= scope.function_extlookup(["irc_pw_restart"]) %>";
+	die "<%= scope.function_extlookup(["irc_pw_die"]) %>";
 };
 
 /*
@@ -751,9 +751,9 @@ set {
 	 * upcase (A-Z) and digits (0-9) [see first key example].
 	 */
 	cloak-keys {
-		"xWhnZ6ksDkYP2qI7kBWHZobrD65guZnCZYXBpmGgMXWIVnp75W";
-		"ZKamPL9xFLO1Cu28zfTNV7DmnwljX8VPsWj3nCqvrvhRDQD6Vr";
-		"SEowsOl9pyWnHfsRvmYZwKYKnzXEAWeTNOnwO0RfiRydylybHS";
+		"<%= scope.function_extlookup(["irc_cloak_key_1"]) %>";
+		"<%= scope.function_extlookup(["irc_cloak_key_2"]) %>";
+		"<%= scope.function_extlookup(["irc_cloak_key_3"]) %>";
 	};
 	/* on-oper host */
 	hosts {
@@ -798,7 +798,7 @@ set {
 	 * Some admins might want to remove the 'kGs' to allow normal users to list
 	 * klines, glines and shuns.
 	 */
-	oper-only-stats "qBFKv3s3VwYO";
+	oper-only-stats "<%= scope.function_extlookup(["irc_pw_oper_stats"]) %>";
 
 	/* Throttling: this example sets a limit of 3 connection attempts per 60s (per host). */
 	throttle {
