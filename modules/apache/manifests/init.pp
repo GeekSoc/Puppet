@@ -67,7 +67,8 @@ class apache {
 define apache::website (
     $server_aliases = [],
     $server_admin = "support@geeksoc.org",
- 	$https = false
+ 	$https = false,
+	$groupname = $apacheuser
 ) {    
 	
     file { "${name}.conf":
@@ -84,13 +85,13 @@ define apache::website (
     }
 	file { "/var/www/vhosts/$name":
         owner  => $apacheuser,
-        group  => $apacheuser,
+        group  => $groupname,
         mode   => 0755,
         ensure => directory,
     }
 	file { "/var/www/vhosts/$name/public_html":
         owner  => $apacheuser,
-        group  => $apacheuser,
+        group  => $groupname,
         mode   => 0755,
         ensure => directory,
     }

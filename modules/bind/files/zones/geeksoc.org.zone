@@ -51,6 +51,7 @@ tianna          A       130.159.141.66
 ;sintii          A       130.159.141.68
 kobol           A       130.159.141.69
 web             A       130.159.141.71
+socs            A       130.159.141.72
 vpn             A       130.159.141.79
 idran           A       130.159.141.81
 web2            A       130.159.141.82
@@ -106,4 +107,5 @@ stats.irc       CNAME       io
 accounts        CNAME       io
 api.accounts        CNAME       io
 etherpad        CNAME       io
+clubs           CNAME       io
 
