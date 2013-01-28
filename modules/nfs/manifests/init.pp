@@ -45,9 +45,9 @@ class nfs {
     define share( $path, $allowed, $options = "" ) {
         include nfs
 
-        file { $path:
-            ensure => directory,
-        }
+        # file { $path:
+        #     ensure => directory,
+        # }
 
         file { "/etc/exports.d/${name}":
             content => "${path} ${allowed}(${options})\n",
