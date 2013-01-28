@@ -92,7 +92,7 @@ define apache::website (
 	file { "/var/www/vhosts/$name/public_html":
         owner  => $apacheuser,
         group  => $groupname,
-        mode   => 0755,
+        mode   => 0775,
         ensure => directory,
     }
 
