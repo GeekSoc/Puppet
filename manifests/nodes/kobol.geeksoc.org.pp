@@ -21,7 +21,7 @@ node 'kobol.geeksoc.org' {
         device  => "socs.geeksoc.org:/var/www/vhosts",
         fstype  => "nfs",
         ensure  => "mounted",
-        options => "ro,hard,intr,mountvers=3",
+        options => "rw,hard,intr,mountvers=3",
         atboot  => true,
     }
 
