@@ -26,7 +26,7 @@ This server is Puppet managed - local changes may be overwritten!
 	include mysql
 	include mysql::phpMyAdmin
 	
-	nfs::share { "home":
+	nfs::share { "soc-sites":
         path    => "/var/www/vhosts",
         allowed => "130.159.141.64/26",
         options => "rw,sync,no_subtree_check",
