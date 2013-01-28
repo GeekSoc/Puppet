@@ -17,6 +17,14 @@ node 'kobol.geeksoc.org' {
         atboot  => true,
     }
 
+    mount { "/clubs":
+        device  => "socs.geeksoc.org:/var/www/vhosts",
+        fstype  => "nfs",
+        ensure  => "mounted",
+        options => "ro,hard,intr,mountvers=3",
+        atboot  => true,
+    }
+
 	# Message of the day
 	file { '/etc/motd':
         content => " 
