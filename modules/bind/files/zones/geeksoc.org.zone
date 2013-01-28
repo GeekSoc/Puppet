@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2012111801   ; serial number //REMEMBER TO UPDATE!!
+                        2013012801   ; serial number //REMEMBER TO UPDATE!!
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
