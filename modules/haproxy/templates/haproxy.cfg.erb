@@ -53,6 +53,13 @@ backend idran
     timeout server 5m
     balance roundrobin
     server idran 130.159.141.81:80 weight 1 maxconn 10000
+
+backend socs
+    mode http
+    timeout connect 5s
+    timeout server 5m
+    balance roundrobin
+    server socs 130.159.141.72:80 weight 1 maxconn 10000
     
 backend idran_etherpad
     mode http
@@ -75,12 +82,14 @@ listen  http 0.0.0.0:80
     acl req_munin hdr_dom(host) -i munin
     acl req_mirror hdr_dom(host) -i mirror
     acl req_etherpad hdr_dom(host) -i etherpad
+	acl req_socs hdr_dom(host) -i clubs
 
     default_backend idran #by default forward the requests to idran
     use_backend tauron if req_nagios
     use_backend tauron if req_munin
     use_backend mirror if req_mirror
     use_backend idran_etherpad if req_etherpad
+	use_backend socs if req_socs
 
 # Send SSL traffic to Idran (in TCP mode - no SSL termination here)
 listen  https 0.0.0.0:443
