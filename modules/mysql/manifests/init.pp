@@ -19,7 +19,7 @@ class mysql {
 	    },
         enable    => true,
         ensure    => running,
-        hasstatus => true,
+        # hasstatus => true,
         require   => Package["mysql-server"],
     }
 
