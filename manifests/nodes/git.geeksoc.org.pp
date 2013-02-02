@@ -2,7 +2,7 @@
 node 'git.geeksoc.org' {
 
 	# ensure that the git and gitlab users can actually login to clone repos
-	$sshd_config_AllowGroups = 'git gssg gsag root'
+	$sshd_config_AllowGroups = 'git sysadmin gsag root'
 	
 	# Message of the day
 	file { '/etc/motd':

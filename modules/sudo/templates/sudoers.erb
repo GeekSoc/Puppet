@@ -20,8 +20,8 @@ Defaults	env_reset
 root	ALL=(ALL) ALL	
 
 # Group privilege specification
-%gssg ALL=(ALL:ALL) ALL
-%gssg ALL=(ALL:ALL) NOPASSWD: /usr/bin/git
+%sysadmin ALL=(ALL:ALL) ALL
+%sysadmin ALL=(ALL:ALL) NOPASSWD: /usr/bin/git
 
 <% sudoers.each do |val| -%>
 <%= val %> ALL=(ALL:ALL) ALL

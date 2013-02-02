@@ -18,7 +18,7 @@ This server is Puppet managed - local changes may be overwritten!
 " 
     }
 	
-	$sshd_config_AllowGroups = 'members gssg gsag root'
+	$sshd_config_AllowGroups = 'members sysadmin gsag root'
 	
 	package { [ "autoconf",
 				"automake",

@@ -1,5 +1,5 @@
 class shell {
-	$sshd_config_AllowGroups = 'members gssg gsag root'
+	$sshd_config_AllowGroups = 'members sysadmin gsag root'
 
 	include gs-scripts::listusers
 	
