@@ -1,7 +1,7 @@
 class shell {
 	$sshd_config_AllowGroups = 'members sysadmin gsag root'
   
-  class {'ssh:sshd':
+  class {'ssh::sshd':
         sshd_config_AllowGroups => 'members sysadmin gsag root',
       }
 
