@@ -1,4 +1,4 @@
-class ssh::sshd {
+class ssh::sshd ($sshd_config_AllowGroups = "sysadmin gsag root") {
 
 	case $::operatingsystem {
 		debian, ubuntu: {
@@ -37,11 +37,6 @@ class ssh::sshd {
 	$sshd_config_PermitTunnel = $sshd_config_PermitTunnel ? {
 	    '' => "yes",
 	    default => $sshd_config_PermitTunnel
-	}
-	
-	$allowGroups = $sshd_config_AllowGroups ? {
-	    undef => "sysadmin gsag root",
-	    default => $sshd_config_AllowGroups
 	}
 	
 	
