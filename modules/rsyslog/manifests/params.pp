@@ -11,7 +11,7 @@ class rsyslog::params  {
 
 ## Full hostname of rsyslog server
     $server = $syslog_server ? {
-        ''      => "syslog.example42.com",
+        ''      => "picon.geeksoc.org",
         default => "${syslog_server}",
     }
 
