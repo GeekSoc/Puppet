@@ -1,6 +1,6 @@
 class fail2ban {
     package { "fail2ban":
-        ensure => purged,
+        ensure => installed,
     }
 	service { "fail2ban": 
 		ensure => running, 
