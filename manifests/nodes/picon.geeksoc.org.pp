@@ -8,7 +8,7 @@ node 'picon.geeksoc.org' {
 	include gs-scripts::adduser
 	include gs-scripts::listusers
 	include gs-scripts::userdir-disable
-  $syslog_server_local == true
+  $syslog_server_local = true
 	
     nfs::share { "home":
         path    => "/home",
