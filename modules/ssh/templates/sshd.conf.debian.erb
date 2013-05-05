@@ -79,7 +79,7 @@ AcceptEnv LANG LC_*
 Subsystem sftp /usr/lib/openssh/sftp-server
 
 UsePAM yes
-AllowGroups <%= sshd_config_AllowGroups %>
+AllowGroups <%= sshd_config_AllowedGroups %>
 
 # don't accept passwords to log in as root
 Match User root

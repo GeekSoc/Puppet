@@ -14,7 +14,7 @@ class rsyslog {
     require rsyslog::params
     require common
 
-    if ($syslog_server_local == true) or ($syslog_server == "picon.geeksoc.org") { include rsyslog::server }
+    if ($syslog_server_local == true) or ($syslog_server == "$fqdn") { include rsyslog::server }
     else { include rsyslog::client }
 
 

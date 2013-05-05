@@ -39,7 +39,7 @@ class ssh::sshd {
 	    default => $sshd_config_PermitTunnel
 	}
 	
-	$sshd_config_AllowGroups = $sshd_config_AllowGroups ? {
+	$sshd_config_AllowedGroups = $sshd_config_AllowGroups ? {
 	    '' => "sysadmin gsag root",
 	    default => $sshd_config_AllowGroups
 	}
