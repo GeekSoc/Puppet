@@ -140,7 +140,7 @@ Subsystem	sftp	/usr/libexec/openssh/sftp-server
 #	X11Forwarding no
 #	AllowTcpForwarding no
 #	ForceCommand cvs server
-AllowGroups <%= sshd_config_AllowedGroups %>
+AllowGroups <%= allowGroups %>
 
 # don't accept passwords to log in as root
 Match User root
