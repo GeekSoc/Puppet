@@ -1,4 +1,11 @@
-class ssh::sshd ($sshd_config_AllowGroups = "sysadmin gsag root") {
+class ssh::sshd (
+  $sshd_config_AllowGroups = "sysadmin gsag root",
+  $sshd_config_PasswordAuthentication = "yes",
+  $sshd_config_AllowTcpForwarding = "yes",
+  $sshd_config_StrictModes = "yes",
+  $sshd_config_PermitRootLogin = "yes",
+  $sshd_config_PermitTunnel = "yes",
+  ) {
 
 	case $::operatingsystem {
 		debian, ubuntu: {
@@ -14,32 +21,6 @@ class ssh::sshd ($sshd_config_AllowGroups = "sysadmin gsag root") {
 	package { openssh-server: ensure => present }
     service { $pkg_name: ensure => running, enable => true }
 
-	$sshd_config_PasswordAuthentication = $sshd_config_PasswordAuthentication ? {
-	    '' => "yes",
-	    default => $sshd_config_PasswordAuthentication
-	}
-
-	$sshd_config_AllowTcpForwarding = $sshd_config_AllowTcpForwarding ? {
-	    '' => "yes",
-	    default => $sshd_config_AllowTcpForwarding
-	}
-
-	$sshd_config_StrictModes = $sshd_config_StrictModes ? {
-	    '' => "yes",
-	    default => $sshd_config_StrictModes
-	}
-
-	$sshd_config_PermitRootLogin = $sshd_config_PermitRootLogin ? {
-	    '' => "yes",
-	    default => $sshd_config_PermitRootLogin
-	}
-
-	$sshd_config_PermitTunnel = $sshd_config_PermitTunnel ? {
-	    '' => "yes",
-	    default => $sshd_config_PermitTunnel
-	}
-	
-	
 	file { "/etc/ssh/sshd_config":
         content => template("ssh/${config_tpl}"),
         mode => 0600,
