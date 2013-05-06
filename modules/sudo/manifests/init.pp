@@ -1,12 +1,10 @@
-class sudo {
+class sudo (
+    $sudoers = ''
+  ) {
+
     package { "sudo":
         ensure => installed,
     }
-
-	$sudoers = $sudoers ? {
-	    '' => [],
-	    default => $sudoers
-	}
 
     file { "/etc/sudoers":
         ensure => present,
