@@ -20,10 +20,12 @@ This server is Puppet managed - local changes may be overwritten!
     }
 	
     class {'ssh::sshd':
-          sshd_config_AllowGroups => 'sysadmin-games sysadmin gsag root',
-        }
+      sshd_config_AllowGroups => 'sysadmin-games sysadmin gsag root',
+    }
     
-    $sudoers = ["%sysadmin-games"]
+    class {'sudo':
+      sudoers => '%sysadmin-games',
+    }
 
 	# Roles
 	include global
