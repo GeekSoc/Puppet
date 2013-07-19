@@ -88,6 +88,7 @@ listen  http 0.0.0.0:80
     acl req_mirror hdr_dom(host) -i mirror
     acl req_etherpad hdr_dom(host) -i etherpad
     acl req_socs hdr_dom(host) -i clubs
+    acl req_seds hdr_dom(host) -i strathseds.ord
 
     default_backend idran #by default forward the requests to idran
     use_backend tauron if req_nagios
@@ -95,6 +96,7 @@ listen  http 0.0.0.0:80
     use_backend mirror if req_mirror
     use_backend idran_etherpad if req_etherpad
     use_backend socs if req_socs
+    use_backend socs if req_seds
 
 # Send SSL traffic to Idran (in TCP mode - no SSL termination here)
 listen  https 0.0.0.0:443
