@@ -38,9 +38,15 @@ This server is Puppet managed - local changes may be overwritten!
     }
 
 	apache::website { "strathclydefusion.com":
-	    server_aliases => [ "www.strathclydefusion.com", "fusion.clubs.geeksoc.org"],
+	  server_aliases => [ "www.strathclydefusion.com", "fusion.clubs.geeksoc.org"],
 		server_admin => "systems@strathclydefusion.com",
 		groupname => "soc-fusion",
+	}
+  
+	apache::website { "strathseds.org":
+    server_aliases => [ "www.strathseds.org", "strathseds.clubs.geeksoc.org"],
+		server_admin => "adamus1red@gmail.com",
+		groupname => "soc-strathseds",
 	}
 
     include global
