@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2013013001   ; serial number //REMEMBER TO UPDATE!!
+                        2013081801   ; serial number //REMEMBER TO UPDATE!!
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -48,6 +48,7 @@ puppet          CNAME       picon
 ; ##Hosts##
 io              A       130.159.141.65
 tianna          A       130.159.141.66
+langara         A       130.159.141.67
 ;sintii          A       130.159.141.68
 kobol           A       130.159.141.69
 web             A       130.159.141.71
