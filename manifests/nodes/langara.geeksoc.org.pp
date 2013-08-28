@@ -25,4 +25,5 @@ This server is Puppet managed - local changes may be overwritten!
 
 	# Roles
 	include global
+	include mail
 }

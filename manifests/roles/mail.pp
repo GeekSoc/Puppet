@@ -1,0 +1,3 @@
+class mail {
+        include postfix
+}
