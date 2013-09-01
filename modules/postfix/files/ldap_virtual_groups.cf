@@ -1,0 +1,8 @@
+server_host = ldap://ldap.geeksoc.org
+search_base = ou=groups,dc=geeksoc,dc=org
+bind = no
+
+query_filter = (&(objectclass=inetLocalMailRecipient)(mailRoutingAddress=%s))
+result_format = %s@geeksoc.org
+result_attribute = memberUid
+domain = geeksoc.org
