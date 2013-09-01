@@ -32,10 +32,11 @@
 mail_location = <%= mail_location %>
 <% end -%>
 
-namespace private {
-    separator = .
-    prefix = INBOX.
-    inbox = yes
+namespace {
+  type = private
+  separator = .
+  prefix = INBOX.
+  inbox = yes
 }
 
 # If you need to set multiple mailbox locations or want to change default
