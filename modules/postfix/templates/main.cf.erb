@@ -39,9 +39,9 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 
-virtual_alias_maps = ldap:/etc/postfix/ldap-virtual-aliases.cf, ldap:/etc/postfix/ldap-virtual-users.cf
+virtual_alias_maps = ldap:/etc/postfix/ldap_virtual_aliases.cf, ldap:/etc/postfix/ldap_virtual_users.cf
 virtual_mailbox_domains = geeksoc.org
-virtual_mailbox_maps = ldap:/etc/postfix/ldap-virtual-users.cf
+virtual_mailbox_maps = ldap:/etc/postfix/ldap_virtual_users.cf
 virtual_mailbox_base = /home/vmail
 virtual_uid_maps = static:5000
 virtual_gid_maps = static:5000
