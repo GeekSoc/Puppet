@@ -3,5 +3,5 @@ search_base = dc=geeksoc,dc=org
 bind = no
 
 query_filter = (&(objectclass=inetLocalMailRecipient)(mailLocalAddress=%s))
-result_attribute = uid
+result_attribute = uid, cn
 domain = geeksoc.org
