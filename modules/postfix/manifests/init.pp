@@ -74,4 +74,12 @@ class postfix {
       source => 'puppet:///modules/postfix/ldap_virtual_groups.cf',
   }
   
+  file { "/etc/postfix/ldap_virtual_mailboxes.cf":
+      ensure => present,
+      owner  => "root",
+      group  => "root",
+      mode   => 0644,
+      source => 'puppet:///modules/postfix/ldap_virtual_mailboxes.cf',
+  }
+  
 }
