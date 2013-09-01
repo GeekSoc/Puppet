@@ -11,6 +11,7 @@ class mail {
       auth_listener_userdb_mode  => '0660',
       auth_listener_userdb_group => 'vmail',
       auth_listener_postfix      => true,
+      ssl                        => 'yes',
       ssl_cert                   => '/etc/postfix/smtpd.cert',
       ssl_key                    => '/etc/postfix/smtpd.key',
       postmaster_address         => 'postmaster@geeksoc.org',
