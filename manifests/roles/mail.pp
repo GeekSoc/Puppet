@@ -7,7 +7,7 @@ class mail {
       protocols                  => 'imap sieve',
       verbose_proctitle          => 'yes',
       auth_include               => 'ldap',
-      mail_location              => 'maildir:~/Maildir',
+      mail_location              => 'maildir:/home/vmail/%n/Maildir',
       auth_listener_userdb_mode  => '0660',
       auth_listener_userdb_group => 'vmail',
       auth_listener_postfix      => true,
