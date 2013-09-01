@@ -3,6 +3,5 @@ search_base = ou=people,dc=geeksoc,dc=org
 bind = no
 
 query_filter = (&(objectclass=inetOrgPerson)(uid=%u))
-result_format = %s@geeksoc.org
 result_attribute = uid
 domain = geeksoc.org
