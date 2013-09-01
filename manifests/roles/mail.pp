@@ -3,7 +3,7 @@ class mail {
   include postfix
 	  
   class { 'dovecot':
-      plugins                    => [ 'ldap', 'sieve', 'managesieved' ],
+      plugins                    => [ 'ldap', 'sieve'],
       protocols                  => 'imap sieve',
       verbose_proctitle          => 'yes',
       auth_include               => 'ldap',
