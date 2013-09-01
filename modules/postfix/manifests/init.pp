@@ -23,7 +23,7 @@ class postfix {
     groups => $name,
     shell => "/bin/false",
     home => "/home/$name",
-    require => Group[$group],
+    require => Group[$name],
   }
   
 
