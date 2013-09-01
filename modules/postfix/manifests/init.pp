@@ -22,7 +22,7 @@ class postfix {
     gid => "5000",
     groups => "vmail",
     shell => "/bin/false",
-    home => "/home/"vmail",
+    home => "/home/vmail",
     require => Group["vmail"],
   }
   
