@@ -20,10 +20,10 @@ class postfix {
   user { "vmail":
     ensure => present,
     gid => "5000",
-    groups => $name,
+    groups => "vmail",
     shell => "/bin/false",
-    home => "/home/$name",
-    require => Group[$name],
+    home => "/home/"vmail"",
+    require => Group["vmail"],
   }
   
 
