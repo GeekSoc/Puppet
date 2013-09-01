@@ -38,6 +38,7 @@ class postfix {
       group  => "root",
       mode   => 0644,
       content => template("postfix/main.cf.erb"),
+      notify => Service[$postfix::params::package],
   }
   
   file { "/etc/postfix/master.cf":
@@ -46,6 +47,7 @@ class postfix {
       group  => "root",
       mode   => 0644,
       content => template("postfix/master.cf.erb"),
+      notify => Service[$postfix::params::package],
   }
   
   file { "/etc/postfix/ldap_virtual_aliases.cf":
