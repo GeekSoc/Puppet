@@ -1,0 +1,7 @@
+server_host = ldap://ldap.geeksoc.org
+search_base = ou=people,dc=geeksoc,dc=org
+bind = no
+
+query_filter = (&(objectclass=inetOrgPerson)(uid=%u))
+result_attribute = uid
+domain = geeksoc.org

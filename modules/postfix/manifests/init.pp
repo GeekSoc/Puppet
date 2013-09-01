@@ -2,6 +2,30 @@ class postfix {
   require postfix::params
 
   package { $postfix::params::package: ensure => present, }
+  
+  package { "postfix-ldap":
+    ensure => installed,
+  }
+
+  group { "vmail":
+    gid    => 5000, 
+  }
+  
+  file { "/home/vmail":
+    ensure => "directory",
+    owner => "vmail",
+    group => "vmail",
+  }
+
+  user { "vmail":
+    ensure => present,
+    gid => "5000",
+    groups => $name,
+    shell => "/bin/false",
+    home => "/home/$name",
+    require => Group[$group],
+  }
+  
 
   service { $postfix::params::service:
     ensure => running,
@@ -22,6 +46,30 @@ class postfix {
       group  => "root",
       mode   => 0644,
       content => template("postfix/master.cf.erb"),
+  }
+  
+  file { "/etc/postfix/ldap_virtual_aliases.cf":
+      ensure => present,
+      owner  => "root",
+      group  => "root",
+      mode   => 0644,
+      source => 'puppet:///modules/postfix/ldap_virtual_aliases.cf',
+  }
+  
+  file { "/etc/postfix/ldap_virtual_users.cf":
+      ensure => present,
+      owner  => "root",
+      group  => "root",
+      mode   => 0644,
+      source => 'puppet:///modules/postfix/ldap_virtual_users.cf',
+  }
+  
+  file { "/etc/postfix/ldap_virtual_groups.cf":
+      ensure => present,
+      owner  => "root",
+      group  => "root",
+      mode   => 0644,
+      source => 'puppet:///modules/postfix/ldap_virtual_groups.cf',
   }
   
 }
