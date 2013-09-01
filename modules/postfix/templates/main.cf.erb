@@ -45,6 +45,7 @@ virtual_mailbox_maps = ldap:/etc/postfix/ldap_virtual_users.cf
 virtual_mailbox_base = /home/vmail
 virtual_uid_maps = static:5000
 virtual_gid_maps = static:5000
+local_recipient_maps = $virtual_alias_maps $virtual_mailbox_maps
 
 smtpd_sasl_auth_enable = yes
 broken_sasl_auth_clients = yes
