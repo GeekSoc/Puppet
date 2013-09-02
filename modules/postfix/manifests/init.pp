@@ -58,6 +58,14 @@ class postfix {
       source => 'puppet:///modules/postfix/ldap_virtual_aliases.cf',
   }
   
+  file { "/etc/postfix/ldap_virtual_group_aliases.cf":
+      ensure => present,
+      owner  => "root",
+      group  => "root",
+      mode   => 0644,
+      source => 'puppet:///modules/postfix/ldap_virtual_group_aliases.cf',
+  }
+  
   file { "/etc/postfix/ldap_virtual_users.cf":
       ensure => present,
       owner  => "root",
