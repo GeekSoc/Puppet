@@ -1,5 +1,6 @@
 class postfix {
   require postfix::params
+  require postfix::spamassassin
 
   package { $postfix::params::package: ensure => present, }
   
