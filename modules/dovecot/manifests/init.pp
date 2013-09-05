@@ -111,6 +111,12 @@ class dovecot (
     file { '/etc/dovecot/conf.d/auth-sql.conf.ext':
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
     }
+    
+    # Default Sieve rule to move spam to junk folder
+    file { '/etc/dovecot/sieve/spam.sieve':
+      ensure => present,
+      source => 'puppet:///modules/dovecot/spam.sieve',
+    }
 
 }
 

@@ -7,7 +7,7 @@
 
 plugin {
   # The path to the user's main active script. 
-  sieve = <%= sieve %>
+  sieve = /home/vmail/%n/.dovecot.sieve
 
   # A path to a global sieve script file, which gets executed ONLY
   # if user's private Sieve script doesn't exist. Be sure to 
@@ -16,10 +16,10 @@ plugin {
   #sieve_global_path = /var/lib/dovecot/sieve/default.sieve
 
   # Directory for :personal include scripts for the include extension. 
-  sieve_dir = <%= sieve_dir %>
+  sieve_dir = /home/vmail/%n/sieve/
 
   # Directory for :global include scripts for the include extension. 
-  #sieve_global_dir =
+  sieve_global_dir = /etc/dovecot/sieve/
 
   # Which Sieve language extensions are available to users. By default,
   # all supported extensions are available, except for deprecated
