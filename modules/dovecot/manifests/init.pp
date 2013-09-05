@@ -112,6 +112,13 @@ class dovecot (
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
     }
     
+    file { "/etc/dovecot/sieve/":
+      ensure => "directory",
+      owner => "root",
+      group => "vmail",
+      mode   => 0774,
+    }
+    
     # Default Sieve rule to move spam to junk folder
     file { '/etc/dovecot/sieve/spam.sieve':
       ensure => present,
