@@ -52,7 +52,11 @@ broken_sasl_auth_clients = yes
 smtpd_sasl_authenticated_header = yes
 smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/auth
-smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+
+# lookup user address, aliases(?), groups(?)
+# does fi need to be able to send as president@gs.o?
+smtpd_sender_login_maps = ldap:/etc/postfix/ldap_virtual_senders.cf
+smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_non_fqdn_hostname, reject_non_fqdn_sender, reject_non_fqdn_recipient, reject_unauth_destination, reject_unauth_pipelining, reject_invalid_hostname
 
 virtual_create_maildirsize = yes
 virtual_maildir_extended = yes
