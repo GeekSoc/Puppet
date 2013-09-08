@@ -1,6 +1,7 @@
 class postfix {
   require postfix::params
   require postfix::spamassassin
+  require postfix::mailman
 
   package { $postfix::params::package: ensure => present, }
   
@@ -89,6 +90,14 @@ class postfix {
       group  => "root",
       mode   => 0644,
       source => 'puppet:///modules/postfix/ldap_virtual_mailboxes.cf',
+  }
+  
+  file { "/etc/postfix/transport":
+      ensure => present,
+      owner  => "root",
+      group  => "root",
+      mode   => 0644,
+      source => 'puppet:///modules/postfix/transport',
   }
   
 }
