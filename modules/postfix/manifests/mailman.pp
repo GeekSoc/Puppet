@@ -14,6 +14,12 @@ class postfix::mailman {
     ensure => installed,
   }
   
+  service { "apache2":
+    enable    => true,
+    ensure    => running,
+    require   => Package["apache2"],
+  }
+  
   file { "/etc/apache2/sites-enabled/mm.cfg":
     ensure => present,
     owner  => "root",
