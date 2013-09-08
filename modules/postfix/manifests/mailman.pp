@@ -28,6 +28,21 @@ class postfix::mailman {
     source => 'puppet:///modules/postfix/mailman/apache.conf',
     notify => Service["apache2"],
   }
+  
+  file { "/usr/lib/mailman/bin/getMailingList.py":
+    ensure => present,
+    owner  => "root",
+    group  => "root",
+    mode   => 0744,
+    source => 'puppet:///modules/postfix/mailman/getMailingList.py',
+  }
+  
+	cron { "mailingListSync":
+	  command => "/usr/lib/mailman/bin/getMailingList.py | sync_members --welcome-msg=no --goodbye-msg=no --notifyadmin=yes --file - announce",
+	  user => root,
+	  hour => 1,
+	  minute => 30
+	}
 
 
 }
