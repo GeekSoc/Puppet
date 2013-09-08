@@ -39,8 +39,10 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 
+transport_maps = hash:/etc/postfix/transport
 virtual_alias_maps = ldap:/etc/postfix/ldap_virtual_aliases.cf, ldap:/etc/postfix/ldap_virtual_group_aliases.cf, ldap:/etc/postfix/ldap_virtual_users.cf, ldap:/etc/postfix/ldap_virtual_groups.cf
 virtual_mailbox_domains = geeksoc.org
+relay_domains = lists.geeksoc.org
 virtual_mailbox_maps = ldap:/etc/postfix/ldap_virtual_mailboxes.cf
 virtual_mailbox_base = /home/vmail
 virtual_uid_maps = static:5000
@@ -63,3 +65,4 @@ virtual_maildir_extended = yes
 proxy_read_maps = $local_recipient_maps $mydestination $virtual_alias_maps $virtual_alias_domains $virtual_mailbox_maps $virtual_mailbox_domains $relay_recipient_maps $relay_domains $canonical_maps $sender_canonical_maps $recipient_canonical_maps $relocated_maps $transport_maps $mynetworks $virtual_mailbox_limit_maps
 virtual_transport=dovecot
 dovecot_destination_recipient_limit=1
+mailman_destination_recipient_limit = 1
