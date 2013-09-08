@@ -43,11 +43,12 @@ transport_maps = hash:/etc/postfix/transport
 virtual_alias_maps = ldap:/etc/postfix/ldap_virtual_aliases.cf, ldap:/etc/postfix/ldap_virtual_group_aliases.cf, ldap:/etc/postfix/ldap_virtual_users.cf, ldap:/etc/postfix/ldap_virtual_groups.cf
 virtual_mailbox_domains = geeksoc.org
 relay_domains = lists.geeksoc.org
+relay_recipient_maps = hash:/var/lib/mailman/data/virtual-mailman
 virtual_mailbox_maps = ldap:/etc/postfix/ldap_virtual_mailboxes.cf
 virtual_mailbox_base = /home/vmail
 virtual_uid_maps = static:5000
 virtual_gid_maps = static:5000
-local_recipient_maps = $virtual_alias_maps $virtual_mailbox_maps
+local_recipient_maps = $virtual_alias_maps $virtual_mailbox_maps 
 
 smtpd_sasl_auth_enable = yes
 broken_sasl_auth_clients = yes
