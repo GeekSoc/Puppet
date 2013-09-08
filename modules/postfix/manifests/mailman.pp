@@ -20,7 +20,7 @@ class postfix::mailman {
     group  => "root",
     mode   => 0644,
     source => 'puppet:///modules/postfix/mailman/apache.conf',
-    notify => Service[$postfix::params::package],
+    notify => Service["apache2"],
   }
 
 
