@@ -1,5 +1,5 @@
 class ssh::sshd (
-  $sshd_config_AllowGroups = "members sysadmin gsag root",
+  $sshd_config_AllowGroups = "sysadmin gsag root",
   $sshd_config_PasswordAuthentication = "yes",
   $sshd_config_AllowTcpForwarding = "yes",
   $sshd_config_StrictModes = "yes",
