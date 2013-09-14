@@ -38,7 +38,7 @@ class postfix::mailman {
   }
   
 	cron { "mailingListSync":
-	  command => "/usr/lib/mailman/bin/getMailingList.py | sync_members --welcome-msg=no --goodbye-msg=no --notifyadmin=yes --file - announce",
+	  command => "source /etc/profile.d/gas.sh; /usr/lib/mailman/bin/getMailingList.py | /usr/sbin/sync_members --welcome-msg=no --goodbye-msg=no --notifyadmin=yes --file - announce",
 	  user => root,
 	  hour => 1,
 	  minute => 30
