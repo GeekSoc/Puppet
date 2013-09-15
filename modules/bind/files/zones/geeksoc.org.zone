@@ -21,18 +21,16 @@ $ttl 3600
 
 @               A           130.159.141.65
                             
-@               MX          5       aspmx5.googlemail.com.
-@               MX          1       aspmx.l.google.com.
-@               MX          3       alt1.aspmx.l.google.com.
-@               MX          3       alt2.aspmx.l.google.com.
-@               MX          5       aspmx2.googlemail.com.
-@               MX          5       aspmx3.googlemail.com.
-@               MX          5       aspmx4.googlemail.com.
+@               MX          5       mx2.strath.ac.uk.
+@               MX          1       mx1.strath.ac.uk.
                             
-@               A           130.159.141.65
+
+lists           MX          5       mx2.strath.ac.uk.
+lists           MX          5       mx1.strath.ac.uk.
+lists           CNAME       langara
 
 ; ##Services##
-mail            CNAME       ghs.google.com.
+mail            CNAME       langara
 www             CNAME       io
 irc             CNAME       tianna
 storage         CNAME       picon
