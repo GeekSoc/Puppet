@@ -1,6 +1,6 @@
 node 'linn.strathclydefusion.com' {
 
-    class {'ssh:sshd':
+    class {'ssh::sshd':
         sshd_config_AllowGroups => 'soc-fusion sysadmin gsag root',
     }
 
