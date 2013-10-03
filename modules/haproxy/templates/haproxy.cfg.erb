@@ -73,6 +73,22 @@ backend idran_etherpad
     option httpchk
     server idran_etherpad 130.159.141.81:9001 weight 1 maxconn 10000
 
+backend linn_fusion_web
+    mode http
+    timeout connect 5s
+    timeout server 5m
+    balance roundrobin
+    option httpchk
+    server socs 130.159.141.109:80 weight 1 maxconn 10000
+
+backend linn_fusion_stream
+    mode http
+    timeout connect 5s
+    timeout server 5m
+    balance roundrobin
+    option httpchk
+    server socs 130.159.141.109:8000 weight 1 maxconn 10000
+
 # HTTP Reverse Proxy
 listen  http 0.0.0.0:80
     mode http
@@ -89,6 +105,8 @@ listen  http 0.0.0.0:80
     acl req_etherpad hdr_dom(host) -i etherpad
     acl req_socs hdr_dom(host) -i clubs
     acl req_seds hdr_dom(host) -i strathseds.org
+    acl req_fusion_web hdr_dom(host) -i www.strathclydefusion.com
+    acl req_fusion_stream hdr_dom(host) -i stream.strathclydefusion.com
 
     default_backend idran #by default forward the requests to idran
     use_backend tauron if req_nagios
@@ -97,6 +115,8 @@ listen  http 0.0.0.0:80
     use_backend idran_etherpad if req_etherpad
     use_backend socs if req_socs
     use_backend socs if req_seds
+    use_backend linn_fusion_web if req_fusion_web
+    use_backend linn_fusion_stream if req_fusion_stream
 
 # Send SSL traffic to Idran (in TCP mode - no SSL termination here)
 listen  https 0.0.0.0:443
