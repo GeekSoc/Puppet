@@ -5,7 +5,7 @@ node 'sintii.geeksoc.org' {
         device  => "storage.geeksoc.org:/home",
         fstype  => "nfs",
         ensure  => "mounted",
-        options => "rw,hard,intr",
+        options => "rw,hard,intr,mountvers=3",
         atboot  => true,
     }
 
@@ -14,14 +14,6 @@ node 'sintii.geeksoc.org' {
         fstype  => "nfs",
         ensure  => "mounted",
         options => "ro,hard,intr,mountvers=3",
-        atboot  => true,
-    }
-
-    mount { "/clubs":
-        device  => "socs.geeksoc.org:/var/www/vhosts",
-        fstype  => "nfs",
-        ensure  => "mounted",
-        options => "rw,hard,intr,mountvers=3",
         atboot  => true,
     }
 
