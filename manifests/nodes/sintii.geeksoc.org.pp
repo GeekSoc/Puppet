@@ -1,5 +1,5 @@
 
-node 'kobol.geeksoc.org' {
+node 'sintii.geeksoc.org' {
 
     mount { "/home":
         device  => "storage.geeksoc.org:/home",
