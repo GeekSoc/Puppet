@@ -1,12 +1,21 @@
 
 node 'sintii.geeksoc.org' {
 
+    file { '/home':
+        ensure => directory,
+    }
+
     mount { "/home":
         device  => "storage.geeksoc.org:/home",
         fstype  => "nfs",
         ensure  => "mounted",
         options => "rw,hard,intr,mountvers=3",
         atboot  => true,
+        require => File["/home"],
+    }
+    
+    file { '/yesterday':
+        ensure => directory,
     }
 
     mount { "/yesterday":
@@ -15,6 +24,7 @@ node 'sintii.geeksoc.org' {
         ensure  => "mounted",
         options => "ro,hard,intr,mountvers=3",
         atboot  => true,
+        require => File["/yesterday"],
     }
 
 	# Message of the day
