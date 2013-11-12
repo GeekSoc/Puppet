@@ -20,6 +20,10 @@ This server is Puppet managed - local changes may be overwritten!
 
 " 
     }
+    
+    file { '/home':
+        ensure => directory,
+    }
 	
 	mount { "/home":
         device  => "storage.geeksoc.org:/home",
@@ -27,6 +31,7 @@ This server is Puppet managed - local changes may be overwritten!
         ensure  => "mounted",
         options => "rw,hard,intr,nfsvers=3",
         atboot  => true,
+        require => File["/home"],
     }
 
 	include apache
