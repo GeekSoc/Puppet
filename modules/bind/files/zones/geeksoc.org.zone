@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2013110501   ; serial number //REMEMBER TO UPDATE!! date+nn
+                        2013111101   ; serial number //REMEMBER TO UPDATE!! date+nn
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -33,8 +33,8 @@ mail            CNAME       langara
 www             CNAME       io
 irc             CNAME       tianna
 storage         CNAME       picon
-shell           CNAME       kobol
-ssh             CNAME       kobol
+shell           CNAME       abydos
+ssh             CNAME       abydos
 ns              A           130.159.141.75
 ldap            CNAME       picon
 loghost         CNAME       picon
@@ -47,29 +47,40 @@ lists           A           130.159.141.67
 io              A       130.159.141.65
 tianna          A       130.159.141.66
 langara         A       130.159.141.67
-andor		A	130.159.141.68
-kobol           A       130.159.141.69
+andor			A		130.159.141.68
 abydos          A       130.159.141.69
+kobol           A       130.159.141.70
 sintii          A       130.159.141.71
 ;web             A       130.159.141.71
 socs            A       130.159.141.72
 vpn             A       130.159.141.79
+
 idran           A       130.159.141.81
 web2            A       130.159.141.82
-liandri		A	130.159.141.85
+liandri			A		130.159.141.85
 pandora         A       130.159.141.86
-andor           A       130.159.141.90
+eridani-1		A		130.159.141.87
+eridani-2		A		130.159.141.88
+eridani-3		A		130.159.141.89
+
 ;ilo.andor      A       130.159.141.91
-gemini          A       130.159.141.91
+;gemini          A       130.159.141.91
 gemini-1        A       130.159.141.92
 gemini-2        A       130.159.141.93
-git             A       130.159.141.94
+;git             A       130.159.141.94
 mirrorhost      A       130.159.141.98
 vulcan          A       130.159.141.99
+
+orion-0			A		130.159.141.100
+orion-1			A		130.159.141.101
+orion-2			A		130.159.141.102
+orion-3			A		130.159.141.103
+orion-4			A		130.159.141.104
+orion-5			A		130.159.141.105
+orion-6			A		130.159.141.106
+
 argama          A       130.159.141.111
 picon           A       130.159.141.112
-skylab-2        A       130.159.141.114
-skylab-1    A   130.159.141.116
 tauron          A       130.159.141.117
 caprica         A       130.159.141.118
 
@@ -78,14 +89,6 @@ devf            A       130.159.141.101
 crytter         CNAME   devf
 fraser.dev      A       130.159.141.102
 tweevo          CNAME   io  
-
-; ## Hackathon VMs ##
-hack-1.dev      A       130.159.141.104
-hack-2.dev      A       130.159.141.105
-hack-3.dev      A       130.159.141.106
-hack-4.dev      A       130.159.141.107
-hack-5.dev      A       130.159.141.108
-hack-6.dev      A       130.159.141.109
 
 ; ##Infrastructure##
 catalyst        A       130.159.141.125
