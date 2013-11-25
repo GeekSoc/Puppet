@@ -56,6 +56,7 @@ backend idran
     balance roundrobin
     option httpchk
     server idran 130.159.141.81:80 weight 1 maxconn 10000
+    server vm 130.159.141.73:80 weight 1 maxconn 10000
 
 backend socs
     mode http
@@ -124,3 +125,4 @@ listen  https 0.0.0.0:443
     option tcplog
     balance roundrobin
     server idran 130.159.141.81:443
+    server vm 130.159.141.73:443
