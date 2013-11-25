@@ -2,6 +2,7 @@
 node 'web.geeksoc.org' {
 
 	# Modules
+    include bind
 	
 	# Message of the day
 	file { '/etc/motd':
@@ -21,49 +22,6 @@ This server is Puppet managed - local changes may be overwritten!
 " 
     }
     
-    file { '/home':
-        ensure => directory,
-    }
-	
-	mount { "/home":
-        device  => "storage.geeksoc.org:/home",
-        fstype  => "nfs",
-        ensure  => "mounted",
-        options => "rw,hard,intr,nfsvers=3",
-        atboot  => true,
-        require => File["/home"],
-    }
-
-	include apache
-	include php
-	include mysql
-	include mysql::phpMyAdmin
-	# include etherpad-lite
-	
-	apache::website { "geeksoc.org":
-        server_aliases => [ "www.geeksoc.org" ],
-		# https => true,
-    }
-	apache::website { "bugs.geeksoc.org":
-        server_aliases => [ "www.bugs.geeksoc.org" ],
-		# https => true,
-    }
-	apache::website { "dev.geeksoc.org":
-        server_aliases => [ "www.dev.geeksoc.org" ],
-		# https => true,
-    }
-	apache::website { "wiki.geeksoc.org":
-        server_aliases => [ "www.wiki.geeksoc.org" ],
-		# https => true,
-    }
-	apache::website { "accounts.geeksoc.org":
-        server_aliases => [ "www.accounts.geeksoc.org" ],
-		# https => true,
-    }
-	apache::website { "stats.irc.geeksoc.org":
-        server_aliases => [ "www.irc.stats.geeksoc.org" ],
-		# https => true,
-    }
-
-    include global
+    #Roles
+    include web
 }
