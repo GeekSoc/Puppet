@@ -116,7 +116,8 @@ listen  http 0.0.0.0:80
     acl req_seds hdr_dom(host) -i strathseds.org
     acl req_fusion_web hdr_dom(host) -i www.strathclydefusion.com
     acl req_fusion_stream hdr_dom(host) -i stream.strathclydefusion.com
-	acl req_ambition hdr_dom(host) -i ambition.dev.geeksoc.org
+	acl req_ambition hdr_dom(host) -i delta.dev.geeksoc.org
+	
 
     default_backend idran #by default forward the requests to idran
     use_backend tauron if req_nagios
