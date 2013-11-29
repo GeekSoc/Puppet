@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2013111801   ; serial number //REMEMBER TO UPDATE!! date+nn
+                        2013112901   ; serial number //REMEMBER TO UPDATE!! date+nn
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -115,4 +115,5 @@ etherpad        CNAME       io
 clubs           CNAME       io
 *.clubs         CNAME       io
 webmail         CNAME       io
+ambition.dev		CNAME		io
 
