@@ -4,6 +4,9 @@
 		i386: {
 			$pluginsdir  = "/usr/lib/nagios/plugins"
 		}
+		amd64: {
+		        $pluginsdir  = "/usr/lib/nagios/plugins"
+		}
 		default: {
 			$pluginsdir  = "/usr/lib64/nagios/plugins"
 		}
@@ -15,7 +18,6 @@
 			$nrpeservice   = [ "nagios-nrpe-server" ]
 			$nrpeuser      = [ "nagios" ]
 			$nrpepidfile   = [ "/var/run/nagios/nrpe.pid"]
-			$pluginsdir    = "/usr/lib/nagios/plugins"
 		}
 		centos, redhat: {
 			$nrpepackage   = [ "nrpe" ]
