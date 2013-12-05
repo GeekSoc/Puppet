@@ -18,6 +18,7 @@
 			$nrpeservice   = [ "nagios-nrpe-server" ]
 			$nrpeuser      = [ "nagios" ]
 			$nrpepidfile   = [ "/var/run/nagios/nrpe.pid"]
+			$diskroot      = [ "/" ]
 		}
 		centos, redhat: {
 			$nrpepackage   = [ "nrpe" ]
@@ -25,6 +26,7 @@
 			$nrpeservice   = [ "nrpe" ]
 			$nrpeuser      = [ "nrpe" ]
 			$nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
+			$diskroot      = [ "/dev/root" ]
 		}
 	}
 	
