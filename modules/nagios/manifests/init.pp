@@ -1,4 +1,4 @@
-class nagios::nrpe {
+ class nagios::nrpe {
 	
 	case $::architecture {
 		i386: {
@@ -15,6 +15,7 @@ class nagios::nrpe {
 			$nrpeservice   = [ "nagios-nrpe-server" ]
 			$nrpeuser      = [ "nagios" ]
 			$nrpepidfile   = [ "/var/run/nagios/nrpe.pid"]
+			$pluginsdir    = "/usr/lib/nagios/plugins"
 		}
 		centos, redhat: {
 			$nrpepackage   = [ "nrpe" ]
