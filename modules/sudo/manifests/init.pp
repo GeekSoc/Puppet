@@ -1,4 +1,12 @@
 class sudo (
+
+    case $::operatingsystem {
+        debian: {
+          $secure_path = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        }
+        centos, redhat: {
+          $secure_path = "/sbin:/bin:/usr/sbin:/usr/bin"          
+        }
     $sudoers = ''
   ) {
 
