@@ -7,6 +7,7 @@ class sudo (
         centos, redhat: {
           $secure_path = "/sbin:/bin:/usr/sbin:/usr/bin"          
         }
+    }
     $sudoers = ''
   ) {
 
