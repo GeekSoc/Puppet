@@ -1,4 +1,6 @@
 class sudo (
+    $sudoers = ''
+  ) {
 
     case $::operatingsystem {
         debian: {
@@ -8,8 +10,6 @@ class sudo (
           $secure_path = "/sbin:/bin:/usr/sbin:/usr/bin"          
         }
     }
-    $sudoers = ''
-  ) {
 
     package { "sudo":
         ensure => installed,
