@@ -25,4 +25,10 @@ class mail {
       source => 'puppet:///modules/dovecot/dovecot-ldap.conf.ext',
   }
   
+  package { "mailman":
+	ensure => installed,
+  }
+  
+  
+  
 }
