@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'abydos.geeksoc.org' do
   let(:node) { 'abydos.geeksoc.org' }
-  let(:facts) { {:operatingsystem => 'Debian', :ipaddress => '130.159.141.65'} }
+  let(:facts) { {:operatingsystem => 'Debian'} }
   
   it {should compile}
   it { should contain_service('ssh') }
@@ -11,6 +11,6 @@ describe 'abydos.geeksoc.org' do
   
   it do
        should contain_file('/etc/ssh/sshd_config') \
-       .with_content(/AllowGroups members/)
-     end
+       .with_content(/AllowGroups.*members/)
+  end
 end
