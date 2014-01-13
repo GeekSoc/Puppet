@@ -1,0 +1,14 @@
+root_pw,test
+irc_pw_smilers,test
+irc_pw_tolien,test
+irc_pw_services,test
+irc_pw_restart,test
+irc_pw_die,test
+irc_cloak_key_1,test
+irc_cloak_key_2,test
+irc_cloak_key_3,test
+irc_pw_oper_stats,test
+haproxy_stats_pw,test
+etherpad_gh_appID,test
+etherpad_gh_appSecret,test
+etherpad_db_pw,test
