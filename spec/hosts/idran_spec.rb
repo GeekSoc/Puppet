@@ -24,7 +24,7 @@ describe 'idran.geeksoc.org' do
   it { should contain_package('mysql-server') }
      
   it do
-      should_not contain_file('/etc/ssh/sshd_config') \
+      should contain_file('/etc/ssh/sshd_config') \
       .with_content(/AllowGroups.*(sysadmin-apprentice)/)
   end
     
