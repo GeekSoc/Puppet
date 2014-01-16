@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'idran.geeksoc.org' do
-  let(:node) { 'abydos.geeksoc.org' }
+  let(:node) { 'idran.geeksoc.org' }
   let(:facts) { {:operatingsystem => 'CentOS'} }
   
   it {should compile}
