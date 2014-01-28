@@ -1,3 +1,6 @@
+require 'rake'
+require 'rspec/core/rake_task'
+
 PUPPETMASTER = 'puppet.geeksoc.org'
 SSH = 'ssh -t -A'
 task :deploy do
@@ -16,3 +19,10 @@ task :apply do
     end
 end
 
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.pattern = 'spec/*/*_spec.rb'
+end
+
+require 'puppet-lint/tasks/puppet-lint'
+PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "vendor/**/*.pp"]
+task :default => [:spec, :lint]

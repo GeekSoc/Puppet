@@ -122,7 +122,7 @@ auth_mechanisms = <%= auth_mechanisms %>
 #!include auth-deny.conf.ext
 #!include auth-master.conf.ext
 
-<% auth_include.each do |auth| -%>
+<% auth_include.each_line(' ') do |auth| -%>
 !include auth-<%= auth %>.conf.ext
 <% end -%>
 #!include auth-system.conf.ext
