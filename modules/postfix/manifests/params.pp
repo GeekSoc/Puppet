@@ -4,6 +4,6 @@ class postfix::params {
       $package = 'postfix'
       $service = 'postfix'
     }
-    default: {fail("OS family ${::osamily} not supported!")}
+    default: {fail("OS family ${::osfamily} not supported!")}
   }
 }

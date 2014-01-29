@@ -24,6 +24,6 @@ root	ALL=(ALL) ALL
 %sysadmin ALL=(ALL:ALL) ALL
 %sysadmin ALL=(ALL:ALL) NOPASSWD: /usr/bin/git
 
-<% sudoers.each do |val| -%>
+<% sudoers.each_line(' ') do |val| -%>
 <%= val %> ALL=(ALL:ALL) ALL
 <% end -%>
