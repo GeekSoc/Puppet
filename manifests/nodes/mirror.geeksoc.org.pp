@@ -6,12 +6,13 @@ node 'mirror.geeksoc.org' {
 
 
 	# fosdem videos
-	cron { rsyncFOSDEM:
-      command => "/usr/bin/rsync -vaH rsync://video.fosdem.org/video /var/www/vhosts/mirror.geeksoc.org/public_html/fosdem/ --delete",
-	  user => root,
-	  hour => 4,
-	  minute => 30
-	}
+	#### Disabled until storage situation is worked out
+	# cron { rsyncFOSDEM:
+	#       command => "/usr/bin/rsync -vaH rsync://video.fosdem.org/video /var/www/vhosts/mirror.geeksoc.org/public_html/fosdem/ --delete",
+	#   user => root,
+	#   hour => 4,
+	#   minute => 30
+	# }
 
 	apache::website { "mirror.geeksoc.org":
         server_aliases => [ "www.mirror.geeksoc.org" ],
