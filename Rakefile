@@ -25,4 +25,4 @@ end
 
 require 'puppet-lint/tasks/puppet-lint'
 PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "vendor/**/*.pp"]
-task :default => [:spec, :lint]
+task :default => [:spec]
