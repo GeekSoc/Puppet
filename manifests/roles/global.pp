@@ -6,8 +6,8 @@ class global {
 	$users_ldap_ssl = 'yes'
 	$syslog_server = 'picon.geeksoc.org'
 
-#	include users
-#	include sudo
+	include users
+	include sudo
     include ssh::sshd
     include ssh::known_hosts
 	include munin::node
@@ -45,16 +45,16 @@ class global {
 	}
 
     #Ensure root password is the same
-#    user { root:
- #       ensure   => present,
-  #      password => extlookup("root_pw"),
-   # }
+    user { root:
+        ensure   => present,
+        password => extlookup("root_pw"),
+    }
 
 	###################
 	# Global Packages #
 	###################
 	case $::operatingsystem {
-        debian, ubuntu, Solaris: {
+        debian, ubuntu: {
             $vim_name = "vim"
 			$netcat_name = "netcat"
         }
