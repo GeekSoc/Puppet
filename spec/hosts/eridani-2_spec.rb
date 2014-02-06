@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'eridani-2.geeksoc.org' do
   let(:node) { 'eridani-2.geeksoc.org' }
-  let(:facts) {:operatingsystem => 'Solaris' }
+  let(:facts) {{:operatingsystem => 'Solaris' }}
   
   it {should compile}
   
