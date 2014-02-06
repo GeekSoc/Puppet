@@ -18,7 +18,7 @@ class pam::params  {
 # - RedHat supported version is 5;
 # - Centos follows obviously RedHat layout
     $oslayout = $operatingsystem ? {
-        debian => "debian5",
+        /(?i:debian|Solaris)/ => "debian5",
         ubuntu => "ubuntu104",
         /(?i:CentOS|RedHat|Scientific)/ => "redhat5",
     }

@@ -1,4 +1,4 @@
-class global {
+class sol_global {
 
 	$users_auth = 'ldap'
 	$users_ldap_servers = ['ldap.geeksoc.org']
@@ -12,7 +12,7 @@ class global {
     include ssh::known_hosts
 	include munin::node
 	include rsyslog
-	include fail2ban
+#	include fail2ban
     include resolv
 	include nagios::nrpe
 	include gs-scripts::retrieve_public_keys

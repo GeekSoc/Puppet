@@ -28,6 +28,15 @@
 			$nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
 			$diskroot      = [ "/dev/root" ]
 		}
+		Solaris: {
+                        $nrpepackage   = [ "nrpe" ]
+                        $nrpeplugins   = [ "nrpe_plugin" ]
+                        $nrpeservice   = [ "cswnrpe" ]
+                        $nrpeuser      = [ "nrpe" ]
+                        $nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
+                        $diskroot      = [ "/" ]
+                }
+
 	}
 	
 	package { 
@@ -50,9 +59,14 @@
 		owner   => root,
 		group   => root,
 		content => template("nagios/nrpe.cfg.erb"),
-		require => Package[$nrpepackage],
+		require => [Package[$nrpepackage],File["/etc/nagios"]],
 		notify => Service[$nrpeservice],
 	}
+
+        file { "/etc/nagios":
+                ensure => "directory",
+        }
+
 }
 
 class nagios::server {

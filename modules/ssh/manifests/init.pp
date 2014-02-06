@@ -16,6 +16,10 @@ class ssh::sshd (
 			$config_tpl = "sshd.conf.el.erb"
 			$pkg_name   = [ "sshd" ]
 		}
+		Solaris: {
+			$config_tpl = "sshd.conf.sol.erb"
+                        $pkg_name   = [ "ssh" ]
+		}
 	}
 	
 	package { openssh-server: ensure => present }
