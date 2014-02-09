@@ -19,6 +19,7 @@
 			$nrpeuser      = [ "nagios" ]
 			$nrpepidfile   = [ "/var/run/nagios/nrpe.pid"]
 			$diskroot      = [ "/" ]
+			$cfgdir	       = [ "/etc/nagios" ]
 		}
 		centos, redhat: {
 			$nrpepackage   = [ "nrpe" ]
@@ -27,6 +28,8 @@
 			$nrpeuser      = [ "nrpe" ]
 			$nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
 			$diskroot      = [ "/dev/root" ]
+			$cfgdir        = [ "/etc/nagios" ]
+
 		}
 		Solaris: {
                         $nrpepackage   = [ "nrpe" ]
@@ -35,6 +38,8 @@
                         $nrpeuser      = [ "nrpe" ]
                         $nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
                         $diskroot      = [ "/" ]
+			$cfgdir        = [ "/etc/opt/csw" ]
+
                 }
 
 	}
@@ -54,16 +59,16 @@
 	
 
 
-	file { "/etc/nagios/nrpe.cfg":
+	file { "$cfgdir/nrpe.cfg":
 		mode    => "644",
 		owner   => root,
 		group   => root,
 		content => template("nagios/nrpe.cfg.erb"),
-		require => [Package[$nrpepackage],File["/etc/nagios"]],
+		require => [Package[$nrpepackage],File["$cfgdir"]],
 		notify => Service[$nrpeservice],
 	}
 
-        file { "/etc/nagios":
+        file { "$cfgdir":
                 ensure => "directory",
         }
 
