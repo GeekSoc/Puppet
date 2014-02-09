@@ -6,16 +6,20 @@ class global {
 	$users_ldap_ssl = 'yes'
 	$syslog_server = 'picon.geeksoc.org'
 
-	include users
-	include sudo
-    include ssh::sshd
-    include ssh::known_hosts
+    	include ssh::sshd
+    	include ssh::known_hosts
 	include munin::node
 	include rsyslog
-	include fail2ban
-    include resolv
+    	include resolv
 	include nagios::nrpe
 	include gs-scripts::retrieve_public_keys
+
+	case $operatingsystem {
+      		Solaris: {  }
+      		default: { include users
+                           include sudo
+                           include fail2ban }
+    	}
 
     resolv_conf { "geeksoc.org":
         domainname  => "geeksoc.org",
@@ -54,7 +58,7 @@ class global {
 	# Global Packages #
 	###################
 	case $::operatingsystem {
-        debian, ubuntu: {
+        debian, ubuntu, Solaris: {
             $vim_name = "vim"
 			$netcat_name = "netcat"
         }

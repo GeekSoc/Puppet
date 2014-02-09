@@ -84,6 +84,7 @@ class rsyslog::params  {
     }
 
     $servicename = $operatingsystem ? {
+	Solaris => "cswrsyslog",
         default => "rsyslog",
     }
 

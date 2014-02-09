@@ -15,3 +15,12 @@ Exec { path => "/usr/bin:/usr/sbin/:/bin:/sbin" }
 Service {
   hasstatus => false,
 }
+
+Package {
+    provider => $operatingsystem ? {
+        redhat => yum,
+        centos => yum,
+        debian => apt-get,
+        Solaris => pkgutil,
+    }
+}
