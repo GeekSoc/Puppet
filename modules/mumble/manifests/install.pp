@@ -9,6 +9,6 @@ class mumble::install {
   package{$::mumble::package_name:
     ensure  => 'installed',
     require => $_require,
-    },
+    
   }
 }
