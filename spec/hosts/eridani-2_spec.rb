@@ -7,6 +7,6 @@ describe 'eridani-2.geeksoc.org' do
   it {should compile}
   
   it { should_not contain_mount('/home') }
-  it { should contain_class('sol_global') }
+  it { should contain_class('global') }
   
 end

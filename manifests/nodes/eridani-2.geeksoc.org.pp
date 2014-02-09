@@ -13,5 +13,5 @@ This server is Puppet managed - local changes may be overwritten!
 
 
 	# Roles
-	include sol_global
+	include global
 }
