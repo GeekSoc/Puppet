@@ -26,7 +26,11 @@ This server is Puppet managed - local changes may be overwritten!
     class {'sudo':
       sudoers => '%sysadmin-games',
     }
+	
 
 	# Roles
 	include global
+	
+	#Mumble
+	include mumble
 }
