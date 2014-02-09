@@ -8,7 +8,14 @@
 		        $pluginsdir  = "/usr/lib/nagios/plugins"
 		}
 		default: {
-			$pluginsdir  = "/usr/lib64/nagios/plugins"
+			case $::operatingsystem {
+				Solaris: {
+					$pluginsdir  = "/opt/csw/libexec/nagios-plugins"
+				}
+				default: {
+					$pluginsdir  = "/usr/lib64/nagios/plugins"
+				}
+			}
 		}
 	}
 	case $::operatingsystem {
@@ -39,7 +46,6 @@
                         $nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
                         $diskroot      = [ "/" ]
 			$cfgdir        = [ "/etc/opt/csw" ]
-			$pluginsdir  = "/opt/csw/libexec/nagios-plugins"
                 }
 
 	}
