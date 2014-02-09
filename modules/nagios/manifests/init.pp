@@ -33,13 +33,13 @@
 		}
 		Solaris: {
                         $nrpepackage   = [ "nrpe" ]
-                        $nrpeplugins   = [ "nrpe_plugin" ]
+                        $nrpeplugins   = [ "nagios_plugins" ]
                         $nrpeservice   = [ "cswnrpe" ]
                         $nrpeuser      = [ "nrpe" ]
                         $nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
                         $diskroot      = [ "/" ]
 			$cfgdir        = [ "/etc/opt/csw" ]
-
+			$pluginsdir  = "/opt/csw/libexec/nagios-plugins"
                 }
 
 	}
