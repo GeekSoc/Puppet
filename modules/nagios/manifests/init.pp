@@ -42,8 +42,8 @@
                         $nrpepackage   = [ "nrpe" ]
                         $nrpeplugins   = [ "nagios_plugins" ]
                         $nrpeservice   = [ "cswnrpe" ]
-                        $nrpeuser      = [ "nrpe" ]
-                        $nrpepidfile   = [ "/var/run/nrpe/nrpe.pid"]
+                        $nrpeuser      = [ "nagios" ]
+                        $nrpepidfile   = [ "/var/run/nrpe.pid"]
                         $diskroot      = [ "/" ]
 			$cfgdir        = [ "/etc/opt/csw" ]
                 }
