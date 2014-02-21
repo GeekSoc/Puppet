@@ -1,4 +1,3 @@
-
 import "roles/*.pp"
 import "nodes/*.pp"
 
@@ -20,7 +19,7 @@ Package {
     provider => $operatingsystem ? {
         redhat => yum,
         centos => yum,
-        debian => apt-get,
+        debian => apt,
         Solaris => pkgutil,
     }
 }
