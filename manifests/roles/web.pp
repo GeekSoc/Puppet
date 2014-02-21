@@ -46,6 +46,9 @@ class web {
     server_aliases => [ "www.webmail.geeksoc.org" ],
 		https => true,
   }
-
+	apache::website { "isac.geeksoc.org":
+    server_aliases => [ "www.isac.geeksoc.org" ],
+		https => true,
+  }
     include global
 }
