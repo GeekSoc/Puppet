@@ -115,6 +115,7 @@ etherpad        CNAME       io
 clubs           CNAME       io
 *.clubs         CNAME       io
 webmail         CNAME       io
-ambition.dev		CNAME		io
-delta.dev		CNAME		io
+ambition.dev		CNAME	      io
+delta.dev		    CNAME       io
+isac            CNAME       io
 
