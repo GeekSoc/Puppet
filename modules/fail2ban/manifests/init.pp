@@ -14,7 +14,14 @@ class fail2ban {
 		notify => Service["fail2ban"]
     }
 
-    file { "/etc/fail2ban/jail.conf":
+    file { "/etc/fail2ban/filter.d/tcpopen.conf":
+        ensure => present,
+        require => File["/etc/fail2ban/filter.d"],
+        source => "puppet:///modules/fail2ban/filter.d/tcpopen.conf",
+		notify => Service["fail2ban"]
+    }
+
+    file { "/etc/fail2ban/filter.d":
         ensure => present,
         require => File["/etc/fail2ban"],
         source => "puppet:///modules/fail2ban/jail.conf",
@@ -22,6 +29,10 @@ class fail2ban {
     }
 
     file { "/etc/fail2ban":
+        ensure => "directory",
+    }
+    
+    file { "/etc/fail2ban/filter.d":
         ensure => "directory",
     }
 
