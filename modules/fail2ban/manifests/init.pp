@@ -21,7 +21,7 @@ class fail2ban {
 		notify => Service["fail2ban"]
     }
 
-    file { "/etc/fail2ban/filter.d":
+    file { "/etc/fail2ban/jail.conf":
         ensure => present,
         require => File["/etc/fail2ban"],
         source => "puppet:///modules/fail2ban/jail.conf",
@@ -30,5 +30,10 @@ class fail2ban {
 
     file { "/etc/fail2ban":
         ensure => "directory",
-    }    
+    }
+    
+    file { "/etc/fail2ban/filter.d":
+        ensure => "directory",
+        require => File["/etc/fail2ban"]
+    }
 }
