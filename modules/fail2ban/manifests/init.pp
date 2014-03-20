@@ -30,10 +30,5 @@ class fail2ban {
 
     file { "/etc/fail2ban":
         ensure => "directory",
-    }
-    
-    file { "/etc/fail2ban/filter.d":
-        ensure => "directory",
-    }
-
+    }    
 }
