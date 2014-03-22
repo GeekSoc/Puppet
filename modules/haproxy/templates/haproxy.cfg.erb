@@ -104,7 +104,7 @@ backend allspark
     timeout server 5m
     balance roundrobin
     option httpchk
-    server energon 130.159.141.90:80 weight 1 maxconn 10000
+    server energon 130.159.141.90:9000 weight 1 maxconn 10000
 
 # HTTP Reverse Proxy
 listen  http 0.0.0.0:80
