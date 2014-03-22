@@ -125,7 +125,7 @@ listen  http 0.0.0.0:80
     acl req_fusion_web hdr_dom(host) -i www.strathclydefusion.com
     acl req_fusion_stream hdr_dom(host) -i stream.strathclydefusion.com
 	acl req_ambition hdr_dom(host) -i delta.dev.geeksoc.org
-	acl req_allspark hdr_dom(host) -i energon.geeksoc.org
+	acl req_allspark hdr_dom(host) -i allspark.geeksoc.org
 	
 
     default_backend idran #by default forward the requests to idran
