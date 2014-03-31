@@ -1,5 +1,5 @@
 
-node 'vpn.geeksoc.org' {
+node 'sol-relay.geeksoc.org' {
 
 	# Modules
 	include openvpn
