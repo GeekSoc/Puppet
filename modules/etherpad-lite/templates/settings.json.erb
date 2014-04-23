@@ -76,10 +76,10 @@
       "searchDN": "cn=admin,dc=geeksoc,dc=org",
       "searchPWD": "<%= scope.function_extlookup(["root_pw"]) %>",
       "groupSearchBase": "ou=groups,dc=geeksoc,dc=org",
-      "groupAttribute": "members",
-      "groupAttributeIsDN": true,
+      "groupAttribute": "membersUid",
+      "groupAttributeIsDN": false,
       "searchScope": "sub",
-      "groupSearch": "(&(cn=admin)(objectClass=groupOfNames))",
+      "groupSearch": "(cn=sysadmin)",
       "anonymousReadonly": true
     }
   },
