@@ -23,7 +23,7 @@
 
 progname="Etherpad Lite"
 path="/srv/etherpad-lite"
-prog="/usr/local/bin/node"
+prog="/usr/bin/node"
 parameter="node_modules/ep_etherpad-lite/node/server.js"
 log="$path/log/error.log"
 conf="$path/settings.json"
