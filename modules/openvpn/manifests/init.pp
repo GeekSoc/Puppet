@@ -1,6 +1,7 @@
 class openvpn {
 	
-	package { "openvpn":
+	package { ["openvpn",
+				"openvpn-auth-ldap", ]:
 		ensure => installed,
 	}
 	
