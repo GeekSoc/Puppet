@@ -68,12 +68,20 @@
   },*/
   
   "users": {
-      "github": {
-          "appId": "<%= scope.function_extlookup(["etherpad_gh_appID"]) %>",
-          "appSecret": "<%= scope.function_extlookup(["etherpad_gh_appSecret"]) %>",
-          "callback": "http:\/\/etherpad.geeksoc.org/auth/github_callback",
-          "org": "GeekSoc"
-      }
+    "ldapauth": {
+      "url": "ldap://ldap.geeksoc.org",
+      "accountBase": "ou=people,dc=geeksoc,dc=org",
+      "accountPattern": "(&(objectClass=*)(uid={{username}}))",
+      "displayNameAttribute": "cn",
+      "searchDN": "cn=admin,dc=geeksoc,dc=org",
+      "searchPWD": "<%= scope.function_extlookup(["root_pw"]) %>",
+      "groupSearchBase": "ou=groups,dc=geeksoc,dc=org",
+      "groupAttribute": "members",
+      "groupAttributeIsDN": true,
+      "searchScope": "sub",
+      "groupSearch": "(&(cn=admin)(objectClass=groupOfNames))",
+      "anonymousReadonly": true
+    }
   },
 
   /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
