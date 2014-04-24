@@ -32,7 +32,7 @@ class etherpad-lite {
         mode    => 0744,
         source => "puppet:///modules/etherpad-lite/etherpad-lite.init",
 	}
-	
+/*	
 	file { "/srv/etherpad-lite/settings.json":
 		ensure => present,
 		owner   => "etherpad-lite",
@@ -41,5 +41,5 @@ class etherpad-lite {
 		content => template("etherpad-lite/settings.json.erb"),
 		notify => Service["etherpad-lite"]
 	}
-	
+	*/
 }
