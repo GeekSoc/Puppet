@@ -9,7 +9,7 @@ file {
         mode => 0755, owner => root, group => 0;
 }
 
-import "*.pp"
+import "other/*.pp"
 
 class common {
 # Some General Use Variables
