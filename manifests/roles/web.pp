@@ -1,5 +1,9 @@
 class web {
 	
+  class {'ssh::sshd':
+        sshd_config_AllowGroups => 'deploy sysadmin gsag root',
+  }
+	
 	mount { "/home":
         device  => "storage.geeksoc.org:/home",
         fstype  => "nfs",
