@@ -34,11 +34,11 @@ class web {
     server_aliases => [ "www.wiki.geeksoc.org" ],
 		https => true,
   }
-	apache::website { "accounts.geeksoc.org":
+	apache::phpapp { "accounts.geeksoc.org":
   server_aliases => [ "www.accounts.geeksoc.org" ],
 		https => true,
   }
-  apache::website {"api.accounts.geeksoc.org":
+  apache::phpapp {"api.accounts.geeksoc.org":
     server_aliases => [ "www.api.accounts.geeksoc.org" ],
     https          => true,
   }
