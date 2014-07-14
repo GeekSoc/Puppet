@@ -4,9 +4,9 @@
   ServerAlias <%= server_aliases.join(" ") %>
 <% end -%>
   ServerAdmin <%= server_admin %>
-  DocumentRoot /var/www/applications/production/<%= name %>/current
+  DocumentRoot /var/www/applications/production/<%= app_name %>/current
 
-  <Directory /var/www/applications/production/<%= name %>/current
+  <Directory /var/www/applications/production/<%= app_name %>/current
     Order Allow,Deny
     Allow from All
     Options +Indexes
@@ -25,9 +25,9 @@
   ServerAlias <%= server_aliases.join(" ") %>
 <% end -%>
   ServerAdmin <%= server_admin %>
-  DocumentRoot /var/www/applications/production/<%= name %>/current
+  DocumentRoot /var/www/applications/production/<%= app_name %>/current
 
-  <Directory /var/www/applications/production/<%= name %>/current
+  <Directory /var/www/applications/production/<%= app_name %>/current
     Order Allow,Deny
     Allow from All
     Options +Indexes
