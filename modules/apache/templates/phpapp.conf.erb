@@ -6,7 +6,7 @@
   ServerAdmin <%= server_admin %>
   DocumentRoot /var/www/applications/production/<%= app_name %>/current
 
-  <Directory /var/www/applications/production/<%= app_name %>/current
+  <Directory /var/www/applications/production/<%= app_name %>/current>
     Order Allow,Deny
     Allow from All
     Options +Indexes
@@ -27,7 +27,7 @@
   ServerAdmin <%= server_admin %>
   DocumentRoot /var/www/applications/production/<%= app_name %>/current
 
-  <Directory /var/www/applications/production/<%= app_name %>/current
+  <Directory /var/www/applications/production/<%= app_name %>/current>
     Order Allow,Deny
     Allow from All
     Options +Indexes
