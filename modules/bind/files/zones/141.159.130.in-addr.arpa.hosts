@@ -1,5 +1,5 @@
 141.159.130.in-addr.arpa. IN SOA dns0.strath.ac.uk. hostmaster.geeksoc.org (
-    2014071402
+    2014071601
     1h
     1h
     1d
@@ -17,8 +17,8 @@
 70	IN	PTR	kobol.geeksoc.org.
 71  IN  PTR sintii.geeksoc.org.
 72  IN  PTR socs.geeksoc.org.
-73	IN	PTR	hive.geeksoc.org.
 74	IN	PTR	hydrus.geeksoc.org.
+77	IN	PTR	hive.geeksoc.org.
 
 75  IN  PTR ns.geeksoc.org.
 

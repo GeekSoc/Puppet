@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2014071402   ; serial number //REMEMBER TO UPDATE!! date+nn
+                        2014071601   ; serial number //REMEMBER TO UPDATE!! date+nn
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -53,8 +53,8 @@ kobol           A       130.159.141.70
 sintii          A       130.159.141.71
 ;web             A       130.159.141.71
 socs            A       130.159.141.72
-hive			A		130.159.141.73
 hydrus			A		130.159.141.74
+hive			A		130.159.141.77
 vpn             A       130.159.141.79
 
 magrathea       A       130.159.141.80
