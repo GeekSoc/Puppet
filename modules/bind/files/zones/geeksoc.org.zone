@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2014071601   ; serial number //REMEMBER TO UPDATE!! date+nn
+                        2014091101   ; serial number //REMEMBER TO UPDATE!! date+nn
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -60,6 +60,7 @@ vpn             A       130.159.141.79
 magrathea       A       130.159.141.80
 idran           A       130.159.141.81
 web2            A       130.159.141.82
+ares			A		130.159.141.84
 liandri			A		130.159.141.85
 pandora         A       130.159.141.86
 eridani-1		A		130.159.141.87
@@ -82,6 +83,7 @@ orion-3			A		130.159.141.103
 orion-4			A		130.159.141.104
 orion-5			A		130.159.141.105
 orion-6			A		130.159.141.106
+titan			A		130.159.141.107
 
 argama          A       130.159.141.111
 picon           A       130.159.141.112

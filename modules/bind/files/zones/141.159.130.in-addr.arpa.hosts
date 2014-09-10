@@ -1,5 +1,5 @@
 141.159.130.in-addr.arpa. IN SOA dns0.strath.ac.uk. hostmaster.geeksoc.org (
-    2014071601
+    2014091101
     1h
     1h
     1d
@@ -26,6 +26,7 @@
 80  IN  PTR magrathea.geeksoc.org.
 81  IN  PTR idran.geeksoc.org.
 82  IN  PTR web2.geeksoc.org.
+84	IN	PTR	ares.geeksoc.org
 85  IN  PTR liandri.geeksoc.org
 86  IN  PTR pandora.geeksoc.org.
 87	IN	PTR	eridani-1.geeksoc.org.
@@ -44,6 +45,7 @@
 104	IN	PTR	orion-4.geeksoc.org.
 105	IN	PTR	orion-5.geeksoc.org.
 106	IN	PTR	orion-6.geeksoc.org.
+107	IN	PTR	titan.geeksoc.org.
 
 111 IN  PTR argama.geeksoc.org.
 112 IN  PTR picon.geeksoc.org.
