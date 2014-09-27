@@ -102,7 +102,8 @@ define apache::phpapp (
     $server_aliases = [],
     $server_admin = "support@geeksoc.org",
  	  $https = false,
-	  $groupname = $apacheuser
+	  $groupname = $apacheuser,
+		$app_name = $name
 ) {    
 	
     file { "${name}.conf":
@@ -117,17 +118,17 @@ define apache::phpapp (
 		notify => Service["httpd"],
         require => Package["httpd"],
     }
-	file { "/var/www/applications/production/$name":
+	file { "/var/www/applications/production/$app_name":
         owner  => $apacheuser,
         group  => $groupname,
         ensure => directory,
     }
-	file { "/var/www/applications/production/$name/shared":
+	file { "/var/www/applications/production/$app_name/shared":
         owner  => $apacheuser,
         group  => $groupname,
         ensure => directory,
     }
-	file { "/var/www/applications/production/$name/releases":
+	file { "/var/www/applications/production/$app_name/releases":
         owner  => $apacheuser,
         group  => $groupname,
         ensure => directory,

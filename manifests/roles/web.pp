@@ -35,11 +35,13 @@ class web {
 		https => true,
   }
 	apache::phpapp { "accounts.geeksoc.org":
-  server_aliases => [ "www.accounts.geeksoc.org" ],
+    server_aliases => [ "www.accounts.geeksoc.org" ],
+	  app_name => "gas-client",
 		https => true,
   }
   apache::phpapp {"api.accounts.geeksoc.org":
     server_aliases => [ "www.api.accounts.geeksoc.org" ],
+		app_name => "gas-api",
     https          => true,
   }
 	apache::website { "stats.irc.geeksoc.org":
