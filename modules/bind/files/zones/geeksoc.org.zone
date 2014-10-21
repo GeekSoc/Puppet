@@ -41,51 +41,51 @@ loghost         CNAME       picon
 nagioshost      CNAME       tauron
 puppet          CNAME       picon
 lists           A           130.159.141.67
-
+foreman         CNAME       gemini-2
 
 ; ##Hosts##
 io              A       130.159.141.65
 tianna          A       130.159.141.66
 langara         A       130.159.141.67
-andor			A		130.159.141.68
+andor		A	130.159.141.68
 abydos          A       130.159.141.69
 kobol           A       130.159.141.70
 sintii          A       130.159.141.71
-;web             A       130.159.141.71
+;web            A       130.159.141.71
 socs            A       130.159.141.72
-hydrus			A		130.159.141.74
-terminus		A		130.159.141.76
-hive			A		130.159.141.77
+hydrus		A	130.159.141.74
+terminus	A	130.159.141.76
+hive		A	130.159.141.77
 vpn             A       130.159.141.79
 
 magrathea       A       130.159.141.80
 idran           A       130.159.141.81
 web2            A       130.159.141.82
-ares			A		130.159.141.84
-liandri			A		130.159.141.85
+ares		A	130.159.141.84
+liandri		A	130.159.141.85
 pandora         A       130.159.141.86
-eridani-1		A		130.159.141.87
-eridani-2		A		130.159.141.88
-eridani-3		A		130.159.141.89
+eridani-1	A	130.159.141.87
+eridani-2	A	130.159.141.88
+eridani-3	A	130.159.141.89
 
-energon			A		130.159.141.90
+energon		A	130.159.141.90
 ;ilo.andor      A       130.159.141.91
-;gemini          A       130.159.141.91
+;gemini         A       130.159.141.91
 gemini-1        A       130.159.141.92
 gemini-2        A       130.159.141.93
-;git             A       130.159.141.94
+;git            A       130.159.141.94
 mirrorhost      A       130.159.141.98
 vulcan          A       130.159.141.99
 
-orion-0			A		130.159.141.100
-orion-1			A		130.159.141.101
-orion-2			A		130.159.141.102
-orion-3			A		130.159.141.103
-orion-4			A		130.159.141.104
-orion-5			A		130.159.141.105
-orion-6			A		130.159.141.106
-titan			A		130.159.141.107
-linn			A		130.159.141.109
+orion-0		A	130.159.141.100
+orion-1		A	130.159.141.101
+orion-2		A	130.159.141.102
+orion-3		A	130.159.141.103
+orion-4		A	130.159.141.104
+orion-5		A	130.159.141.105
+orion-6		A	130.159.141.106
+titan		A	130.159.141.107
+linn		A	130.159.141.109
 
 argama          A       130.159.141.111
 picon           A       130.159.141.112
@@ -118,13 +118,13 @@ munin           CNAME       io
 gitlab          CNAME       io
 stats.irc       CNAME       io
 accounts        CNAME       io
-api.accounts        CNAME       io
+api.accounts    CNAME       io
 etherpad        CNAME       io
 clubs           CNAME       io
 *.clubs         CNAME       io
 webmail         CNAME       io
-ambition.dev		CNAME	      io
-delta.dev		    CNAME       io
+ambition.dev	CNAME	    io
+delta.dev	CNAME       io
 isac            CNAME       io
 allspark        CNAME       io
 *.allspark      CNAME       io
