@@ -157,6 +157,12 @@ allow {
            maxperip        800;
 };
 
+allow {
+           ip             *@130.159.141.64/26;
+           hostname       *@*;
+           class           clients;
+           maxperip        500;
+};
 
 /* Passworded allow line */
 allow {
