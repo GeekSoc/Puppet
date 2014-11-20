@@ -236,6 +236,7 @@ oper tolien {
 		can_restart;
 		services-admin;
 	};
+	modes "z";
 };
 
 oper smilers {
@@ -257,6 +258,43 @@ oper smilers {
 		can_override;
 		can_restart;
 	};
+	modes "z";
+};
+
+oper rob4001 {
+	class           clients;
+	from {
+		userhost quassel@*;
+	};
+	password "8C:61:A8:D0:BF:C1:20:F3:37:CB:60:9C:C8:D1:87:19:73:56:B7:9F:A7:83:39:DE:CB:5D:C1:BF:B8:D3:3B:EC" { sslclientcertfp; };
+	flags
+	{
+		netadmin;
+		can_zline;
+		can_gzline;
+		can_gkline;
+		can_override;
+		can_restart;
+	};
+	modes "z";
+};
+
+oper nightpaws {
+	class           clients;
+	from {
+		userhost nightpaws@*;
+	};
+	password "59:BE:E9:00:61:43:40:64:63:1F:D6:43:F8:0C:3C:5C:56:7F:72:B6:3D:38:09:82:0F:C0:4E:73:E9:98:7A:05" { sslclientcertfp; };
+	flags
+	{
+		netadmin;
+		can_zline;
+		can_gzline;
+		can_gkline;
+		can_override;
+		can_restart;
+	};
+	modes "z";
 };
 
 /*
