@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2014102301   ; serial number //REMEMBER TO UPDATE!! date+nn
+                        2014121101   ; serial number //REMEMBER TO UPDATE!! date+nn
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -31,7 +31,7 @@ lists           MX          5       mx1.strath.ac.uk.
 ; ##Services##
 mail            CNAME       langara
 www             CNAME       io
-irc             CNAME       tianna
+irc             CNAME       hive
 storage         CNAME       picon
 shell           CNAME       abydos
 ssh             CNAME       abydos
@@ -45,7 +45,7 @@ foreman         CNAME       gemini-2
 
 ; ##Hosts##
 io              A       130.159.141.65
-tianna          A       130.159.141.66
+hive            A       130.159.141.66
 langara         A       130.159.141.67
 andor		A	130.159.141.68
 abydos          A       130.159.141.69
@@ -55,7 +55,7 @@ sintii          A       130.159.141.71
 socs            A       130.159.141.72
 hydrus		A	130.159.141.74
 terminus	A	130.159.141.76
-hive		A	130.159.141.77
+tianna		A	130.159.141.77
 vpn             A       130.159.141.79
 
 magrathea       A       130.159.141.80
