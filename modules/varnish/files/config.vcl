@@ -84,6 +84,9 @@ sub vcl_recv {
 
   if (req.http.host == "webchat.geeksoc.org") {
     set req.backend = hive;
+    if (req.http.upgrade) {
+        set bereq.http.upgrade = req.http.upgrade;
+    }
   }
 
   return(pipe);
