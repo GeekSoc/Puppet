@@ -48,13 +48,20 @@ backend tweevo {
     .between_bytes_timeout = 600s;
 }
 
+backend hive {
+    .host = "130.159.141.66";
+    .port = "80";
+    .connect_timeout = 600s;
+    .first_byte_timeout = 600s;
+    .between_bytes_timeout = 600s;
+}
 
 # Routing
 sub vcl_recv {
   if (req.http.host == "gitlab.geeksoc.org") {
     set req.backend = gitlab;
   }
-
+  
   if (req.http.host == "nagios.geeksoc.org") {
     set req.backend = tauron;
   }
@@ -75,7 +82,17 @@ sub vcl_recv {
     set req.backend = tweevo;
   }
 
+  if (req.http.host == "webchat.geeksoc.org") {
+    set req.backend = hive;
+  }
+
   return(pipe);
+}
+
+sub vcl_pipe {
+     if (req.http.upgrade) {
+         set bereq.http.upgrade = req.http.upgrade;
+     }
 }
 
 #sub vcl_recv {
