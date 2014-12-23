@@ -3,7 +3,7 @@ $ttl 3600
 ;  Database file geeksoc.org.zone for geeksoc.org zone.
 ;
 @               IN  SOA dns0.strath.ac.uk. hostmaster.geeksoc.org. (
-                        2014121101   ; serial number //REMEMBER TO UPDATE!! date+nn
+                        2014122301   ; serial number //REMEMBER TO UPDATE!! date+nn
                         900          ; (15m) slave refresh
                         600          ; (10m) slave retry in case of a problem
                         1209600      ; (2w)  slave expiration time
@@ -42,7 +42,6 @@ nagioshost      CNAME       tauron
 puppet          CNAME       picon
 lists           A           130.159.141.67
 foreman         CNAME       gemini-2
-webchat         CNAME       hive
 
 ; ##Hosts##
 io              A       130.159.141.65
@@ -130,3 +129,4 @@ isac            CNAME       io
 allspark        CNAME       io
 *.allspark      CNAME       io
 hackathon       CNAME       io
+webchat         CNAME       io
