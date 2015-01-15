@@ -57,7 +57,7 @@ smtpd_sasl_path = private/auth
 
 # lookup user address, aliases(?), groups(?)
 # does fi need to be able to send as president@gs.o?
-smtpd_sender_login_maps = ldap:/etc/postfix/ldap_virtual_senders.cf
+smtpd_sender_login_maps = ldap:/etc/postfix/ldap_virtual_senders.cf, ldap:/etc/postfix/ldap_virtual_group_senders.cf
 smtpd_recipient_restrictions = reject_sender_login_mismatch, permit_mynetworks, permit_sasl_authenticated, reject_non_fqdn_hostname, reject_non_fqdn_sender, reject_non_fqdn_recipient, reject_unauth_destination, reject_unauth_pipelining, reject_invalid_hostname
 
 virtual_create_maildirsize = yes
