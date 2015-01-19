@@ -1,8 +1,8 @@
 
 node 'gemini-1.geeksoc.org' {
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
  _____                _       _        __  
 |  __ \              (_)     (_)      /  | 
@@ -16,10 +16,10 @@ Purpose: Xen dom0 for Development
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

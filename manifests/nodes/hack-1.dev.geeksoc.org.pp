@@ -1,7 +1,7 @@
 node 'hack-1.dev.geeksoc.org' {
 
-	$sudoers = ["%team1"]
+  $sudoers = ['%team1']
 
-	# Roles
-	include hackathon
+  # Roles
+  include hackathon
 }

@@ -1,11 +1,11 @@
 
 node 'git.geeksoc.org' {
 
-	# ensure that the git and gitlab users can actually login to clone repos
-	$sshd_config_AllowGroups = 'git sysadmin gsag root'
-	
-	# Message of the day
-	file { '/etc/motd':
+  # ensure that the git and gitlab users can actually login to clone repos
+  $sshd_config_AllowGroups = 'git sysadmin gsag root'
+  
+  # Message of the day
+  file { '/etc/motd':
         content => "
  _____ _ _         _____           _     _____            
 |  __ (_) |       |  __ \         | |   /  ___|           
@@ -20,9 +20,9 @@ Purpose: Test Gitlab Server
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

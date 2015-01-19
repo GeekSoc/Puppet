@@ -1,10 +1,10 @@
 
 node 'socs.geeksoc.org' {
 
-	# Modules
-	
-	# Message of the day
-	file { '/etc/motd':
+  # Modules
+  
+  # Message of the day
+  file { '/etc/motd':
         content => " 
  _____                      _____           _     _____            
 /  ___|                    |  __ \         | |   /  ___|           
@@ -18,36 +18,36 @@ Purpose: Clubs & Socs Web Server
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
-	include apache
-	include php
-	include mysql
-	include mysql::phpMyAdmin
-	
-	nfs::share { "soc-sites":
-        path    => "/var/www/vhosts",
-        allowed => "130.159.141.64/26",
-        options => "rw,sync,no_subtree_check",
-    }
-	
-	apache::website { "socs.geeksoc.org":
-        server_aliases => [ "www.socs.geeksoc.org", "clubs.geeksoc.org", "www.clubs.geeksoc.org"],
-		# https => true,
-    }
-
-	apache::website { "strathclydefusion.com":
-	  server_aliases => [ "www.strathclydefusion.com", "fusion.clubs.geeksoc.org"],
-		server_admin => "systems@strathclydefusion.com",
-		groupname => "soc-fusion",
-	}
+  include apache
+  include php
+  include mysql
+  include mysql::phpMyAdmin
   
-	apache::website { "strathseds.org":
-    server_aliases => [ "www.strathseds.org", "strathseds.clubs.geeksoc.org"],
-		server_admin => "adamus1red@gmail.com",
-		groupname => "soc-strathseds",
-	}
+  nfs::share { 'soc-sites':
+        path    => '/var/www/vhosts',
+        allowed => '130.159.141.64/26',
+        options => 'rw,sync,no_subtree_check',
+    }
+  
+  apache::website { 'socs.geeksoc.org':
+        server_aliases => [ 'www.socs.geeksoc.org', 'clubs.geeksoc.org', 'www.clubs.geeksoc.org'],
+    # https => true,
+    }
+
+  apache::website { 'strathclydefusion.com':
+    server_aliases => [ 'www.strathclydefusion.com', 'fusion.clubs.geeksoc.org'],
+    server_admin  => 'systems@strathclydefusion.com',
+    groupname     => 'soc-fusion',
+  }
+  
+  apache::website { 'strathseds.org':
+    server_aliases => [ 'www.strathseds.org', 'strathseds.clubs.geeksoc.org'],
+    server_admin   => 'adamus1red@gmail.com',
+    groupname      => 'soc-strathseds',
+  }
 
     include global
 }

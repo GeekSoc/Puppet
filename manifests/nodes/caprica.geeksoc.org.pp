@@ -1,8 +1,8 @@
 
 node 'caprica.geeksoc.org' {
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
  _____                  _                _____           _     _____            
 /  __ \                (_)              |  __ \         | |   /  ___|           
@@ -18,10 +18,10 @@ Purpose: Xen dom0 for Core services
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

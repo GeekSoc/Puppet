@@ -1,32 +1,32 @@
 
 node 'mirror.geeksoc.org' {
 
-	# Modules
-	include apache
+  # Modules
+  include apache
 
 
-	# fosdem videos
-	#### Disabled until storage situation is worked out
-	# cron { rsyncFOSDEM:
-	#       command => "/usr/bin/rsync -vaH rsync://video.fosdem.org/video /var/www/vhosts/mirror.geeksoc.org/public_html/fosdem/ --delete",
-	#   user => root,
-	#   hour => 4,
-	#   minute => 30
-	# }
+  # fosdem videos
+  #### Disabled until storage situation is worked out
+  # cron { rsyncFOSDEM:
+  #       command => "/usr/bin/rsync -vaH rsync://video.fosdem.org/video /var/www/vhosts/mirror.geeksoc.org/public_html/fosdem/ --delete",
+  #   user => root,
+  #   hour => 4,
+  #   minute => 30
+  # }
 
-	apache::website { "mirror.geeksoc.org":
-        server_aliases => [ "www.mirror.geeksoc.org" ],
+  apache::website { 'mirror.geeksoc.org':
+        server_aliases => [ 'www.mirror.geeksoc.org' ],
     }
 
 
-	# Stop annoying syslog messages
-	service { "mpt-statusd":
-		ensure => stopped,
-		enable => false,
-	}
-	
-	
-	# Message of the day
+  # Stop annoying syslog messages
+  service { 'mpt-statusd':
+    ensure => stopped,
+    enable => false,
+  }
+  
+  
+  # Message of the day
 file { '/etc/motd':
        content => "
 ___  ____                           _____           _     _____            
@@ -41,10 +41,10 @@ Purpose: Mirror server (FOSDEM, GCDS)
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
    }
 
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

@@ -5,43 +5,43 @@ node 'abydos.geeksoc.org' {
         ensure => directory,
     }
 
-    mount { "/home":
-        device  => "storage.geeksoc.org:/home",
-        fstype  => "nfs",
-        ensure  => "mounted",
-        options => "rw,hard,intr,mountvers=3",
+    mount { '/home':
+        device  => 'storage.geeksoc.org:/home',
+        fstype  => 'nfs',
+        ensure  => 'mounted',
+        options => 'rw,hard,intr,mountvers=3',
         atboot  => true,
-        require => File["/home"],
+        require => File['/home'],
     }
 
     file { '/yesterday':
         ensure => directory,
     }
     
-    mount { "/yesterday":
-        device  => "tauron.geeksoc.org:/home/backup/home",
-        fstype  => "nfs",
-        ensure  => "mounted",
-        options => "ro,hard,intr,mountvers=3",
+    mount { '/yesterday':
+        device  => 'tauron.geeksoc.org:/home/backup/home',
+        fstype  => 'nfs',
+        ensure  => 'mounted',
+        options => 'ro,hard,intr,mountvers=3',
         atboot  => true,
-        require => File["/yesterday"],
+        require => File['/yesterday'],
     }
     
     file { '/clubs':
         ensure => directory,
     }
     
-    mount { "/clubs":
-        device  => "socs.geeksoc.org:/var/www/vhosts",
-        fstype  => "nfs",
-        ensure  => "mounted",
-        options => "rw,hard,intr,mountvers=3",
+    mount { '/clubs':
+        device  => 'socs.geeksoc.org:/var/www/vhosts',
+        fstype  => 'nfs',
+        ensure  => 'mounted',
+        options => 'rw,hard,intr,mountvers=3',
         atboot  => true,
-        require => File["/clubs"],
+        require => File['/clubs'],
     }
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => " 
   ___  _               _                 _____           _    _____            
  / _ \| |             | |               |  __ \         | |  /  ___|           
@@ -67,9 +67,9 @@ Remember:
    * Behave :p
 
 -----------------------------------
-" 
+"
     }
 
-	# Roles
-	include shell
+  # Roles
+  include shell
 }

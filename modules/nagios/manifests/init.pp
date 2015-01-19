@@ -56,10 +56,10 @@
   }
    
    service { $nrpeservice:
-    ensure   => running,
-    enable   => true,
+    ensure     => running,
+    enable     => true,
     hasrestart => true,
-    pattern  => 'nrpe',
+    pattern    => 'nrpe',
   }
    
   
@@ -71,7 +71,7 @@
     group   => root,
     content => template('nagios/nrpe.cfg.erb'),
     require => [Package[$nrpepackage],File[$cfgdir]],
-    notify=> Service[$nrpeservice],
+    notify  => Service[$nrpeservice],
   }
 
         file { $cfgdir:
@@ -91,8 +91,8 @@ class nagios::server {
   }
   
   service { 'nagios3':
-    ensure   => running,
-    enable   => true,
+    ensure     => running,
+    enable     => true,
     hasrestart => true,
   }
   

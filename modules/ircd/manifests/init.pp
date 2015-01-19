@@ -15,7 +15,7 @@ class ircd {
     }
 
   exec { '/home/ircd/ircd/unreal rehash':
-    subscribe => [
+    subscribe   => [
       File['/home/ircd/ircd/unrealircd.conf'],
       File['/home/ircd/ircd/ircd.motd']
       ],

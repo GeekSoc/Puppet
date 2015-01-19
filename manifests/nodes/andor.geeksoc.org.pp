@@ -1,8 +1,8 @@
 
 node 'andor.geeksoc.org' {
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
     ___            _            _____           _    _____            
    / _ \          | |          |  __ \         | |  /  ___|           
@@ -16,10 +16,10 @@ Purpose: Suggest One
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

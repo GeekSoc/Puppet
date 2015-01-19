@@ -11,10 +11,10 @@ class munin::node {
   service { $srv:  ensure => running, enable => true, require => Package[$pkg] }
   
   file { '/etc/munin/munin-node.conf':
-    source=> 'puppet:///modules/munin/munin-node.conf',
-    ensure=> present,
+    source  => 'puppet:///modules/munin/munin-node.conf',
+    ensure  => present,
     require => File['/etc/munin'],
-    notify=> Service[$srv]
+    notify  => Service[$srv]
 
   }
 

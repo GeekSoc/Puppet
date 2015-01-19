@@ -1,8 +1,8 @@
 
 node 'skylab-1.geeksoc.org' {
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
      _          _       _           __  
     | |        | |     | |         /  | 
@@ -18,10 +18,10 @@ Purpose: Open Development Box
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

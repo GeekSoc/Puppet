@@ -1,11 +1,11 @@
 
 node 'web.geeksoc.org' {
 
-	# Modules
+  # Modules
     include bind
-	
-	# Message of the day
-	file { '/etc/motd':
+  
+  # Message of the day
+  file { '/etc/motd':
         content => " 
  _    _      _           _____           _     _____            
 | |  | |    | |         |  __ \         | |   /  ___|           
@@ -19,7 +19,7 @@ Purpose: Primary Web Server
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
     
     #Roles

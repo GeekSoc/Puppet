@@ -1,11 +1,11 @@
 
 node 'sol-relay.geeksoc.org' {
 
-	# Modules
-	include openvpn
+  # Modules
+  include openvpn
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
  _   _______ _   _       _____           _     _____            
 | | | | ___ \ \ | |     |  __ \         | |   /  ___|           
@@ -19,9 +19,9 @@ Purpose: OpenVPN server
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
-	# Roles
-	include global
+  # Roles
+  include global
 }
