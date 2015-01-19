@@ -33,36 +33,36 @@ class rsyslog::monitor {
     include rsyslog::params
 
     # Port monitoring
-    monitor::port { "rsyslog_${rsyslog::params::protocol}_${rsyslog::params::port}": 
-        protocol => "${rsyslog::params::protocol}",
-        port     => "${rsyslog::params::port}",
-        target   => "${rsyslog::params::monitor_target_real}",
-        enable   => "${rsyslog::params::monitor_port_enable}",
-        tool     => "${monitor_tool}",
+    monitor::port { "rsyslog_${rsyslog::params::protocol}_${rsyslog::params::port}":
+        protocol => $rsyslog::params::protocol,
+        port     => $rsyslog::params::port,
+        target   => $rsyslog::params::monitor_target_real,
+        enable   => $rsyslog::params::monitor_port_enable,
+        tool     => $monitor_tool,
     }
     
     # URL monitoring 
-    monitor::url { "rsyslog_url":
-        url      => "${rsyslog::params::monitor_baseurl_real}/index.php",
-        pattern  => "${rsyslog::params::monitor_url_pattern}",
-        enable   => "${rsyslog::params::monitor_url_enable}",
-        tool     => "${monitor_tool}",
+    monitor::url { 'rsyslog_url':
+        url     => "${rsyslog::params::monitor_baseurl_real}/index.php",
+        pattern => $rsyslog::params::monitor_url_pattern,
+        enable  => $rsyslog::params::monitor_url_enable,
+        tool    => $monitor_tool,
     }
 
     # Process monitoring 
-    monitor::process { "rsyslog_process":
-        process  => "${rsyslog::params::processname}",
-        service  => "${rsyslog::params::servicename}",
-        pidfile  => "${rsyslog::params::pidfile}",
-        enable   => "${rsyslog::params::monitor_process_enable}",
-        tool     => "${monitor_tool}",
+    monitor::process { 'rsyslog_process':
+        process => $rsyslog::params::processname,
+        service => $rsyslog::params::servicename,
+        pidfile => $rsyslog::params::pidfile,
+        enable  => $rsyslog::params::monitor_process_enable,
+        tool    => $monitor_tool,
     }
 
     # Use a specific plugin (according to the monitor tool used)
-    monitor::plugin { "rsyslog_plugin":
-        plugin   => "rsyslog",
-        enable   => "${rsyslog::params::monitor_plugin_enable}",
-        tool     => "${monitor_tool}",
+    monitor::plugin { 'rsyslog_plugin':
+        plugin => 'rsyslog',
+        enable => $rsyslog::params::monitor_plugin_enable,
+        tool   => $monitor_tool,
     }
 
     # Include project specific monitor class if $my_project is set

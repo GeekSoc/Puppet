@@ -54,13 +54,13 @@ class dovecot (
 ) {
 
     case $::operatingsystem {
-    'RedHat', 'CentOS': { 
+    'RedHat', 'CentOS': {
         $packages = 'dovecot'
-    } 
+    }
     /^(Debian|Ubuntu)$/:{
         $packages = ['dovecot-common','dovecot-imapd']
     }
-    default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
+    default: { fail("OS ${::operatingsystem} and version ${::operatingsystemrelease} is not supported") }
 }
 
     # All files in this scope are dovecot configuration files
@@ -115,11 +115,11 @@ class dovecot (
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
     }
     
-    file { "/etc/dovecot/sieve/":
-      ensure => "directory",
-      owner => "root",
-      group => "vmail",
-      mode   => 0774,
+    file { '/etc/dovecot/sieve/':
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'vmail',
+      mode   => '0774',
     }
     
     # Default Sieve rule to move spam to junk folder

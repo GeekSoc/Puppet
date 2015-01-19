@@ -25,11 +25,11 @@ class resolv {
         # noop
 }
 
-define resolv_conf($domainname = "$domain", $searchpath, $nameservers) {
-        file { "/etc/resolv.conf":
+define resolv_conf($domainname = $domain, $searchpath, $nameservers) {
+        file { '/etc/resolv.conf':
                 owner   => root,
                 group   => root,
-                mode    => 644,
-                content => template("resolv/resolv.conf.erb"),
+                mode    => '0644',
+                content => template('resolv/resolv.conf.erb'),
         }
 }

@@ -18,30 +18,30 @@ class pam::params  {
 # - RedHat supported version is 5;
 # - Centos follows obviously RedHat layout
     $oslayout = $operatingsystem ? {
-        /(?i:debian|Solaris)/ => "debian5",
-        ubuntu => "ubuntu104",
-        /(?i:CentOS|RedHat|Scientific)/ => "redhat5",
+        /(?i:debian|Solaris)/ => 'debian5',
+        ubuntu => 'ubuntu104',
+        /(?i:CentOS|RedHat|Scientific)/ => 'redhat5',
     }
 
 # Basic settings
     $packagename = $operatingsystem ? {
-        default => "pam",
+        default => 'pam',
     }
 
     $configdir = $operatingsystem ? {
-        default => "/etc/pam.d/",
+        default => '/etc/pam.d/',
     }
 
     $configfile_mode = $operatingsystem ? {
-        default => "644",
+        default => '644',
     }
 
     $configfile_owner = $operatingsystem ? {
-        default => "root",
+        default => 'root',
     }
 
     $configfile_group = $operatingsystem ? {
-        default => "root",
+        default => 'root',
     }
 
 ## FILE SERVING SOURCE
@@ -53,14 +53,14 @@ class pam::params  {
 # What follows automatically manages the new source standard (with /modules/) from 0.25 
 
     case $base_source {
-        '': { $general_base_source="puppet://$servername" }
+        '': { $general_base_source="puppet://${servername}" }
         default: { $general_base_source=$base_source }
     }
 
     $pam_source = $puppetversion ? {
-        /(^0.25)/ => "$general_base_source/modules/pam",
-        /(^0.)/   => "$general_base_source/pam",
-        default   => "$general_base_source/modules/pam",
+        /(^0.25)/ => "${general_base_source}/modules/pam",
+        /(^0.)/   => "${general_base_source}/pam",
+        default   => "${general_base_source}/modules/pam",
     }
 
 }

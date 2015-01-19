@@ -16,10 +16,10 @@ define modules_dir (
     } else {
         file {
             "/var/lib/puppet/modules/${name}":
-                source => [ "puppet://$server/modules/${name}/modules_dir", "puppet://$server/modules/common/empty"],
+                source => [ "puppet://${server}/modules/${name}/modules_dir", "puppet://${server}/modules/common/empty"],
                 checksum => mtime,
                 # ignore the placeholder
-                ignore => '\.ignore', 
+                ignore => '\.ignore',
                 recurse => true, purge => true, force => true,
                 mode => $mode, owner => $owner, group => $group;
         }

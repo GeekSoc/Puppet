@@ -12,19 +12,19 @@ class rsyslog::server::link {
 
     include rsyslog::params
 
-    link { "Rsyslog":
-        title       => "Rsyslog WebAnalyzer",
-        description => "Rsyslog WebAnalyzer Web Interface",
+    link { 'Rsyslog':
+        title       => 'Rsyslog WebAnalyzer',
+        description => 'Rsyslog WebAnalyzer Web Interface',
         url         => "http://${fqdn}",
-        host        => "${fqdn}",
-        type        => "monitor",
-        private     => "no",
+        host        => $fqdn,
+        type        => 'monitor',
+        private     => 'no',
 #        priority    => "10",
 #        linktags    => [ "$role" , "$stack" ], 
 #        login       => "",
 #        password    => "",
-        tool        => "${link_tool}",
-        enable      => "true",
+        tool        => $link_tool,
+        enable      => true,
     }
 
 }

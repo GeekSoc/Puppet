@@ -9,14 +9,14 @@ class rsyslog::server::loganalyzer {
     require apache::params
 
     include apache
-    php::module { mysql: }
-    php::module { gd: }
+    php::module { 'mysql': }
+    php::module { 'gd': }
 
-    puppi::netinstall { "netinstall_loganalyzer":
-        url              => "${rsyslog::params::loganalyzer_url}",
-        extracted_dir    => "${rsyslog::params::loganalyzer_dirname}",
-        destination_dir  => "${apache::params::documentroot}",
-        require          => Package["apache"],
+    puppi::netinstall { 'netinstall_loganalyzer':
+        url             => $rsyslog::params::loganalyzer_url,
+        extracted_dir   => $rsyslog::params::loganalyzer_dirname,
+        destination_dir => $apache::params::documentroot,
+        require         => Package['apache'],
     }
 
     apache::vhost { "syslog.${domain}":
@@ -27,6 +27,6 @@ class rsyslog::server::loganalyzer {
         template      => 'rsyslog/loganalyzer.conf.erb',
     }
 
-    if $link == "yes" { include rsyslog::server::link }
+    if $link == 'yes' { include rsyslog::server::link }
 
 }

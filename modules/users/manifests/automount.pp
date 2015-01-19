@@ -17,14 +17,14 @@ class users::automount {
 
     $users_ldap_servers = $users::params::ldap_servers
     $users_ldap_basedn = $users::params::ldap_basedn
-    $users_ldap_ssl = $users::params::ldap_ssl 
-    $users_automount = $users::params::automount 
+    $users_ldap_ssl = $users::params::ldap_ssl
+    $users_automount = $users::params::automount
 
 # Required packages
     case $operatingsystem {
         ubuntu,debian: {
-             package { "autofs": ensure => present }
-             package { "autofs-ldap": ensure => present }
+             package { 'autofs': ensure => present }
+             package { 'autofs-ldap': ensure => present }
         }
         redhat,centos: {
         }

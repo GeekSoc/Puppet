@@ -1,38 +1,38 @@
 class mysql {
-	
-	package { "mysql-server":
+  
+  package { 'mysql-server':
         ensure => installed,
     }
 
-	package { "mysql":
-		name => $operatingsystem ? {
-	       "Debian" => "mysql-client",
-	       default  => "mysql",
-	    },
+  package { 'mysql':
+    name       => $operatingsystem ? {
+         'Debian' => 'mysql-client',
+         default  => 'mysql',
+      },
         ensure => installed,
     }
 
-    service { "mysqld":
-		name => $operatingsystem ? {
-	       "Debian" => "mysql",
-	       default  => "mysqld",
-	    },
-        enable    => true,
-        ensure    => running,
+    service { 'mysqld':
+    name        => $operatingsystem ? {
+         'Debian' => 'mysql',
+         default  => 'mysqld',
+      },
+        enable  => true,
+        ensure  => running,
         # hasstatus => true,
-        require   => Package["mysql-server"],
+        require => Package['mysql-server'],
     }
 
-	file { "/etc/my.cnf":
-        owner   => "root",
-        group   => "root",
-        mode    => 0644,
-		source  => $operatingsystem ? {
-	       "Debian" => "puppet:///modules/mysql/my.cnf.deb",
-	       default  => "puppet:///modules/mysql/my.cnf.el6",
-	    },
-        notify  => Service["mysqld"],
-        require => Package["mysql-server"],
+  file { '/etc/my.cnf':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+    source      => $operatingsystem ? {
+         'Debian' => 'puppet:///modules/mysql/my.cnf.deb',
+         default  => 'puppet:///modules/mysql/my.cnf.el6',
+      },
+        notify  => Service['mysqld'],
+        require => Package['mysql-server'],
     }
 
 # Sample Use:
@@ -41,24 +41,24 @@ class mysql {
 #   user => "john",
 #   password => "johnstest",
 # }
-	define db( $user, $password ) {
-		include mysql
-		
-		exec { "create-${name}-db":
-		    unless  => "/usr/bin/mysql -u${user} -p${password}
+  define db( $user, $password ) {
+    include mysql
+    
+    exec { "create-${name}-db":
+        unless  => "/usr/bin/mysql -u${user} -p${password}
 		    ${name}",
-		    command => "/usr/bin/mysql -uroot -p${mysql_password} -e
+        command => "/usr/bin/mysql -uroot -p${mysql_password} -e
 		    \"create database ${name}; grant all on ${name}.* to
-		    ${user}@localhost identified by '$password'; flush
+		    ${user}@localhost identified by '${password}'; flush
 		    privileges;\"",
-		    require => Service["mysql"],
-		} 
-	}
+        require => Service['mysql'],
+    }
+  }
 
 }
 
 class mysql::phpMyAdmin {
-	package { "phpMyAdmin":
-		ensure => installed,
-	}
+  package { 'phpMyAdmin':
+    ensure => installed,
+  }
 }

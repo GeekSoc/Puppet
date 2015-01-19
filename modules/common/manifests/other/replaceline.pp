@@ -12,7 +12,7 @@ define replaceline($file, $pattern, $replacement) {
 # NOP with pattern: my($db_user)
 ## sed -i -e "s/^.*my(\$db_user).*$/my\(\$db_user\)\ =\ \'mailwatch\';\ \#\ Modified\ by\ Puppet/" /usr/lib/MailScanner/MailScanner/CustomFunctions/MailWatch.pm WORKS
 # OK with pattern: $CONF['database_user']
-     "sed -i -e \"s/^.*$pattern.*$/$replacement_escaped/\" $file":
+     "sed -i -e \"s/^.*${pattern}.*$/${replacement_escaped}/\" ${file}":
 
 
 
@@ -27,7 +27,7 @@ define replaceline($file, $pattern, $replacement) {
 # NOP with pattern: my($db_user)
 ## ( grep -F "my(\$db_host) " /usr/lib/MailScanner/MailScanner/CustomFunctions/MailWatch.pm WORKS )
 # OK with pattern: $CONF['database_user']
-    unless => "grep -F \"$replacement\" $file", 
+    unless => "grep -F \"${replacement}\" ${file}",
     
     }
 }
