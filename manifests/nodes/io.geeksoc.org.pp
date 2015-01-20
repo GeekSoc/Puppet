@@ -1,26 +1,26 @@
 
 node 'io.geeksoc.org' {
 
-	# Modules
-	# include varnish
-	# include nginx
-	include haproxy
-	
-	# Disable varnish and nginx
-	service { "varnish":
-        enable    => false,
+    # Modules
+    # include varnish
+    # include nginx
+    include haproxy
+  
+    # Disable varnish and nginx
+    service { 'varnish':
         ensure    => stopped,
+        enable    => false,
         hasstatus => true,
     }
-	service { "nginx":
-        enable => false,
-        ensure => stopped,
-		hasstatus => true,
-        restart   => "/usr/sbin/service nginx reload",
+    service { 'nginx':
+        ensure    =>  stopped,
+        enable    =>  false,
+        hasstatus =>  true,
+        restart   =>  '/usr/sbin/service nginx reload',
     }
 
-	# Message of the day
-	file { '/etc/motd':
+    # Message of the day
+    file { '/etc/motd':
         content => "
  _____             _____           _     _____            
 |_   _|           |  __ \         | |   /  ___|           
@@ -34,9 +34,9 @@ Purpose: HAProxy reverse proxy
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
-	
-	# Roles
-	include global
+  
+    # Roles
+    include global
 }

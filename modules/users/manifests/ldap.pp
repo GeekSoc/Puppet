@@ -20,48 +20,48 @@ class users::ldap {
 
     $users_ldap_servers = $users::params::ldap_servers
     $users_ldap_basedn = $users::params::ldap_basedn
-    $users_ldap_ssl = $users::params::ldap_ssl 
-    $users_ldap_cacert = $users::params::ldap_cacert 
-    $users_automount = $users::params::automount 
+    $users_ldap_ssl = $users::params::ldap_ssl
+    $users_ldap_cacert = $users::params::ldap_cacert
+    $users_automount = $users::params::automount
 
 # PAM's configurations for ldap are managed in the dedicated pam::ldap class
     include pam::ldap
 
 # Include autofs::ldap if $users_automount = "yes"
-    if $users::params::automount == "yes" { include "autofs::ldap" }
+    if $users::params::automount == 'yes' { include 'autofs::ldap' }
 
 # Systems' config files for LDAP 
-    file { "nsswitch.conf":
-        path    => "/etc/nsswitch.conf",
-        mode    => "644",
-        owner   => "root",
-        group   => "root",
-        require => [ File["ldap.conf"] ],
+    file { 'nsswitch.conf':
+        path    => '/etc/nsswitch.conf',
+        mode    => '0644',
+        owner   => 'root',
+        group   => 'root',
+        require => [ File['ldap.conf'] ],
         ensure  => present,
-        content => template("users/ldap/nsswitch.conf.erb"),
+        content => template('users/ldap/nsswitch.conf.erb'),
     }
 
-    file { "ldap.conf":
+    file { 'ldap.conf':
         path    => $users::params::configfile_ldap ,
-        mode    => "644",
-        owner   => "root",
-        group   => "root",
+        mode    => '0644',
+        owner   => 'root',
+        group   => 'root',
         ensure  => present,
-        content => template("users/ldap/ldap.conf.erb"),
+        content => template('users/ldap/ldap.conf.erb'),
     }
 
 # Openldap client config
-    file { "openldap-ldap.conf":
+    file { 'openldap-ldap.conf':
         path    => $operatingsystem ? {
-            debian => "/etc/ldap/ldap.conf",
-            ubuntu => "/etc/ldap/ldap.conf",
-            /(?i:CentOS|RedHat|Scientific)/ => "/etc/openldap/ldap.conf",
+            debian                          => '/etc/ldap/ldap.conf',
+            ubuntu                          => '/etc/ldap/ldap.conf',
+            /(?i:CentOS|RedHat|Scientific)/ => '/etc/openldap/ldap.conf',
         },
-        mode    => "644",
-        owner   => "root",
-        group   => "root",
+        mode    => '0644',
+        owner   => 'root',
+        group   => 'root',
         ensure  => present,
-        content => template("users/ldap/openldap-ldap.conf.erb"),
+        content => template('users/ldap/openldap-ldap.conf.erb'),
     # TOTO - Breaks on ubuntu804 - Verify
     #    notify  => $users_automount ? {
     #        "yes"   => "Service[autofs]",
@@ -71,13 +71,13 @@ class users::ldap {
 
     case $users_ldap_ssl {
         yes: {
-            file { "ldap_cacert":
-                path    => "${users::params::ldap_cacert}",
-                mode    => "644",
-                owner   => "root",
-                group   => "root",
-                ensure  => present,
-                source => "puppet:///modules/users/ldap.geeksoc.org.cert",
+            file { 'ldap_cacert':
+                path   => $users::params::ldap_cacert,
+                mode   => '0644',
+                owner  => 'root',
+                group  => 'root',
+                ensure => present,
+                source => 'puppet:///modules/users/ldap.geeksoc.org.cert',
             }
         }
     }
@@ -86,27 +86,27 @@ class users::ldap {
 # Required packages
     case $operatingsystem {
         Ubuntu,Debian: {
-             package { "libpam-ldap": ensure => present }
-			 package { "libpam-ldapd": ensure => purged }
-             package { "libnss-ldap": ensure => present }
-             package { "ldap-utils": ensure => present }
+             package { 'libpam-ldap': ensure => present }
+       package { 'libpam-ldapd': ensure => purged }
+             package { 'libnss-ldap': ensure => present }
+             package { 'ldap-utils': ensure => present }
 
              case $common::osver {
                  5,6,7: {
                      # Debian 5, by default, uses a separated file for pam ldap settings 
-                     file { "pam_ldap.conf":
-                         path    => "/etc/pam_ldap.conf",
-                         mode    => "644",
-                         owner   => "root",
-                         group   => "root",
+                     file { 'pam_ldap.conf':
+                         path    => '/etc/pam_ldap.conf',
+                         mode    => '0644',
+                         owner   => 'root',
+                         group   => 'root',
                          ensure  => present,
-                         content => template("users/ldap/ldap.conf.erb"),
+                         content => template('users/ldap/ldap.conf.erb'),
                      }
                  }
              }
         }
         redhat,centos: {
-             if $common::osver != 6 { package { "nss_ldap": ensure => present } }
+             if $common::osver != 6 { package { 'nss_ldap': ensure => present } }
         }
     }
 

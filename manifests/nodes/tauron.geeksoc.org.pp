@@ -1,17 +1,17 @@
 
 node 'tauron.geeksoc.org' {
 
-	include nagios::server
-	include munin::server
+  include nagios::server
+  include munin::server
 
-    nfs::share { "home":
-        path    => "/home/backup",
-        allowed => "130.159.141.64/26",
-        options => "rw,sync,no_subtree_check",
+    nfs::share { 'home':
+        path    => '/home/backup',
+        allowed => '130.159.141.64/26',
+        options => 'rw,sync,no_subtree_check',
     }
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
  _____                                 _____           _     _____            
 |_   _|                               |  __ \         | |   /  ___|           
@@ -26,10 +26,10 @@ Purpose: Backup and Monitoring server
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

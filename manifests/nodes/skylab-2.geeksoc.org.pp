@@ -1,8 +1,8 @@
 
 node 'skylab-2.geeksoc.org' {
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
      _          _       _           _____ 
     | |        | |     | |         / __  \
@@ -14,14 +14,14 @@ node 'skylab-2.geeksoc.org' {
           |___/                           
 
 Primary Contact: GSAG - gsag@geeksoc.org 
-Purpose: Open Development Box                                                                   
+Purpose: Open Development Box
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

@@ -1,7 +1,8 @@
+# Has all the config for a mail server
 class mail {
   
   include postfix
-	  
+    
   class { 'dovecot':
       plugins                    => [ 'ldap', 'sieve'],
       protocols                  => 'imap sieve',
@@ -20,7 +21,7 @@ class mail {
       auth_sql_userdb_static     => 'uid=vmail gid=vmail home=/home/vmail/%n',
       log_timestamp              => '"%Y-%m-%d %H:%M:%S "',
   }
-	
+  
   dovecot::file { 'dovecot-ldap.conf.ext':
       source => 'puppet:///modules/dovecot/dovecot-ldap.conf.ext',
   }

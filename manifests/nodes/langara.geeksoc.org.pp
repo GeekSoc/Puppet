@@ -1,10 +1,10 @@
 
 node 'langara.geeksoc.org' {
 
-	# Modules
+  # Modules
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
  _                                        _____           _                   
 | |                                      |  __ \         | |                  
@@ -20,10 +20,10 @@ Purpose: Mail server
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
-	# Roles
-	include global
-	include mail
+  # Roles
+  include global
+  include mail
 }

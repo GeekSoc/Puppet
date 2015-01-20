@@ -1,8 +1,8 @@
 
 node 'pandora.geeksoc.org' {
-		
-	# Message of the day
-	file { '/etc/motd':
+    
+  # Message of the day
+  file { '/etc/motd':
         content => "
 ______               _                   _____           _    _____            
 | ___ \             | |                 |  __ \         | |  /  ___|           
@@ -16,9 +16,9 @@ Purpose: Game Server, Minecraft
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
-	
+  
     class {'ssh::sshd':
       sshd_config_AllowGroups => 'sysadmin-games sysadmin gsag root',
     }
@@ -27,6 +27,6 @@ This server is Puppet managed - local changes may be overwritten!
       sudoers => '%sysadmin-games',
     }
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

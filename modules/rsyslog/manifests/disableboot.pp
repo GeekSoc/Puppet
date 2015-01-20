@@ -7,7 +7,7 @@
 # include rsyslog::disableboot
 #
 class rsyslog::disableboot inherits rsyslog {
-    Service["rsyslog"] {
-        enable => "false",
+    Service['rsyslog'] {
+        enable => false,
     }
 }

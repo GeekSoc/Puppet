@@ -5,30 +5,30 @@ node 'sintii.geeksoc.org' {
         ensure => directory,
     }
 
-    mount { "/home":
-        device  => "storage.geeksoc.org:/home",
-        fstype  => "nfs",
-        ensure  => "mounted",
-        options => "rw,hard,intr,mountvers=3",
+    mount { '/home':
+        ensure  => 'mounted',
+        device  => 'storage.geeksoc.org:/home',
+        fstype  => 'nfs',
+        options => 'rw,hard,intr,mountvers=3',
         atboot  => true,
-        require => File["/home"],
+        require => File['/home'],
     }
     
     file { '/yesterday':
         ensure => directory,
     }
 
-    mount { "/yesterday":
-        device  => "tauron.geeksoc.org:/home/backup/home",
-        fstype  => "nfs",
-        ensure  => "mounted",
-        options => "ro,hard,intr,mountvers=3",
+    mount { '/yesterday':
+        ensure  => 'mounted',
+        device  => 'tauron.geeksoc.org:/home/backup/home',
+        fstype  => 'nfs',
+        options => 'ro,hard,intr,mountvers=3',
         atboot  => true,
-        require => File["/yesterday"],
+        require => File['/yesterday'],
     }
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => " 
 
  _____ _       _   _ _       _____           _    _____            
@@ -53,9 +53,9 @@ Remember:
    * Behave :p
 
 -----------------------------------
-" 
+"
     }
 
-	# Roles
-	include shell
+  # Roles
+  include shell
 }

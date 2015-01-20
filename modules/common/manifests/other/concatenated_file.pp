@@ -30,7 +30,7 @@ define concatenated_file (
     } else {
         file {
             $dir_real:
-                source => "puppet://$server/modules/common/empty",
+                source => "puppet://${server}/modules/common/empty",
                 checksum => mtime,
                 ignore => '\.ignore',
                 recurse => true, purge => true, force => true,
@@ -51,7 +51,7 @@ define concatenated_file (
             '' => '',
             default => "| cat - '${footer}' "
         },
-        default => $footer ? { 
+        default => $footer ? {
             '' => "| cat '${header}' - ",
             default => "| cat '${header}' - '${footer}' "
         }
@@ -59,11 +59,11 @@ define concatenated_file (
 
     # use >| to force clobbering the target file
     exec { "concat_${name}":
-        command => "/usr/bin/find ${dir_real} -maxdepth 1 -type f ! -name '*puppettmp' -print0 | sort -z | xargs -0 cat ${additional_cmd} >| ${name}",
+        command     => "/usr/bin/find ${dir_real} -maxdepth 1 -type f ! -name '*puppettmp' -print0 | sort -z | xargs -0 cat ${additional_cmd} >| ${name}",
         refreshonly => true,
-        subscribe => [ File[$dir_real] ],
-        before => File[$name],
-        alias => [ "concat_${dir_real}"] ,
+        subscribe   => [ File[$dir_real] ],
+        before      => File[$name],
+        alias       => [ "concat_${dir_real}"] ,
     }
 }
 
@@ -72,15 +72,18 @@ define concatenated_file (
 # The file can be referenced as File["cf_part_${name}"]
 define concatenated_file_part (
     $dir, $content = '', $ensure = present,
-    $mode = 0644, $owner = root, $group = 0 
+    $mode = 0644, $owner = root, $group = 0
     )
 {
 
     file { "${dir}/${name}":
-        ensure => $ensure, content => $content,
-        mode => $mode, owner => $owner, group => $group,
-        alias => "cf_part_${name}",
-        notify => Exec["concat_${dir}"],
+        ensure  => $ensure,
+        content => $content,
+        mode    => $mode,
+        owner   => $owner,
+        group   => $group,
+        alias   => "cf_part_${name}",
+        notify  => Exec["concat_${dir}"],
     }
 
 }

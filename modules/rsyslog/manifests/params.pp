@@ -11,61 +11,61 @@ class rsyslog::params  {
 
 ## Full hostname of rsyslog server
     $server = $syslog_server ? {
-        ''      => "picon.geeksoc.org",
-        default => "${syslog_server}",
+        ''      => 'picon.geeksoc.org',
+        default => $syslog_server,
     }
 
 # Define if you want to use the Web Fronted Log Analyzer on the rsyslog server
 # If you set "yes" here you'll probably want to add Mysql support
     $use_loganalyzer = $rsyslog_use_loganalyzer ? {
-        ""      => "no",
-        "true"  => "yes",
-        true    => "yes",
-        "yes"   => "yes",
-        default => "no",
+        ''      => 'no',
+        true  => 'yes',
+        true    => 'yes',
+        'yes'   => 'yes',
+        default => 'no',
     }
 
 # LogAnalyzer Download URL (Default: The official one)
     $loganalyzer_url = $rsyslog_loganalyzer_url ? {
-        ""      => "http://download.adiscon.com/loganalyzer/loganalyzer-3.0.4.tar.gz",
+        ''      => 'http://download.adiscon.com/loganalyzer/loganalyzer-3.0.4.tar.gz',
         default => $rsyslog_loganalyzer_url ,
     }
 
 # Log Analyzer Version
     $loganalyzer_dirname = $rsyslog_loganalyzer_dirname ? {
-        ""      => "loganalyzer-3.0.4",
+        ''      => 'loganalyzer-3.0.4',
         default => $rsyslog_loganalyzer_dirname ,
     }
 
 
 # Define Rsyslog DB backend 
     $db = $rsyslog_db ? {
-        mysql   => "mysql",
-        default => "",
+        mysql   => 'mysql',
+        default => '',
     }
 
 # Define Rsyslog DB name ($rsyslog_db_name). Default: syslog
     $db_name = $rsyslog_db_name ? {
-        ''      => "syslog",
-        default => "$rsyslog_db_name",
+        ''      => 'syslog',
+        default => $rsyslog_db_name,
     }
 
 # Define Rsyslog DB server ($rsyslog_db_server). Default: localhost
     $db_server = $rsyslog_db_server ? {
-        ''      => "localhost",
-        default => "$rsyslog_db_server",
+        ''      => 'localhost',
+        default => $rsyslog_db_server,
     }
 
 # Define Rsyslog DB user ($rsyslog_db_user). Default: root
     $db_user = $rsyslog_db_user ? {
-        ''      => "root",
-        default => "$rsyslog_db_user",
+        ''      => 'root',
+        default => $rsyslog_db_user,
     }
 
 # Define Rsyslog DB password ($rsyslog_db_password). Default: blank
     $db_password = $rsyslog_db_password ? {
-        ''      => "",
-        default => "$rsyslog_db_password",
+        ''      => '',
+        default => $rsyslog_db_password,
     }
 
 
@@ -73,23 +73,23 @@ class rsyslog::params  {
 #(add here module specific internal variables)
 
     # Extra syslog port
-    $protocol2 = "udp"
-    $port2 = "514"
+    $protocol2 = 'udp'
+    $port2 = '514'
 
 
 ## MODULE INTERNAL VARIABLEo
 
     $packagename = $operatingsystem ? {
-        default => "rsyslog",
+        default => 'rsyslog',
     }
 
     $servicename = $operatingsystem ? {
-	Solaris => "cswrsyslog",
-        default => "rsyslog",
+  Solaris => 'cswrsyslog',
+        default => 'rsyslog',
     }
 
     $processname = $operatingsystem ? {
-        default => "rsyslogd",
+        default => 'rsyslogd',
     }
 
     $hasstatus = $operatingsystem ? {
@@ -98,51 +98,51 @@ class rsyslog::params  {
     }
 
     $configfile = $operatingsystem ? {
-        default => "/etc/rsyslog.conf",
+        default => '/etc/rsyslog.conf',
     }
 
     $configfile_mode = $operatingsystem ? {
-        default => "644",
+        default => '644',
     }
 
     $configfile_owner = $operatingsystem ? {
-        default => "root",
+        default => 'root',
     }
 
     $configfile_group = $operatingsystem ? {
-        default => "root",
+        default => 'root',
     }
 
     $configdir = $operatingsystem ? {
-        default => "/etc/rsyslog.d",
+        default => '/etc/rsyslog.d',
     }
 
     $initconfigfile = $operatingsystem ? {
-        debian  => "/etc/default/rsyslog",
-        ubuntu  => "/etc/default/rsyslog",
-        default => "/etc/sysconfig/rsyslog",
+        debian  => '/etc/default/rsyslog',
+        ubuntu  => '/etc/default/rsyslog',
+        default => '/etc/sysconfig/rsyslog',
     }
     
     # Used by monitor class
     $pidfile = $operatingsystem ? {
-        default => "/var/run/rsyslogd.pid",
+        default => '/var/run/rsyslogd.pid',
     }
 
     # Used by backup class
     $datadir = $operatingsystem ? {
-        default => "/var/lib/rsyslog",
+        default => '/var/lib/rsyslog',
     }
 
     # Used by backup class - Provide the file name, if there's no dedicated dir
     $logdir = $operatingsystem ? {
-        default => "/var/log",
+        default => '/var/log',
     }
 
     # Used by monitor and firewall class
     # If you need to define additional ports, call them $protocol1/$port1 and add the relevant
     # parts in firewall.pp and monitor.pp
-    $protocol = "tcp"
-    $port = "514"
+    $protocol = 'tcp'
+    $port = '514'
     
 
 
@@ -157,10 +157,10 @@ class rsyslog::params  {
     # How the monitor server refers to the monitor target 
     $monitor_target_real = $rsyslog_monitor_target ? {
         ''      => $monitor_target ? {
-           ''      => "${fqdn}",
+           ''      => $fqdn,
            default => $monitor_target,
         },
-        default => "$rsyslog_monitor_target",
+        default => $rsyslog_monitor_target,
     }
 
     # BaseUrl to access this host
@@ -169,13 +169,13 @@ class rsyslog::params  {
            ''      => "http://${fqdn}",
            default => $monitor_baseurl,
         },
-        default => "${rsyslog_monitor_baseurl}",
+        default => $rsyslog_monitor_baseurl,
     }
 
     # Pattern to look for in the URL defined in rsyslog::monitor class
     $monitor_url_pattern = $rsyslog_monitor_url_pattern ? {
-        ''      => "OK",
-        default => "${rsyslog_monitor_url_pattern}",
+        ''      => 'OK',
+        default => $rsyslog_monitor_url_pattern,
     }
 
     # If rsyslog port monitoring is enabled 
@@ -221,16 +221,16 @@ class rsyslog::params  {
     # How the backup server refers to the backup target 
     $backup_target_real = $rsyslog_backup_target ? {
         ''      => $backup_target ? {
-           ''      => "${fqdn}",
+           ''      => $fqdn,
            default => $backup_target,
         },
-        default => "$rsyslog_backup_target",
+        default => $rsyslog_backup_target,
     }
   
     # Frequency of backups
     $backup_frequency = $rsyslog_backup_frequency ? {
-        ''      => "daily",
-        default => "$rsyslog_backup_frequency",
+        ''      => 'daily',
+        default => $rsyslog_backup_frequency,
     }
 
     # If rsyslog data have to be backed up
@@ -259,19 +259,19 @@ class rsyslog::params  {
     # Source IPs that can access this service - Use iptables friendly format
     $firewall_source_real = $rsyslog_firewall_source ? {
         ''      => $firewall_source ? {
-           ''      => "0.0.0.0/0",
+           ''      => '0.0.0.0/0',
            default => $firewall_source,
         },
-        default => "$rsyslog_firewall_source",
+        default => $rsyslog_firewall_source,
     }
 
     # Destination IP to use for this host (Default facter's $ipaddress)
     $firewall_destination_real = $rsyslog_firewall_destination ? {
         ''      => $firewall_destination ? {
-           ''      => "${ipaddress}",
+           ''      => $ipaddress,
            default => $firewall_destination,
         },
-        default => "$rsyslog_firewall_destination",
+        default => $rsyslog_firewall_destination,
     }
 
     # If firewall filter is enabled
@@ -293,9 +293,9 @@ class rsyslog::params  {
     case $base_source {
         '': {
             $general_base_source = $puppetversion ? {
-                /(^0.25)/ => "puppet:///modules",
-                /(^0.)/   => "puppet://$servername",
-                default   => "puppet:///modules",
+                /(^0.25)/ => 'puppet:///modules',
+                /(^0.)/   => "puppet://${servername}",
+                default   => 'puppet:///modules',
             }
         }
         default: { $general_base_source=$base_source }

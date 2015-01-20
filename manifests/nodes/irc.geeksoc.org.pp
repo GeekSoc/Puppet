@@ -1,20 +1,21 @@
 
 node 'irc.geeksoc.org' {
 
-	# Modules
-	include ircd
+  # Modules
+  include ircd
 
-	# Nightly backup of irc config
-	cron { ircdBackup:
-	  command => "/usr/bin/rsync -arv /home/ircd/ 130.159.141.117:/home/backup/ircd --delete",
-	  user => root,
-	  hour => 4,
-	  minute => 30
-	}
+  # Nightly backup of irc config
+  cron { 'ircdBackup':
+    command =>
+'/usr/bin/rsync -arv /home/ircd/ 130.159.141.117:/home/backup/ircd --delete',
+    user    =>  root,
+    hour    =>  4,
+    minute  =>  30
+  }
 
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => "
  ___________ _____       _____           _     _____            
 |_   _| ___ |  __ \     |  __ \         | |   /  ___|           
@@ -28,9 +29,9 @@ Purpose: IRC server
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
 
-	# Roles
-	include global
+  # Roles
+  include global
 }

@@ -24,18 +24,18 @@ class rsyslog::backup {
 
     include rsyslog::params
 
-    backup { "rsyslog_data": 
-        frequency => "${rsyslog::params::backup_frequency}",
-        path      => "${rsyslog::params::datadir}",
-        enabled   => "${rsyslog::params::backup_data_enable}",
-        target    => "${rsyslog::params::backup_target_real}",
+    backup { 'rsyslog_data':
+        frequency => $rsyslog::params::backup_frequency,
+        path      => $rsyslog::params::datadir,
+        enabled   => $rsyslog::params::backup_data_enable,
+        target    => $rsyslog::params::backup_target_real,
     }
     
-    backup { "rsyslog_logs": 
-        frequency => "${rsyslog::params::backup_frequency}",
-        path      => "${rsyslog::params::logdir}",
-        enabled   => "${rsyslog::params::backup_log_enable}",
-        target    => "${rsyslog::params::backup_target_real}",
+    backup { 'rsyslog_logs':
+        frequency => $rsyslog::params::backup_frequency,
+        path      => $rsyslog::params::logdir,
+        enabled   => $rsyslog::params::backup_log_enable,
+        target    => $rsyslog::params::backup_target_real,
     }
 
 }

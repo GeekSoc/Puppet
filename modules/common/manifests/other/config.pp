@@ -24,7 +24,7 @@
 
 
 
-define config (
+define common::config (
     $file='',
     $line='',
     $pattern='',
@@ -39,57 +39,57 @@ define config (
         
         augeas: {
             augeas {
-                "Config_augeas_$file-$parameter":
-                context =>  "/files$file",
-                changes =>  "set $parameter $value",
+                "Config_augeas_${file}-${parameter}":
+                context =>  "/files${file}",
+                changes =>  "set ${parameter} ${value}",
         #           onlyif  =>  "get $parameter != $value", 
             }
         }
 
         file2augeas: {
             file2augeas {
-                "Config_file2augeas_$file-$parameter":
-                file      => "$file",
-                parameter => "$parameter",
-                value     => "$value",
-                lens      => "$lens",
+                "Config_file2augeas_${file}-${parameter}":
+                file      => $file,
+                parameter => $parameter,
+                value     => $value,
+                lens      => $lens,
             }
         }
 
         line: {
             line {
-                "Config_line_$file-$line":
-                file    => "$file",
-                line    => "$line",
-                ensure  => "present",
-                source  => "$source",
+                "Config_line_${file}-${line}":
+                file   => $file,
+                line   => $line,
+                ensure => 'present',
+                source => $source,
             }
         }
 
         replaceline: {
             replaceline {
-                "Config_replaceline_$file-$line":
-                file      => "$file",
-                pattern   => "$pattern",
-                replacement => "$line",
+                "Config_replaceline_${file}-${line}":
+                file        => $file,
+                pattern     => $pattern,
+                replacement => $line,
             }
         }
 
         replacelinepm: {
             replacelinepm {
-                "Config_replacelinepm_$file-$line":
-                file      => "$file",
-                pattern   => "$pattern",
-                replacement => "$line",
+                "Config_replacelinepm_${file}-${line}":
+                file        => $file,
+                pattern     => $pattern,
+                replacement => $line,
             }
         }
 
         setparam: {
             setparam {
-                "$file-$parameter":
-                target      => "$file",
-                parameter => "$parameter",
-                value     => "$value",
+                "${file}-${parameter}":
+                target    => $file,
+                parameter => $parameter,
+                value     => $value,
             }
         }
 

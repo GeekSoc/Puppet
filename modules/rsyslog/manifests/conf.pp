@@ -11,13 +11,13 @@ define rsyslog::conf ($value) {
 
     require rsyslog::params
 
-    config { "rsyslog_conf_$name":
-        file      => "${rsyslog::params::configfile}",
-        line      => "$name = $value",
-        pattern   => "^$name ",
-        engine    => "replaceline",
-        notify    => Service["rsyslog"],
-        require   => File["rsyslog.conf"],
+    config { "rsyslog_conf_${name}":
+        file    => $rsyslog::params::configfile,
+        line    => "${name} = ${value}",
+        pattern => "^${name} ",
+        engine  => 'replaceline',
+        notify  => Service['rsyslog'],
+        require => File['rsyslog.conf'],
     }
 
 }

@@ -1,11 +1,11 @@
 
 node 'idran.geeksoc.org' {
 
-	# Modules
-	include bind
-	
-	# Message of the day
-	file { '/etc/motd':
+  # Modules
+  include bind
+  
+  # Message of the day
+  file { '/etc/motd':
         content => " 
  _____     _                       _____           _     _____            
 |_   _|   | |                     |  __ \         | |   /  ___|           
@@ -19,10 +19,10 @@ Purpose: Primary Web Server
 
 This server is Puppet managed - local changes may be overwritten!
 
-" 
+"
     }
-	
-	
-	# Roles
-	include web
+  
+  
+  # Roles
+  include web
 }

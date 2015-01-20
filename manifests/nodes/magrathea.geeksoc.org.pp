@@ -1,8 +1,8 @@
 
 node 'magrathea.geeksoc.org' {
 
-	# Message of the day
-	file { '/etc/motd':
+  # Message of the day
+  file { '/etc/motd':
         content => " 
 ___  ___                      _   _                
 |  \/  |                     | | | |               
@@ -16,7 +16,7 @@ ___  ___                      _   _
 Primary Contact: GSAG - support@geeksoc.org
 Purpose: KVM Host
 
-" 
+"
     }
 
     include global

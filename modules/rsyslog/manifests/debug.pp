@@ -12,14 +12,14 @@ class rsyslog::debug {
     require rsyslog::params
     include puppet::params
 
-    file { "puppet_debug_variables_rsyslog":
+    file { 'puppet_debug_variables_rsyslog':
         path    => "${puppet::params::debugdir}/variables/rsyslog",
-        mode    => "${rsyslog::params::configfile_mode}",
-        owner   => "${rsyslog::params::configfile_owner}",
-        group   => "${rsyslog::params::configfile_group}",
+        mode    => $rsyslog::params::configfile_mode,
+        owner   => $rsyslog::params::configfile_owner,
+        group   => $rsyslog::params::configfile_group,
         ensure  => present,
-        require => File["puppet_debug_variables"],
-        content => template("rsyslog/variables_rsyslog.erb"),
+        require => File['puppet_debug_variables'],
+        content => template('rsyslog/variables_rsyslog.erb'),
     }
 
 }

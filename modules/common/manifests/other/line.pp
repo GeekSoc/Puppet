@@ -45,13 +45,13 @@ define line(
         present: {
             exec { "'${source} echo '${line}' >> '${file}'":
                 command => "echo '${line}' >> '${file}'",
-                unless => "grep -qFx '${line}' '${file}'"
+                unless  => "grep -qFx '${line}' '${file}'"
             }
         }
         absent: {
             exec { "'${source}' perl -ni -e 'print if \$_ ne \"${line}\n\";' '${file}'":
                 command => "perl -ni -e 'print if \$_ ne \"${line}\n\";' '${file}'",
-                onlyif => "grep -qFx '${line}' '${file}'"
+                onlyif  => "grep -qFx '${line}' '${file}'"
             }
         }
     }
