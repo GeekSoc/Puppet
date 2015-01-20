@@ -6,8 +6,8 @@ node 'irc.geeksoc.org' {
 
   # Nightly backup of irc config
   cron { 'ircdBackup':
-    command =>  '/usr/bin/rsync -arv /home/ircd/\
- 130.159.141.117:/home/backup/ircd --delete',
+    command =>
+'/usr/bin/rsync -arv /home/ircd/ 130.159.141.117:/home/backup/ircd --delete',
     user    =>  root,
     hour    =>  4,
     minute  =>  30
