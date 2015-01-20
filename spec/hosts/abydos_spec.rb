@@ -4,7 +4,7 @@ describe 'abydos.geeksoc.org' do
   let(:node) { 'abydos.geeksoc.org' }
   let(:facts) { {:operatingsystem => 'Debian'} }
   
-  it {should compile}
+  it { should compile }
   it { should contain_service('ssh') }
   it { should contain_mount('/home') }
   it { should contain_package('irssi') }

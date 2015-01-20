@@ -24,7 +24,7 @@
 
 
 
-define config (
+define common::config (
     $file='',
     $line='',
     $pattern='',
@@ -39,7 +39,7 @@ define config (
         
         augeas: {
             augeas {
-                "Config_augeas_${file-}${parameter}":
+                "Config_augeas_${file}-${parameter}":
                 context =>  "/files${file}",
                 changes =>  "set ${parameter} ${value}",
         #           onlyif  =>  "get $parameter != $value", 
@@ -48,7 +48,7 @@ define config (
 
         file2augeas: {
             file2augeas {
-                "Config_file2augeas_${file-}${parameter}":
+                "Config_file2augeas_${file}-${parameter}":
                 file      => $file,
                 parameter => $parameter,
                 value     => $value,
@@ -58,7 +58,7 @@ define config (
 
         line: {
             line {
-                "Config_line_${file-}${line}":
+                "Config_line_${file}-${line}":
                 file   => $file,
                 line   => $line,
                 ensure => 'present',
@@ -68,7 +68,7 @@ define config (
 
         replaceline: {
             replaceline {
-                "Config_replaceline_${file-}${line}":
+                "Config_replaceline_${file}-${line}":
                 file        => $file,
                 pattern     => $pattern,
                 replacement => $line,
@@ -77,7 +77,7 @@ define config (
 
         replacelinepm: {
             replacelinepm {
-                "Config_replacelinepm_${file-}${line}":
+                "Config_replacelinepm_${file}-${line}":
                 file        => $file,
                 pattern     => $pattern,
                 replacement => $line,
@@ -86,7 +86,7 @@ define config (
 
         setparam: {
             setparam {
-                "${file-}${parameter}":
+                "${file}-${parameter}":
                 target    => $file,
                 parameter => $parameter,
                 value     => $value,

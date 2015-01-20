@@ -77,9 +77,9 @@ class global {
         'iftop',
         'python',
         'python-ldap',
-                'zsh',
+        'zsh',
         $netcat_name,
-                $vim_name, ]:
+        $vim_name, ]:
         ensure => installed,
     }
 
