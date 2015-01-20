@@ -6,9 +6,9 @@ node 'energon.geeksoc.org' {
     }
 
     mount { '/home':
+        ensure  => 'mounted',
         device  => 'storage.geeksoc.org:/home',
         fstype  => 'nfs',
-        ensure  => 'mounted',
         options => 'rw,hard,intr,mountvers=3',
         atboot  => true,
         require => File['/home'],
@@ -19,9 +19,9 @@ node 'energon.geeksoc.org' {
     }
 
     mount { '/yesterday':
+        ensure  => 'mounted',
         device  => 'tauron.geeksoc.org:/home/backup/home',
         fstype  => 'nfs',
-        ensure  => 'mounted',
         options => 'ro,hard,intr,mountvers=3',
         atboot  => true,
         require => File['/yesterday'],

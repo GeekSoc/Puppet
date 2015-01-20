@@ -1,3 +1,4 @@
+# This class installs all packages we want in a shell machine
 class shell {
   
   class {'ssh::sshd':

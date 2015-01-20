@@ -14,7 +14,7 @@ node 'sol-relay.geeksoc.org' {
 \ \_/ / |   | |\  |  _  | |_\ \  __/  __/   < /\__/ / (_) | (__ 
  \___/\_|   \_| \_/ (_)  \____/\___|\___|_|\_\\\____/ \___/ \___|
 
-Primary Contact: GSAG - gsag@geeksoc.org                                                                
+Primary Contact: GSAG - gsag@geeksoc.org                         
 Purpose: OpenVPN server
 
 This server is Puppet managed - local changes may be overwritten!

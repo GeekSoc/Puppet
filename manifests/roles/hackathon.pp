@@ -1,3 +1,4 @@
+# Currently obsolete
 class hackathon {
   
   # Message of the day
@@ -8,7 +9,7 @@ class hackathon {
 | |_| |/ /| | ___| | __/ /| | |_| |__ | |/' |_ __  
 |  _  / /_| |/ __| |/ / /_| | __| '_ \|  /| | '_ \ 
 | | | \___  | (__|   <\___  | |_| | | \ |_/ / | | |
-\_| |_/   |_/\___|_|\_\   |_/\__|_| |_|\___/|_| |_|                                        
+\_| |_/   |_/\___|_|\_\   |_/\__|_| |_|\___/|_| |_|
 
 Primary Contact: GSAG - support@geeksoc.org 
 Purpose: Hackathon Dev Box

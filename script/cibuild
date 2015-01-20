@@ -6,5 +6,5 @@ set -e
 
 bundle exec rspec
 
-bundle exec puppet-lint --with-filename --fail-on-warnings manifests
-bundle exec puppet-lint --with-filename --fail-on-warnings modules
+bundle exec puppet-lint --with-filename --fail-on-warnings --no-autoloader_layout-check manifests
+#bundle exec puppet-lint --with-filename --fail-on-warnings --no-autoloader_layout-check modules

@@ -12,7 +12,7 @@ node 'andor.geeksoc.org' {
   \_| |_/_| |_|\__,_|\___/|_(_) \____/\___|\___|_|\_\____/ \___/ \___|
                                                                       
 Primary Contact: GSAG - gsag@geeksoc.org 
-Purpose: Suggest One                                                                  
+Purpose: Suggest One
 
 This server is Puppet managed - local changes may be overwritten!
 

@@ -18,18 +18,19 @@ node 'picon.geeksoc.org' {
 
   # Nightly backup of /home
   cron { 'rSyncArgama':
-    command => '/usr/bin/rsync -arv /home/ 130.159.141.117:/home/backup/home --delete',
-    user   => root,
-    hour   => 3,
-    minute => 30
+    command =>  '/usr/bin/rsync -arv /home/ 130.159.141.117:/home/backup/home\
+    --delete',
+    user    =>  root,
+    hour    =>  3,
+    minute  =>  30
   }
   
   # Nightly check to disable home dirs of expired accounts
   cron { 'userdir-disable':
-    command => '/usr/local/sbin/userdir-disable',
-    user   => root,
-    hour   => 4,
-    minute => 30
+    command =>  '/usr/local/sbin/userdir-disable',
+    user    =>  root,
+    hour    =>  4,
+    minute  =>  30
   }
 
     # Sync ssh keys and create new home dirs every 5 mins (30 is usual)

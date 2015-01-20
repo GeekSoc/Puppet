@@ -1,3 +1,4 @@
+# Has all the config for a mail server
 class mail {
   
   include postfix

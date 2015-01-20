@@ -12,7 +12,7 @@ node 'gemini-1.geeksoc.org' {
  \____/\___|_| |_| |_|_|_| |_|_|      \___/
 
 Primary Contact: GSAG - gsag@geeksoc.org 
-Purpose: Xen dom0 for Development                                                                   
+Purpose: Xen dom0 for Development
 
 This server is Puppet managed - local changes may be overwritten!
 

@@ -1,3 +1,4 @@
+# This class has all the web based configuration
 class web {
   
   class {'ssh::sshd':
@@ -5,9 +6,9 @@ class web {
   }
   
   mount { '/home':
+        ensure  => 'mounted',
         device  => 'storage.geeksoc.org:/home',
         fstype  => 'nfs',
-        ensure  => 'mounted',
         options => 'rw,hard,intr',
         atboot  => true,
     }
@@ -27,8 +28,8 @@ class web {
     https          => true,
   }
   apache::website { 'dev.geeksoc.org':
-   server_aliases => [ 'www.dev.geeksoc.org' ],
-    https         => true,
+    server_aliases => [ 'www.dev.geeksoc.org' ],
+    https          => true,
   }
   apache::website { 'wiki.geeksoc.org':
     server_aliases => [ 'www.wiki.geeksoc.org' ],
