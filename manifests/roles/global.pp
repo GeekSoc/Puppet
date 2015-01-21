@@ -7,12 +7,13 @@ class global {
     $users_ldap_ssl = 'yes'
     $syslog_server = 'picon.geeksoc.org'
 
+    include custom
     include ssh::sshd
     include ssh::known_hosts
     include munin::node
     include rsyslog
     include resolv
-    include nagios::nrpe
+    include nagios::client
     include gs-scripts::retrieve_public_keys
 
     case $::operatingsystem {

@@ -14,7 +14,7 @@ node 'mirror.geeksoc.org' {
     #   minute => 30
     # }
 
-    apache::website { 'mirror.geeksoc.org':
+    custom::apache::website { 'mirror.geeksoc.org':
         server_aliases => [ 'www.mirror.geeksoc.org' ],
     }
 

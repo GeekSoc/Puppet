@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'shared_context.rb'
 
 describe 'idran.geeksoc.org' do
+    include_context "centos node"
   let(:node) { 'idran.geeksoc.org' }
-  let(:facts) { {:operatingsystem => 'CentOS'} }
   
   it {should compile}
   
@@ -10,11 +11,8 @@ describe 'idran.geeksoc.org' do
   
   it { should contain_mount('/home') }
   
-  it { should contain_apache__website('geeksoc.org') }
-  it do
-    should contain_file('geeksoc.org.conf') \
-    .with_path('/etc/httpd/conf.d/geeksoc.org.conf')
-  end
+  it { should contain_custom__apache__website('geeksoc.org') }
+
   
   it do
        should_not contain_file('/etc/ssh/sshd_config') \
