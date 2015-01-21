@@ -5,7 +5,6 @@ before_install:
 rvm: 
   - 1.9.3
 env:
-  - PUPPET_VERSION=3.0.2
   - PUPPET_VERSION=3.1.1
   - PUPPET_VERSION=3.2.4
   - PUPPET_VERSION=3.3.2

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'abydos.geeksoc.org' do
   let(:node) { 'abydos.geeksoc.org' }
-  let(:facts) { {:operatingsystem => 'Debian'} }
+  let(:facts) { {:operatingsystem => 'Debian', :operatingsystemrelease => '7.8'} }
   
   it { should compile }
   it { should contain_service('ssh') }

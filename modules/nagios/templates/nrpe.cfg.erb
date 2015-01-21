@@ -1,14 +1,20 @@
 #############################################################################
-# NRPE Config File 
+# Sample NRPE Config File 
+# Written by: Ethan Galstad (nagios@nagios.org)
 # 
-# Puppet Managed!
+# Last Modified: 11-23-2007
+#
+# NOTES:
+# This is a sample configuration file for the NRPE daemon.  It needs to be
+# located on the remote host that is running the NRPE daemon, not the host
+# from which the check_nrpe client is being executed.
 #############################################################################
 
 
 # LOG FACILITY
 # The syslog facility that should be used for logging purposes.
 
-log_facility=daemon
+log_facility=<%= @nrpe_log_facility %>
 
 
 
@@ -17,7 +23,7 @@ log_facility=daemon
 # number.  The file is only written if the NRPE daemon is started by the root
 # user and is running in standalone mode.
 
-pid_file=<%= nrpepidfile %>
+pid_file=<%= @nrpe_pid_file %>
 
 
 
@@ -26,7 +32,7 @@ pid_file=<%= nrpepidfile %>
 # NOTE: This must be a non-priviledged port (i.e. > 1024).
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-server_port=5666
+server_port=<%= @nrpe_server_port %>
 
 
 
@@ -35,7 +41,11 @@ server_port=5666
 # and you do not want nrpe to bind on all interfaces.
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
+<% if defined? @nrpe_server_address -%>
+server_address=<%= @nrpe_server_address %>
+<% else -%>
 #server_address=127.0.0.1
+<% end -%>
 
 
 
@@ -45,7 +55,7 @@ server_port=5666
 # 
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-nrpe_user=<%= nrpeuser %>
+nrpe_user=<%= @nrpe_user %>
 
 
 
@@ -55,13 +65,15 @@ nrpe_user=<%= nrpeuser %>
 # 
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-nrpe_group=<%= nrpeuser %>
+nrpe_group=<%= @nrpe_group %>
 
 
 
 # ALLOWED HOST ADDRESSES
 # This is an optional comma-delimited list of IP address or hostnames 
-# that are allowed to talk to the NRPE daemon.
+# that are allowed to talk to the NRPE daemon. Network addresses with a bit mask
+# (i.e. 192.168.1.0/24) are also supported. Hostname wildcards are not currently 
+# supported.
 #
 # Note: The daemon only does rudimentary checking of the client's IP
 # address.  I would highly recommend adding entries in your /etc/hosts.allow
@@ -70,7 +82,7 @@ nrpe_group=<%= nrpeuser %>
 #
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-allowed_hosts=nagioshost
+allowed_hosts=<%= @nrpe_allowed_hosts %>
  
 
 
@@ -86,7 +98,7 @@ allowed_hosts=nagioshost
 #
 # Values: 0=do not allow arguments, 1=allow command arguments
 
-dont_blame_nrpe=0
+dont_blame_nrpe=<%= @nrpe_dont_blame_nrpe %>
 
 
 
@@ -107,7 +119,11 @@ dont_blame_nrpe=0
 # without asking for a password.  If you do this, make sure you don't give
 # random users write access to that directory or its contents!
 
+<% if defined? @nrpe_command_prefix.defined -%>
+command_prefix=<%= @nrpe_command_prefix %>
+<% else -%>
 # command_prefix=/usr/bin/sudo 
+<% end -%>
 
 
 
@@ -124,7 +140,7 @@ debug=0
 # This specifies the maximum number of seconds that the NRPE daemon will
 # allow plugins to finish executing before killing them off.
 
-command_timeout=60
+command_timeout=<%= @nrpe_command_timeout %>
 
 
 
@@ -135,7 +151,7 @@ command_timeout=60
 # all network sessions are connected. This causes the nrpe daemons to
 # accumulate, eating system resources. Do not set this too low.
 
-connection_timeout=300
+connection_timeout=<%= @nrpe_connection_timeout %>
 
 
 
@@ -163,7 +179,7 @@ connection_timeout=300
 # This directive allows you to include definitions from config files (with a
 # .cfg extension) in one or more directories (with recursion).
 
-# include_dir=/etc/nrpe.d/
+include_dir=<%= @nrpe_cfg_dir %>/
 
 
 
@@ -189,10 +205,20 @@ connection_timeout=300
 
 # The following examples use hardcoded command arguments...
 
-command[check_users]=<%= pluginsdir %>/check_users -w 25 -c 35
-command[check_load]=<%= pluginsdir %>/check_load -w 15,10,5 -c 30,25,20
-command[check_disk_root]=<%= pluginsdir %>/check_disk -w 20% -c 10% -p <%= diskroot %>
-command[check_disk_home]=<%= pluginsdir %>/check_disk -w 20% -c 10% -p /dev/mapper/vg_alpha-lv_home
-command[check_zombie_procs]=<%= pluginsdir %>/check_procs -w 5 -c 10 -s Z
-command[check_total_procs]=<%= pluginsdir %>/check_procs -w 150 -c 200 
+#command[check_users]=/usr/libexec/nagios/plugins/check_users -w 5 -c 10
+#command[check_load]=/usr/libexec/nagios/plugins/check_load -w 15,10,5 -c 30,25,20
+#command[check_hda1]=/usr/libexec/nagios/plugins/check_disk -w 20% -c 10% -p /dev/hda1
+#command[check_zombie_procs]=/usr/libexec/nagios/plugins/check_procs -w 5 -c 10 -s Z
+#command[check_total_procs]=/usr/libexec/nagios/plugins/check_procs -w 150 -c 200 
 
+
+# The following examples allow user-supplied arguments and can
+# only be used if the NRPE daemon was compiled with support for 
+# command arguments *AND* the dont_blame_nrpe directive in this
+# config file is set to '1'.  This poses a potential security risk, so
+# make sure you read the SECURITY file before doing this.
+
+#command[check_users]=/usr/libexec/nagios/plugins/check_users -w $ARG1$ -c $ARG2$
+#command[check_load]=/usr/libexec/nagios/plugins/check_load -w $ARG1$ -c $ARG2$
+#command[check_disk]=/usr/libexec/nagios/plugins/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
+#command[check_procs]=/usr/libexec/nagios/plugins/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$

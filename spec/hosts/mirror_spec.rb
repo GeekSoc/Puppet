@@ -1,18 +1,15 @@
 require 'spec_helper'
 
+
 describe 'mirror.geeksoc.org' do
+  include_context "debian node"
   let(:node) { 'mirror.geeksoc.org' }
-  let(:facts) { {:operatingsystem => 'Debian'} }
   
   it {should compile}
   
   it { should contain_service('ssh') }
   
-  it { should contain_apache__website('mirror.geeksoc.org') }
-  it do
-    should contain_file('mirror.geeksoc.org.conf') \
-    .with_path('/etc/apache2/sites-enabled/mirror.geeksoc.org.conf')
-  end
+  it { should contain_custom__apache__website('mirror.geeksoc.org') }
   
   it {should_not contain_cron('rsyncFOSDEM')}
   
