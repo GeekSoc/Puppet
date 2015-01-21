@@ -7,8 +7,7 @@ sswindells,fmacisaac,rwilson'
   class { 'nagios::server':
   apache_httpd                                 => false,
   apache_httpd_ssl                             => false,
-  apache_httpd_conf_content                    =>
-template('my/httpd-nagios.conf.erb'),
+  apache_httpd_conf_content                    => false,
   apache_httpd_htpasswd_source                 => false,
   php                                          => false,
   php_apc                                      => false,
