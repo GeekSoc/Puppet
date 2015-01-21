@@ -13,8 +13,11 @@ class global {
     include munin::node
     include rsyslog
     include resolv
-    include nagios::client
     include gs-scripts::retrieve_public_keys
+
+    class { 'nagios::client':
+        nrpe_allowed_hosts => 'nagioshost',
+    }
 
     case $::operatingsystem {
         Solaris: {  }
