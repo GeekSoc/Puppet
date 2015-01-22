@@ -176,15 +176,15 @@ class nagios::server (
       $apache_httpd_conf_content_final = $apache_httpd_conf_content
     }
   }
-  #file { '/etc/httpd/conf.d/nagios.conf':
-  #  owner   => 'root',
-  #  group   => 'root',
-  #  mode    => '0644',
-  #  content => $apache_httpd_conf_content_final,
-  #  source  => $apache_httpd_conf_source,
-  #  notify  => Service['httpd'],
-  #  require => Package['nagios'],
-  #}
+  file { '/etc/httpd/conf.d/nagios.conf':
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => $apache_httpd_conf_content_final,
+    source  => $apache_httpd_conf_source,
+    notify  => Service['httpd'],
+    require => Package['nagios'],
+  }
   if $apache_httpd_htpasswd_source != false {
     file { '/etc/nagios/.htpasswd':
       owner   => 'root',
