@@ -103,21 +103,21 @@ class nagios::server (
   $nrpe = "${nrpe_command} ${nrpe_options}"
 
   # Plugin packages required on the server side
-  package { [
-    'nagios',
-    'nagios-plugins-dhcp',
-    'nagios-plugins-dns',
-    'nagios-plugins-icmp',
-    'nagios-plugins-ldap',
-    'nagios-plugins-nrpe',
-    'nagios-plugins-ping',
-    'nagios-plugins-smtp',
-    'nagios-plugins-snmp',
-    'nagios-plugins-ssh',
-    'nagios-plugins-tcp',
-  ]:
-    ensure => installed,
-  }
+  #package { [
+  #  'nagios',
+  #  'nagios-plugins-dhcp',
+  #  'nagios-plugins-dns',
+  #  'nagios-plugins-icmp',
+  #  'nagios-plugins-ldap',
+  #  'nagios-plugins-nrpe',
+  #  'nagios-plugins-ping',
+  #  'nagios-plugins-smtp',
+  #  'nagios-plugins-snmp',
+  #  'nagios-plugins-ssh',
+  #  'nagios-plugins-tcp',
+  #]:
+  #  ensure => installed,
+  #}
   # Plugin packages required on both the client and server sides
   Package <| tag == 'nagios-plugins-http' |>
 
