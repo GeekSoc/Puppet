@@ -14,7 +14,7 @@ class web {
     }
 
   class { 'apache':
-        conf_template    => 'custom/httpd.conf.erb'
+        conf_template    => 'custom/httpd.conf.erb',
         default_ssl_cert => '/etc/pki/tls/certs/ca.crt',
         default_ssl_key  => '/etc/pki/tls/private/ca.key',
   }
