@@ -7,7 +7,7 @@ define custom::apache::phpapp (
 
     apache::vhost { $name:
         serveraliases => $server_aliases,
-        ssl           => $https,
+        ssl           => false,
         serveradmin   => $server_admin,
         docroot       => "/var/www/applications/production/${app_name}/current",
         options       => ["+Indexes"],
