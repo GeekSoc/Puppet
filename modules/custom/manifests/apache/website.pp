@@ -11,6 +11,7 @@ define custom::apache::website (
         docroot       => "/var/www/vhosts/${name}/public_html",
         options       => ["+Indexes"],
         override      => ["All"],
+        port          => 80,
     }
 
 }

@@ -12,6 +12,7 @@ define custom::apache::phpapp (
         docroot       => "/var/www/applications/production/${app_name}/current",
         options       => ["+Indexes"],
         override      => ["All"],
+        port          => 80,
     }
 
 }
