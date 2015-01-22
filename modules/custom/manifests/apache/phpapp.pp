@@ -6,6 +6,7 @@ define custom::apache::phpapp (
 ) {
 
     apache::vhost { $name:
+        manage_docroot => false,
         serveraliases => $server_aliases,
         ssl           => false,
         serveradmin   => $server_admin,
