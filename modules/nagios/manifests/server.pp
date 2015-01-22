@@ -337,16 +337,16 @@ class nagios::server (
 
   # Work around a puppet bug where created files are 600 root:root
   file { [
-    '/etc/nagios3/nagios_command.cfg',
-    '/etc/nagios3/nagios_contact.cfg',
-    '/etc/nagios3/nagios_contactgroup.cfg',
-    '/etc/nagios3/nagios_host.cfg',
-    '/etc/nagios3/nagios_hostdependency.cfg',
-    '/etc/nagios3/nagios_hostgroup.cfg',
-    '/etc/nagios3/nagios_service.cfg',
-    '/etc/nagios3/nagios_servicedependency.cfg',
-    '/etc/nagios3/nagios_servicegroup.cfg',
-    '/etc/nagios3/nagios_timeperiod.cfg',
+    '/etc/nagios/nagios_command.cfg',
+    '/etc/nagios/nagios_contact.cfg',
+    '/etc/nagios/nagios_contactgroup.cfg',
+    '/etc/nagios/nagios_host.cfg',
+    '/etc/nagios/nagios_hostdependency.cfg',
+    '/etc/nagios/nagios_hostgroup.cfg',
+    '/etc/nagios/nagios_service.cfg',
+    '/etc/nagios/nagios_servicedependency.cfg',
+    '/etc/nagios/nagios_servicegroup.cfg',
+    '/etc/nagios/nagios_timeperiod.cfg',
   ]:
     ensure => present,
     owner  => 'root',
