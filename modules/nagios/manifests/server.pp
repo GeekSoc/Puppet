@@ -104,17 +104,17 @@ class nagios::server (
 
   # Plugin packages required on the server side
   package { [
-    $serverpkg,
-  #  'nagios-plugins-dhcp',
-  #  'nagios-plugins-dns',
-  #  'nagios-plugins-icmp',
-  #  'nagios-plugins-ldap',
-  #  'nagios-plugins-nrpe',
-  #  'nagios-plugins-ping',
-  #  'nagios-plugins-smtp',
-  #  'nagios-plugins-snmp',
-  #  'nagios-plugins-ssh',
-  #  'nagios-plugins-tcp',
+    'nagios',
+    'nagios-plugins-dhcp',
+    'nagios-plugins-dns',
+    'nagios-plugins-icmp',
+    'nagios-plugins-ldap',
+    'nagios-plugins-nrpe',
+    'nagios-plugins-ping',
+    'nagios-plugins-smtp',
+    'nagios-plugins-snmp',
+    'nagios-plugins-ssh',
+    'nagios-plugins-tcp',
   ]:
     ensure => installed,
   }
@@ -150,11 +150,11 @@ class nagios::server (
   }
 
   # Other packages
-  #package { [
-  #  'mailx', # For the default email notifications to work
-  #]:
-  #  ensure => installed,
-  #}
+  package { [
+    'mailx', # For the default email notifications to work
+  ]:
+    ensure => installed,
+  }
 
   service { 'nagios':
     ensure    => running,
@@ -165,7 +165,7 @@ class nagios::server (
     pattern   => '/usr/sbin/nagios',
     # Work around files created root:root mode 600 (known issue)
     restart   => '/bin/chgrp nagios /etc/nagios/nagios_*.cfg && /bin/chmod 640 /etc/nagios/nagios_*.cfg && /sbin/service nagios reload',
-    require   => Package[$serverpkg],
+    require   => Package['nagios'],
   }
 
   # Set a default content template if no content/source is specified
@@ -176,22 +176,22 @@ class nagios::server (
       $apache_httpd_conf_content_final = $apache_httpd_conf_content
     }
   }
-  file { '/etc/apache2/conf.d/nagios.conf':
+  file { '/etc/httpd/conf.d/nagios.conf':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     content => $apache_httpd_conf_content_final,
     source  => $apache_httpd_conf_source,
     notify  => Service['httpd'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   if $apache_httpd_htpasswd_source != false {
-    file { '/etc/nagios3/.htpasswd':
+    file { '/etc/nagios/.htpasswd':
       owner   => 'root',
       group   => 'apache',
       mode    => '0640',
       source  => $apache_httpd_htpasswd_source,
-      require => Package[$serverpkg],
+      require => Package['nagios'],
     }
   }
 
@@ -210,29 +210,29 @@ class nagios::server (
   }
 
   # Configuration files
-  file { '/etc/nagios3/cgi.cfg':
+  file { '/etc/nagios/cgi.cfg':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     content => template('nagios/cgi.cfg.erb'),
     # No need to reload the service, changes are applied immediately
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
-  file { '/etc/nagios3/nagios.cfg':
+  file { '/etc/nagios/nagios.cfg':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     content => template('nagios/nagios.cfg.erb'),
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
-  file { '/etc/nagios3/private/resource.cfg':
+  file { '/etc/nagios/private/resource.cfg':
     owner   => 'root',
     group   => 'nagios',
     mode    => '0640',
     content => template('nagios/resource.cfg.erb'),
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
 
   # Realize all nagios related exported resources for this server
@@ -240,43 +240,43 @@ class nagios::server (
   # Require the package for the parent directory to exist initially
   Nagios_command <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_contact <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_contactgroup <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_host <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_hostdependency <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_hostgroup <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_service <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_servicedependency <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_servicegroup <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_timeperiod <<| tag == "nagios-${nagios_server}" |>> {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
 
   # Auto reload and parent dir, but for non-exported resources
@@ -285,39 +285,39 @@ class nagios::server (
   # definitions like for "host"
   Nagios_command {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_contact {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_contactgroup {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_host {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_hostdependency {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_hostgroup {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_service {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_servicegroup {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
   Nagios_timeperiod {
     notify  => Service['nagios'],
-    require => Package[$serverpkg],
+    require => Package['nagios'],
   }
 
   # Works great, but only if the "target" is the default (known limitation)

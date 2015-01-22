@@ -54,7 +54,6 @@ class nagios::params {
       $pid_file           = hiera('nagios::params::pid_file','/var/run/nagios.pid')
       $megaclibin         = '/usr/sbin/MegaCli'
       $perl_memcached     = 'perl-Cache-Memcached'
-      $serverpkg          = 'nagios'
       @package { $nagios_plugins_packages:
         ensure => installed,
         tag    => $name,
@@ -90,7 +89,6 @@ class nagios::params {
       $pid_file           = '/run/nagios.pid'
       $megaclibin         = '/opt/bin/MegaCli'
       $perl_memcached     = 'libcache-memcached-perl'
-      $serverpkg          = 'nagios3'
       # No package splitting in Debian
       @package { 'nagios-plugins':
         ensure => installed,

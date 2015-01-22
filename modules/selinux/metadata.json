@@ -1,0 +1,37 @@
+{
+  "name": "thias-selinux",
+  "author": "Matthias Saou",
+  "summary": "SELinux module",
+  "types": [
+
+  ],
+  "project_page": "https://github.com/thias/puppet-selinux",
+  "description": "Easily manage SELinux audit2allow rules",
+  "dependencies": [
+
+  ],
+  "checksums": {
+    "manifests/params.pp": "3bf8e565ed66b5749b52e79e6f78f3c5",
+    "manifests/audit2allow.pp": "e477c067019f08d2a3259b35222283b1",
+    "manifests/dircontext.pp": "440a334f71f838372f47e06af957e81b",
+    "tests/audit2allow.pp": "bfde1b78b3810bd1b3ee5f41ec685477",
+    "Gemfile.lock": "e0bc7b39a9f230dafd06f143595b8568",
+    "tests/init.pp": "63e3318bc62e71c064f32c13f7f656ad",
+    "ChangeLog": "f7b6dca7b85acc82de73769bf8ccc1c5",
+    "spec/classes/init_spec.rb": "fcacdfe2e1d62a5e54a95e8d274c3be6",
+    "spec/defines/dircontext_spec.rb": "2c0f24b92ccb53c56aceca1beff1c82d",
+    "manifests/filecontext.pp": "301c506437d6b9b54932cb15447cffe6",
+    "LICENSE": "63f96c99cc44c3d16af914ff2568e0a4",
+    "Rakefile": "7711aaeca2a304ff1845852ae1a0f322",
+    "README.md": "4102a98007b8e9c3ee2a59001c2d0347",
+    "Modulefile": "50122fa89475dd0d596a677b3f0b7c13",
+    "spec/defines/filecontext_spec.rb": "f11b8fe110f186925554d8f3b028b354",
+    "spec/spec_helper.rb": "5f5b94ab41eff23acf15b8911d5e386d",
+    "Gemfile": "351eafab0585e27392b53bde4e32fe9e",
+    "files/messages.nrpe": "14268bd03f7e0e2c33daf148dde09d38",
+    "manifests/init.pp": "287fe9e02e976c695f0308c6d4bcdc87"
+  },
+  "version": "1.0.1",
+  "license": "Apache 2.0",
+  "source": "git://github.com/thias/puppet-selinux"
+}
