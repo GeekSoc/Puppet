@@ -9,9 +9,6 @@ sswindells,fmacisaac,rwilson'
   class { 'nagios::server':
   apache_httpd                                 => false,
   apache_httpd_ssl                             => false,
-  apache_httpd_conf_content                    => '',
-  apache_httpd_conf_source                     =>
-'puppet:///modules/custom/nagios-apache.conf',
   apache_httpd_htpasswd_source                 => false,
   php                                          => false,
   php_apc                                      => false,

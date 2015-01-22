@@ -41,6 +41,14 @@ backend tauron
     option httpchk
     server tauron 130.159.141.117:80 weight 1 maxconn 10000
 
+backend mun
+    mode http
+    timeout connect 5s
+    timeout server 5m
+    balance roundrobin
+    option httpchk
+    server tauron 130.159.141.90:80 weight 1 maxconn 10000
+
 backend mirror
     mode http
     timeout connect 5s
@@ -147,7 +155,7 @@ listen  http 0.0.0.0:80
     
 
     default_backend idran #by default forward the requests to idran
-    use_backend tauron if req_nagios
+    use_backend mun if req_nagios
     use_backend tauron if req_munin
     use_backend mirror if req_mirror
     use_backend idran_etherpad if req_etherpad
