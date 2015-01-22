@@ -36,16 +36,16 @@ class nagios::server (
   # nagios.cfg
   $cfg_file = [
     # Where puppet managed types are
-    '/etc/nagios/nagios_command.cfg',
-    '/etc/nagios/nagios_contact.cfg',
-    '/etc/nagios/nagios_contactgroup.cfg',
-    '/etc/nagios/nagios_host.cfg',
-    '/etc/nagios/nagios_hostdependency.cfg',
-    '/etc/nagios/nagios_hostgroup.cfg',
-    '/etc/nagios/nagios_service.cfg',
-    '/etc/nagios/nagios_servicedependency.cfg',
-    '/etc/nagios/nagios_servicegroup.cfg',
-    '/etc/nagios/nagios_timeperiod.cfg',
+    '/etc/nagios3/nagios_command.cfg',
+    '/etc/nagios3/nagios_contact.cfg',
+    '/etc/nagios3/nagios_contactgroup.cfg',
+    '/etc/nagios3/nagios_host.cfg',
+    '/etc/nagios3/nagios_hostdependency.cfg',
+    '/etc/nagios3/nagios_hostgroup.cfg',
+    '/etc/nagios3/nagios_service.cfg',
+    '/etc/nagios3/nagios_servicedependency.cfg',
+    '/etc/nagios3/nagios_servicegroup.cfg',
+    '/etc/nagios3/nagios_timeperiod.cfg',
   ],
   $cfg_dir                        = [],
   $process_performance_data       = '0',
@@ -150,11 +150,11 @@ class nagios::server (
   }
 
   # Other packages
-  package { [
-    'mailx', # For the default email notifications to work
-  ]:
-    ensure => installed,
-  }
+  #package { [
+  #  'mailx', # For the default email notifications to work
+  #]:
+  #  ensure => installed,
+  #}
 
   service { 'nagios':
     ensure    => running,
@@ -164,7 +164,7 @@ class nagios::server (
     # Don't get fooled by any process with "nagios" in its command line
     pattern   => '/usr/sbin/nagios',
     # Work around files created root:root mode 600 (known issue)
-    restart   => '/bin/chgrp nagios /etc/nagios/nagios_*.cfg && /bin/chmod 640 /etc/nagios/nagios_*.cfg && /sbin/service nagios reload',
+    restart   => '/bin/chgrp nagios /etc/nagios3/nagios_*.cfg && /bin/chmod 640 /etc/nagios3/nagios_*.cfg && /sbin/service nagios reload',
     require   => Package[$serverpkg],
   }
 
@@ -176,7 +176,7 @@ class nagios::server (
       $apache_httpd_conf_content_final = $apache_httpd_conf_content
     }
   }
-  file { '/etc/httpd/conf.d/nagios.conf':
+  file { '/etc/apache2/conf.d/nagios.conf':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -186,7 +186,7 @@ class nagios::server (
     require => Package[$serverpkg],
   }
   if $apache_httpd_htpasswd_source != false {
-    file { '/etc/nagios/.htpasswd':
+    file { '/etc/nagios3/.htpasswd':
       owner   => 'root',
       group   => 'apache',
       mode    => '0640',
@@ -210,7 +210,7 @@ class nagios::server (
   }
 
   # Configuration files
-  file { '/etc/nagios/cgi.cfg':
+  file { '/etc/nagios3/cgi.cfg':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -218,7 +218,7 @@ class nagios::server (
     # No need to reload the service, changes are applied immediately
     require => Package[$serverpkg],
   }
-  file { '/etc/nagios/nagios.cfg':
+  file { '/etc/nagios3/nagios.cfg':
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -226,7 +226,7 @@ class nagios::server (
     notify  => Service['nagios'],
     require => Package[$serverpkg],
   }
-  file { '/etc/nagios/private/resource.cfg':
+  file { '/etc/nagios3/private/resource.cfg':
     owner   => 'root',
     group   => 'nagios',
     mode    => '0640',
@@ -337,16 +337,16 @@ class nagios::server (
 
   # Work around a puppet bug where created files are 600 root:root
   file { [
-    '/etc/nagios/nagios_command.cfg',
-    '/etc/nagios/nagios_contact.cfg',
-    '/etc/nagios/nagios_contactgroup.cfg',
-    '/etc/nagios/nagios_host.cfg',
-    '/etc/nagios/nagios_hostdependency.cfg',
-    '/etc/nagios/nagios_hostgroup.cfg',
-    '/etc/nagios/nagios_service.cfg',
-    '/etc/nagios/nagios_servicedependency.cfg',
-    '/etc/nagios/nagios_servicegroup.cfg',
-    '/etc/nagios/nagios_timeperiod.cfg',
+    '/etc/nagios3/nagios_command.cfg',
+    '/etc/nagios3/nagios_contact.cfg',
+    '/etc/nagios3/nagios_contactgroup.cfg',
+    '/etc/nagios3/nagios_host.cfg',
+    '/etc/nagios3/nagios_hostdependency.cfg',
+    '/etc/nagios3/nagios_hostgroup.cfg',
+    '/etc/nagios3/nagios_service.cfg',
+    '/etc/nagios3/nagios_servicedependency.cfg',
+    '/etc/nagios3/nagios_servicegroup.cfg',
+    '/etc/nagios3/nagios_timeperiod.cfg',
   ]:
     ensure => present,
     owner  => 'root',

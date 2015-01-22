@@ -4,8 +4,6 @@ node 'tauron.geeksoc.org' {
   $nagiosusers ='asmillie,kcoyle,pkinnaird,wnelson,amckinlay,fvalente,\
 sswindells,fmacisaac,rwilson'
 
-  include apache
-
   class { 'nagios::server':
   apache_httpd                                 => false,
   apache_httpd_ssl                             => false,
