@@ -16,7 +16,7 @@ class web {
   class { 'apache':
       
         default_ssl_cert => '/etc/pki/tls/certs/ca.crt',
-        default_ssl_key  => '/etc/pki/tls/certs/ca.key',
+        default_ssl_key  => '/etc/pki/tls/private/ca.key',
   }
 
   include mysql
