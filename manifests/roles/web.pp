@@ -18,6 +18,7 @@ class web {
         default_ssl_cert => '/etc/pki/tls/certs/ca.crt',
         default_ssl_key  => '/etc/pki/tls/private/ca.key',
   }
+  include apache::mod::php
 
   include mysql
   include mysql::phpMyAdmin
