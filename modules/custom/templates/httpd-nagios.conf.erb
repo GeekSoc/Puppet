@@ -3,30 +3,28 @@
 	ServerName nagios.geeksoc.org
 	ServerAlias www.nagios.geeksoc.org
 	DocumentRoot /usr/share/nagios/html
-ScriptAlias /nagios/cgi-bin/ /usr/<%= scope.lookupvar("nagios::params::libdir") %>/nagios/cgi-bin/
-<Directory /usr/<%= scope.lookupvar("nagios::params::libdir") %>/nagios/cgi-bin/>
+ScriptAlias /nagios/cgi-bin/ /usr/lib64/nagios/cgi-bin/
+<Directory /usr/lib64/nagios/cgi-bin/>
    Options ExecCGI
-   Allow from All
    AuthType Basic
         AuthName "GeekSoc Nagios"
         AuthBasicProvider ldap
         AuthLDAPURL ldap://ldap.geeksoc.org:389/dc=geeksoc,dc=org?uid?sub
         AuthLDAPGroupAttribute memberUid
         AuthLDAPGroupAttributeIsDN off
-        Satisfy any
+        Require valid-user
 </Directory>
 
 Alias /nagios/ /usr/share/nagios/html/
 <Directory /usr/share/nagios/html/>
    Options FollowSymlinks
-Allow from All
    AuthType Basic
         AuthName "GeekSoc Nagios"
         AuthBasicProvider ldap
         AuthLDAPURL ldap://ldap.geeksoc.org:389/dc=geeksoc,dc=org?uid?sub
         AuthLDAPGroupAttribute memberUid
         AuthLDAPGroupAttributeIsDN off
-        Satisfy any
+        Require valid-user
 </Directory>
 
 # For SSL-servers
