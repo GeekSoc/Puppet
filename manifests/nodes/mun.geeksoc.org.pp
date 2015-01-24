@@ -7,6 +7,7 @@ sswindells,fmacisaac,rwilson'
   include apache
   include apache::mod::ldap
   include apache::mod::authnz_ldap
+  include apache::mod::php
 
   class { 'nagios::server':
   apache_httpd                                 => false,

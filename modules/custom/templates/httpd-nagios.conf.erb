@@ -10,7 +10,6 @@ ScriptAlias /nagios/cgi-bin/ /usr/<%= scope.lookupvar("nagios::params::libdir") 
    AuthType Basic
         AuthName "GeekSoc Nagios"
         AuthBasicProvider ldap
-        AuthzLDAPAuthoritative on
         AuthLDAPURL ldap://ldap.geeksoc.org:389/dc=geeksoc,dc=org?uid?sub
         AuthLDAPGroupAttribute memberUid
         AuthLDAPGroupAttributeIsDN off
@@ -24,7 +23,6 @@ Allow from All
    AuthType Basic
         AuthName "GeekSoc Nagios"
         AuthBasicProvider ldap
-        AuthzLDAPAuthoritative on
         AuthLDAPURL ldap://ldap.geeksoc.org:389/dc=geeksoc,dc=org?uid?sub
         AuthLDAPGroupAttribute memberUid
         AuthLDAPGroupAttributeIsDN off
