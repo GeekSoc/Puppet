@@ -10,6 +10,8 @@ sswindells,fmacisaac,rwilson'
   apache_httpd                                 => false,
   apache_httpd_ssl                             => false,
   apache_httpd_htpasswd_source                 => false,
+  apache_httpd_content                         =>
+template('custom/httpd-nagios.conf.erb'),
   php                                          => false,
   php_apc                                      => false,
   cgi_authorized_for_system_information        => $nagiosusers,
