@@ -5,6 +5,7 @@ node 'mun.geeksoc.org' {
 sswindells,fmacisaac,rwilson'
 
   include apache
+  include apache::mod::ldap
 
   class { 'nagios::server':
   apache_httpd                                 => false,

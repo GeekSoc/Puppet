@@ -2,7 +2,7 @@
 	ServerAdmin webmaster@geeksoc.org
 	ServerName nagios.geeksoc.org
 	ServerAlias www.nagios.geeksoc.org
-	DocumentRoot /usr/share/nagios3/htdocs
+	DocumentRoot /usr/share/nagios/html
 ScriptAlias /nagios/cgi-bin/ /usr/<%= scope.lookupvar("nagios::params::libdir") %>/nagios/cgi-bin/
 <Directory /usr/<%= scope.lookupvar("nagios::params::libdir") %>/nagios/cgi-bin/>
    Options ExecCGI
