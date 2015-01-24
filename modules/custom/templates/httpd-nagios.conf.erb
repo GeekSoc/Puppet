@@ -6,18 +6,15 @@
 ScriptAlias /nagios/cgi-bin/ /usr/<%= scope.lookupvar("nagios::params::libdir") %>/nagios/cgi-bin/
 <Directory /usr/<%= scope.lookupvar("nagios::params::libdir") %>/nagios/cgi-bin/>
    Options ExecCGI
-<% if !@apache_allowed_from.empty? -%>
-   Order Deny,Allow
-   Deny from all
-   Allow from 127.0.0.1
-<% @apache_allowed_from.each do |val| -%>
-   Allow from <%= val %>
-<% end -%>
-<% end -%>
+   Allow from All
    AuthType Basic
-   AuthUserFile /etc/nagios/.htpasswd
-   AuthName "Nagios"
-   Require valid-user
+        AuthName "GeekSoc Nagios"
+        AuthBasicProvider ldap
+        AuthzLDAPAuthoritative on
+        AuthLDAPURL ldap://ldap.geeksoc.org:389/dc=geeksoc,dc=org?uid?sub
+        AuthLDAPGroupAttribute memberUid
+        AuthLDAPGroupAttributeIsDN off
+        Satisfy any
 </Directory>
 
 Alias /nagios/ /usr/share/nagios/html/
