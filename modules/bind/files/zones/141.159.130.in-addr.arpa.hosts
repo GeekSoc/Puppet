@@ -1,5 +1,5 @@
 141.159.130.in-addr.arpa. IN SOA dns0.strath.ac.uk. hostmaster.geeksoc.org (
-    2014102101
+    2015012801
     1h
     1h
     1d
@@ -10,46 +10,44 @@
 141.159.130.in-addr.arpa.   IN  NS  dns1.strath.ac.uk.
 
 65  IN  PTR io.geeksoc.org.
-66  IN  PTR tianna.geeksoc.org.
+66  IN  PTR hive.geeksoc.org.
 67  IN  PTR langara.geeksoc.org.
 68  IN  PTR andor.geeksoc.org.
 69  IN  PTR abydos.geeksoc.org.
-70	IN	PTR	kobol.geeksoc.org.
+70  IN  PTR kobol.geeksoc.org.
 71  IN  PTR sintii.geeksoc.org.
 72  IN  PTR socs.geeksoc.org.
-74	IN	PTR	hydrus.geeksoc.org.
-77	IN	PTR	hive.geeksoc.org.
-
+74  IN  PTR hydrus.geeksoc.org.
 75  IN  PTR ns.geeksoc.org.
-
-76	IN	PTR	terminus.geeksoc.org.
-77	IN	PTR	hive.geeksoc.org.
+76  IN  PTR terminus.geeksoc.org.
+77  IN  PTR tianna.geeksoc.org.
 79  IN  PTR vpn.geeksoc.org.
+
 80  IN  PTR magrathea.geeksoc.org.
 81  IN  PTR idran.geeksoc.org.
 82  IN  PTR web2.geeksoc.org.
-84	IN	PTR	ares.geeksoc.org
+84  IN  PTR ares.geeksoc.org
 85  IN  PTR liandri.geeksoc.org
 86  IN  PTR pandora.geeksoc.org.
-87	IN	PTR	eridani-1.geeksoc.org.
-88	IN	PTR eridani-2.geeksoc.org.
-89	IN	PTR eridani-3.geeksoc.org.
+87  IN  PTR eridani-1.geeksoc.org.
+88  IN  PTR eridani-2.geeksoc.org.
+89  IN  PTR eridani-3.geeksoc.org.
 
-90  IN  PTR energon.geeksoc.org.
+90  IN  PTR mun.geeksoc.org.
 93  IN  PTR foreman.geeksoc.org.
 97  IN  PTR alderon.geeksoc.org.
 98  IN  PTR mirrorhost.geeksoc.org.
 99  IN  PTR vulcan.geeksoc.org.
 
-100	IN	PTR	orion-0.geeksoc.org.
-101	IN	PTR	orion-1.geeksoc.org.
-102	IN	PTR orion-2.geeksoc.org.
-103	IN	PTR orion-3.geeksoc.org.
-104	IN	PTR	orion-4.geeksoc.org.
-105	IN	PTR	orion-5.geeksoc.org.
-106	IN	PTR	orion-6.geeksoc.org.
-107	IN	PTR	titan.geeksoc.org.
-109	IN	PTR	linn.geeksoc.org
+100 IN  PTR orion-0.geeksoc.org.
+101 IN  PTR orion-1.geeksoc.org.
+102 IN  PTR orion-2.geeksoc.org.
+103 IN  PTR orion-3.geeksoc.org.
+104 IN  PTR orion-4.geeksoc.org.
+105 IN  PTR orion-5.geeksoc.org.
+106 IN  PTR orion-6.geeksoc.org.
+107 IN  PTR titan.geeksoc.org.
+109 IN  PTR linn.geeksoc.org
 
 111 IN  PTR argama.geeksoc.org.
 112 IN  PTR picon.geeksoc.org.
