@@ -16,7 +16,7 @@ class global {
     include gs-scripts::retrieve_public_keys
 
     class { 'nagios::client':
-        nrpe_allowed_hosts => 'nagioshost',
+        nrpe_allowed_hosts => 'nagioshost.geeksoc.org',
     }
 
     case $::operatingsystem {
