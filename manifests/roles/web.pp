@@ -18,7 +18,7 @@ class web {
         default_ssl_cert => '/etc/pki/tls/certs/ca.crt',
         default_ssl_key  => '/etc/pki/tls/private/ca.key',
   }
-   class {'apache::mod::php':
+  class {'apache::mod::php':
     template => 'custom/php5.conf.erb',
   }
 
