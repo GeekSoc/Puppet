@@ -447,7 +447,7 @@ class nagios::server (
     command_line => "${nrpe} -c check_procs",
   }
   nagios_command { 'check_nrpe_ntp_time':
-    command_line => "${nrpe} -c check_ntp_time",
+    command_line => "$USER1$/check_ntp_time -H $HOSTADDRESS$",
   }
   # Custom NRPE-based commands using custom plugins
   nagios_command { 'check_nrpe_ram':
