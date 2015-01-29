@@ -45,7 +45,7 @@ class global {
         autoupdate => false,
     }
 
-    $nagios_check_ntp_time_target = 'ntp0.net.strath.ac.uk'
+    
 
     cron { 'run-puppet':
         command => '/usr/bin/puppet agent --test > /dev/null',

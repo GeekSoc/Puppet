@@ -4,6 +4,8 @@ import 'nodes/*.pp'
 $extlookup_datadir = '/etc/puppet-private'
 $extlookup_precedence = ['%{fqdn}', 'domain_%{domain}', 'common']
 
+$nagios_check_ntp_time_target = 'ntp0.net.strath.ac.uk'
+
 # The filebucket option allows for file backups to the server
 filebucket { 'main': server => 'puppet' }
 
