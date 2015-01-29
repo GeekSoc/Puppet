@@ -15,6 +15,8 @@ class global {
     include resolv
     include gs-scripts::retrieve_public_keys
 
+
+
     class { 'nagios::client':
         nrpe_allowed_hosts => 'nagioshost.geeksoc.org',
     }
@@ -42,6 +44,8 @@ class global {
             'ntp3.net.strath.ac.uk', ],
         autoupdate => false,
     }
+
+    $nagios_check_ntp_time_target = 'ntp0.net.strath.ac.uk'
 
     cron { 'run-puppet':
         command => '/usr/bin/puppet agent --test > /dev/null',
