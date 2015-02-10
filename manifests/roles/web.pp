@@ -22,6 +22,8 @@ class web {
     template => 'custom/php5.conf.erb',
   }
 
+  class {'apache::mod::userdir':}
+
   include mysql
   include mysql::phpMyAdmin
   include etherpad-lite
