@@ -1,8 +1,10 @@
 require 'spec_helper'
+require 'shared_context.rb'
 
 describe 'abydos.geeksoc.org' do
+  include_context "debian node"
   let(:node) { 'abydos.geeksoc.org' }
-  let(:facts) { {:operatingsystem => 'Debian', :operatingsystemrelease => '7.8'} }
+
   
   it { should compile }
   it { should contain_service('ssh') }

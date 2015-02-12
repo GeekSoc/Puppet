@@ -1,10 +1,6 @@
 # Every geeksoc server should have this included
 class global {
 
-    $users_auth = 'ldap'
-    $users_ldap_servers = ['ldap.geeksoc.org']
-    $users_ldap_basedn = 'dc=geeksoc,dc=org'
-    $users_ldap_ssl = 'yes'
     $syslog_server = 'picon.geeksoc.org'
 
     include custom
@@ -15,6 +11,8 @@ class global {
     include resolv
     include gs-scripts::retrieve_public_keys
 
+    
+
 
 
     class { 'nagios::client':
@@ -24,7 +22,21 @@ class global {
     case $::operatingsystem {
         Solaris: {  }
         default: {
-            include users
+            class { 'pam::pamd': }
+
+    class { 'ldap':
+      uri      => 'ldap://ldap.geeksoc.org',
+      base     => 'dc=geeksoc,dc=org',
+      ssl      => false,
+      ssl_cert => 'ldapserver.pem',
+
+      nsswitch   => true,
+      nss_passwd => 'ou=People',
+      nss_shadow => 'ou=People',
+      nss_group  => 'ou=Groups',
+
+      pam        => true,
+    }
             include sudo
             include fail2ban
         }

@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'shared_context.rb'
 
 describe 'liandri.geeksoc.org' do
   let(:node) { 'liandri.geeksoc.org' }
-  let(:facts) { {:operatingsystem => 'Debian'} }
+  include_context "debian node"
   
   it { should compile }
   it { should contain_service('ssh') }

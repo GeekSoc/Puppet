@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'shared_context.rb'
 
 
 describe 'mirror.geeksoc.org' do

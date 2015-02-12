@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'shared_context.rb'
 
 describe 'langara.geeksoc.org' do
   let(:node) { 'langara.geeksoc.org' }
-  let(:facts) { {:operatingsystem => 'Debian', :osfamily => 'debian'} }
+  include_context "debian node"
   
   it {should compile}
   

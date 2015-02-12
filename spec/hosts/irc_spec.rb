@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'shared_context.rb'
 
 describe 'irc.geeksoc.org' do
   let(:node) { 'irc.geeksoc.org' }
-  let(:facts) { {:operatingsystem => 'Debian'} }
+  include_context "debian node"
   
   it {should compile}
   

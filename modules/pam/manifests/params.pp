@@ -1,66 +1,136 @@
-# Class: pam::params
-#
-# Defines pam parameters
-# In this class are defined as variables values that are used in other pam classes
-# This class should be included, where necessary, and eventually be enhanced with support for more OS
-# You don't have generally to modify this file.
-#
-class pam::params  {
 
-## MODULES INTERNAL VARIABLES
-# (Modify only to adapt to unsupported OSes)
+class pam::params {
 
-# This variable is used to separate pam files according to OS layout
-# It implies/supports:
-# - Debian supported version is 5;
-# - Ubuntu 8.04 LTS layout is the same of Debian 5
-# - Ubuntu 10.04 LTS layout is pecific to Ubunut104
-# - RedHat supported version is 5;
-# - Centos follows obviously RedHat layout
-    $oslayout = $operatingsystem ? {
-        /(?i:debian|Solaris)/ => 'debian5',
-        ubuntu => 'ubuntu104',
-        /(?i:CentOS|RedHat|Scientific)/ => 'redhat5',
+  case $::operatingsystem {
+    
+    'Debian': {
+      $packages    = [ 'libpam-ldap' ]
+      $prefix_pamd = '/etc/pam.d'
+      $owner       = 'root'
+      $group       = 'root'
+
+      $package_pam_ldap      = 'libpam-ldap'
+      $pam_ldap_account      = "[default=bad success=ok user_unknown=ignore] pam_ldap.so"
+      $pam_ldap_auth         = "sufficient    pam_ldap.so use_first_pass" 
+      $pam_ldap_password     = "sufficient    pam_ldap.so use_authtok"
+      $pam_ldap_session      = "optional      pam_ldap.so"
+
+      $pam_ldapd_account     = false
+      $pam_ldapd_auth        = false
+      $pam_ldapd_password    = false
+      $pam_ldapd_session     = false
+
+      $ldap_conf             = '/etc/ldap/ldap.conf'
+  
+      $pam_tally_account     = "required      pam_tally.so"
+      $pam_tally_auth        = "required      pam_tally.so deny=3 onerr=fail"
+
+      $pam_tally2_account    = "required      pam_tally2.so"
+      $pam_tally2_auth       = "required      pam_tally2.so deny=3 onerr=fail unlock_time=60"
+
+      $pam_cracklib_password = "requisite     pam_cracklib.so try_first_pass retry=3 minlen=9 dcredit=-1"
+
+      $pam_mkhomedir_session = "requisite     pam_mkhomedir.so skel=/etc/skel/ umask=0022"
+
     }
 
-# Basic settings
-    $packagename = $operatingsystem ? {
-        default => 'pam',
-    }
+    'Redhat': {
+      $packages    = [ 'pam' ]
+      $prefix_pamd = '/etc/pam.d'
+      $owner       = 'root'
+      $group       = 'root'
 
-    $configdir = $operatingsystem ? {
-        default => '/etc/pam.d/',
-    }
+      $package_pam_ldap      = 'nss_ldap'
+      $pam_ldap_account      = "[default=bad success=ok user_unknown=ignore] pam_ldap.so"
+      $pam_ldap_auth         = "sufficient    pam_ldap.so use_first_pass" 
+      $pam_ldap_password     = "sufficient    pam_ldap.so use_authtok"
+      $pam_ldap_session      = "optional      pam_ldap.so"
 
-    $configfile_mode = $operatingsystem ? {
-        default => '644',
-    }
+      $pam_ldapd_account     = false
+      $pam_ldapd_auth        = false
+      $pam_ldapd_password    = false
+      $pam_ldapd_session     = false
 
-    $configfile_owner = $operatingsystem ? {
-        default => 'root',
-    }
+      $ldap_conf             = '/etc/openldap/ldap.conf'
+      
+      $pam_tally_account     = "required      pam_tally.so"
+      $pam_tally_auth        = "required      pam_tally.so deny=3 onerr=fail"
 
-    $configfile_group = $operatingsystem ? {
-        default => 'root',
-    }
+      $pam_tally2_account    = "required      pam_tally2.so"
+      $pam_tally2_auth       = "required      pam_tally2.so deny=3 onerr=fail unlock_time=60"
 
-## FILE SERVING SOURCE
-# Sets the correct source for static files
-# In order to provide files from different sources without modifying the module
-# you can override the default source path setting the variable $base_source
-# Ex: $base_source="puppet://ip.of.fileserver" or $base_source="puppet://$servername/myprojectmodule"
+      $pam_cracklib_password = "requisite     pam_cracklib.so try_first_pass retry=3 minlen=9 dcredit=-1"
+
+      $pam_mkhomedir_session = "requisite     pam_mkhomedir.so skel=/etc/skel/ umask=0022"
+
+    }
+    
+    'OVS': {
+      $packages    = [ 'pam' ]
+      $prefix_pamd = '/etc/pam.d'
+      $owner       = 'root'
+      $group       = 'root'
+
+      $package_pam_ldap      = 'nss_ldap'
+      $pam_ldap_account      = "[default=bad success=ok user_unknown=ignore] pam_ldap.so"
+      $pam_ldap_auth         = "sufficient    pam_ldap.so use_first_pass" 
+      $pam_ldap_password     = "sufficient    pam_ldap.so use_authtok"
+      $pam_ldap_session      = "optional      pam_ldap.so"
+
+      $pam_ldapd_account     = false
+      $pam_ldapd_auth        = false
+      $pam_ldapd_password    = false
+      $pam_ldapd_session     = false
+
+      $ldap_conf             = '/etc/openldap/ldap.conf'
+      
+      $pam_tally_account     = "required      pam_tally.so"
+      $pam_tally_auth        = "required      pam_tally.so deny=3 onerr=fail"
+
+      $pam_tally2_account    = "required      pam_tally2.so"
+      $pam_tally2_auth       = "required      pam_tally2.so deny=3 onerr=fail unlock_time=60"
+
+      $pam_cracklib_password = "requisite     pam_cracklib.so try_first_pass retry=3 minlen=9 dcredit=-1"
+
+      $pam_mkhomedir_session = "requisite     pam_mkhomedir.so skel=/etc/skel/ umask=0022"
+
+    }
  
-# What follows automatically manages the new source standard (with /modules/) from 0.25 
+    /(OpenSuSE|SLES)/: {
+      $packages    = [ 'pam' ]
+      $prefix_pamd = '/etc/pam.d'
+      $owner       = 'root'
+      $group       = 'root'
 
-    case $base_source {
-        '': { $general_base_source="puppet://${servername}" }
-        default: { $general_base_source=$base_source }
-    }
+      $package_pam_ldap      = 'pam_ldap'
+      $pam_ldap_account      = "[default=bad success=ok user_unknown=ignore] pam_ldap.so"
+      $pam_ldap_auth         = "sufficient    pam_ldap.so use_first_pass" 
+      $pam_ldap_password     = "sufficient    pam_ldap.so use_authtok"
+      $pam_ldap_session      = "optional      pam_ldap.so"
 
-    $pam_source = $puppetversion ? {
-        /(^0.25)/ => "${general_base_source}/modules/pam",
-        /(^0.)/   => "${general_base_source}/pam",
-        default   => "${general_base_source}/modules/pam",
+      $pam_ldapd_account     = false
+      $pam_ldapd_auth        = false
+      $pam_ldapd_password    = false
+      $pam_ldapd_session     = false
+
+      $ldap_conf             = '/etc/openldap/ldap.conf'
+      
+      $pam_tally_account     = "required      pam_tally.so"
+      $pam_tally_auth        = "required      pam_tally.so deny=3 onerr=fail"
+
+      $pam_tally2_account    = "required      pam_tally2.so"
+      $pam_tally2_auth       = "required      pam_tally2.so deny=3 onerr=fail unlock_time=60"
+
+      $pam_cracklib_password = "requisite     pam_cracklib.so try_first_pass retry=3 minlen=9 dcredit=-1"
+
+      $pam_mkhomedir_session = "requisite     pam_mkhomedir.so skel=/etc/skel/ umask=0022"
+
     }
+ 
+    default: {
+      fail("Operating system ${::operatingsystem} not supported")
+    }
+    
+  }
 
 }
