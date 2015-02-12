@@ -22,7 +22,7 @@ class global {
     case $::operatingsystem {
         Solaris: {  }
         default: {
-            class { 'pam::pamd': }
+            class { 'pam::pamd':  pam_ldap => true, }
 
     class { 'ldap':
       uri      => 'ldap://ldap.geeksoc.org',
