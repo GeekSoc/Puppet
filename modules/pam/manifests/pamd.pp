@@ -280,7 +280,7 @@ class pam::pamd (
     }
     
    
-    'Redhat': { 
+    /(Redhat|CentOS)/: { 
       include pam::pamd::redhat
     }
 
