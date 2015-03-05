@@ -52,7 +52,7 @@ This server is Puppet managed - local changes may be overwritten!
     }
   
     class {'ssh::sshd':
-      sshd_config_AllowGroups => 'sysadmin-games sysadmin gsag root',
+      sshd_config_AllowGroups => 'sysadmin-games sysadmin gsag root members',
     }
     
     class {'sudo':
