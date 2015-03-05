@@ -45,7 +45,7 @@ class nsswitch::params {
 
       if($::operatingsystemrelease =~ /^6\./) {
 
-        $package = [ 'nscd', ]
+        $package = [ 'nscd','nss-pam-ldapd' ]
 
         $config_src  = "${prefix}/nsswitch.conf-6.x"
 
