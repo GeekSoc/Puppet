@@ -41,7 +41,7 @@ class pam::params {
       $group       = 'root'
 
       if($::operatingsystemmajrelease == 6) {
-      $package_pam_ldap      =  'nss-pam-ldapd'
+      $package_pam_ldap      =  ''
       }else{
       $package_pam_ldap      = 'nss_ldap'
       }     
