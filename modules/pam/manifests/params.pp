@@ -40,7 +40,7 @@ class pam::params {
       $owner       = 'root'
       $group       = 'root'
 
-      if($::operatingsystemmajrelease == 6) {
+      if($::operatingsystem == 'CentOS' && $::operatingsystem >= 6) {
       $package_pam_ldap      =  ''
       }else{
       $package_pam_ldap      = 'nss_ldap'
