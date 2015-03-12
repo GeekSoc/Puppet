@@ -40,7 +40,11 @@ class pam::params {
       $owner       = 'root'
       $group       = 'root'
 
+      if($::operatingsystemmajrelease == 6) {
+      $package_pam_ldap      =  [ 'nscd','nss-pam-ldapd' ]
+      }else{
       $package_pam_ldap      = 'nss_ldap'
+      }     
       $pam_ldap_account      = "[default=bad success=ok user_unknown=ignore] pam_ldap.so"
       $pam_ldap_auth         = "sufficient    pam_ldap.so use_first_pass" 
       $pam_ldap_password     = "sufficient    pam_ldap.so use_authtok"
