@@ -63,7 +63,7 @@ idran           A       130.159.141.81
 web2            A       130.159.141.82
 ares            A       130.159.141.84
 charizard       A       130.159.141.85
-pandora         A       130.159.141.86
+wailord         A       130.159.141.86
 eridani-1       A       130.159.141.87
 eridani-2       A       130.159.141.88
 eridani-3       A       130.159.141.89
@@ -96,6 +96,7 @@ onix            A       130.159.141.118
 
 liandri         CNAME   charizard
 caprica         CNAME   onix
+pandora         CNAME   wailord
 
 ; ## Dev VMs ##
 devf            A       130.159.141.101
