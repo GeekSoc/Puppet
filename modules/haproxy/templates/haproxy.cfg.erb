@@ -129,6 +129,14 @@ backend irc
     balance roundrobin
     option httpchk
     server hive 130.159.141.66:9090 weight 1 maxconn 10000
+
+backend st-owncloud
+    mode http
+    timeout connect 5s
+    timeout server 1h
+    balance roundrobin
+    option httpchk
+    server hive 130.159.141.114:80 weight 1 maxconn 10000
     
 # HTTP Reverse Proxy
 listen  http 0.0.0.0:80
@@ -152,7 +160,8 @@ listen  http 0.0.0.0:80
     acl req_allspark hdr_dom(host) -i allspark.geeksoc.org
     acl req_phpallspark hdr_dom(host) -i php.allspark.geeksoc.org
     acl req_webchat hdr_dom(host) -i webchat.geeksoc.org
-    
+    acl req_st-owncloud hdr_dom(host) -i owncloud.strathtech.co.uk
+
 
     default_backend idran #by default forward the requests to idran
     use_backend mun if req_nagios
@@ -167,6 +176,7 @@ listen  http 0.0.0.0:80
     use_backend allspark if req_allspark
     use_backend phpallspark if req_phpallspark
     use_backend irc if req_webchat
+    use_backend st-owncloud if req_st-owncloud
 
 # Send SSL traffic to Idran (in TCP mode - no SSL termination here)
 listen  https 0.0.0.0:443
