@@ -145,6 +145,14 @@ backend st-owncloud
     balance roundrobin
     option httpchk
     server pidgeot 130.159.141.114:80 weight 1 maxconn 10000
+
+backend st-accounts
+    mode http
+    timeout connect 5s
+    timeout server 1h
+    balance roundrobin
+    option httpchk
+    server pidgeot 130.159.141.88:80 weight 1 maxconn 10000
     
 # HTTP Reverse Proxy
 listen  http 0.0.0.0:80
@@ -171,6 +179,7 @@ listen  http 0.0.0.0:80
     acl req_st-website hdr_dom(host) -i strathtech.co.uk
     acl req_st-website hdr_dom(host) -i www.strathtech.co.uk
     acl req_st-owncloud hdr_dom(host) -i owncloud.strathtech.co.uk
+    acl req_st-accounts hdr_dom(host) -i accounts.strathtech.co.uk
 
 
     default_backend idran #by default forward the requests to idran
@@ -188,6 +197,7 @@ listen  http 0.0.0.0:80
     use_backend irc if req_webchat
     use_backend st-web if req_st-website
     use_backend st-owncloud if req_st-owncloud
+    use_backend st-accounts if req_st-accounts
 
 # Send SSL traffic to Idran (in TCP mode - no SSL termination here)
 listen  https 0.0.0.0:443
